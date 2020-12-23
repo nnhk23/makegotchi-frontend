@@ -10,14 +10,16 @@ export default class Home extends React.Component{
     // side nav appearwhen logged in.
     // fetching Alex's pets.
     // fetching list of all species.
-    
 
     render(){
         return(
             <div>
                 <Row>
                     <Col sm={3} id='sideNav'> <SideNav /> </Col>
-                    <Col> <Tamagotchi /> </Col>
+                    <Col> 
+                        {!!this.props.user? `Hi ${this.props.user.name}!` : null}
+                        <Tamagotchi /> 
+                    </Col>
                 </Row>
             </div>
         )

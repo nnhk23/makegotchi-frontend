@@ -3,24 +3,35 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 // import { Link } from 'react-router-dom';
 
-const TopNav = () => {
+const TopNav = ({ loggedIn, setUser }) => {
+
+
+    
     return(
         <Navbar
         className='ml-auto'
         bg="dark"
         variant="dark"
         activeKey="/home"
-        onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
+        // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
         >
+        { loggedIn ? 
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
-                    <Nav.Link href="/home">Active</Nav.Link>
+                    <Nav.Link href="/home">Profile</Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
-                    <Nav.Link eventKey="link-1">Link</Nav.Link>
+                    <Nav.Link eventKey="link-1" onClick={() => setUser(null)}>Logout</Nav.Link>
                 </Nav.Item>
             </Navbar.Collapse>
+            : 
+            <Navbar.Collapse className='justify-content-end'>
+                <Nav.Item >
+                    <Nav.Link href="/home"></Nav.Link>
+                </Nav.Item>
+            </Navbar.Collapse>
+        }
         </Navbar>
     )
     // logo and app name left side.
