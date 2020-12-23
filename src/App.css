@@ -30,6 +30,24 @@
 
 #sideNav {
   background-color: #f11414;
+  height: 100vh;
+}
+
+.icon-row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.icon-info {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.icon-img {
+  display: block;
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @keyframes App-logo-spin {

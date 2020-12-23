@@ -22,6 +22,18 @@ class App extends React.Component {
     }
   }
 
+  // componentDidMount() {
+  //   if (this.state.user) {
+  //     return fetch(`http://localhost:3000/users/${this.state.user.id}`)
+  //     .then(res => res.json())
+  //     .then(user => this.setState({
+  //       // user: { id: user.id, username: user.username, name: user.name, buys_left: user.buys_left }, ????
+  //       userPets: user.user_pets
+  //     }))
+  //   }
+  //   return []
+  // }
+
   render(){
     return (
       <div>
@@ -29,7 +41,7 @@ class App extends React.Component {
         <TopNav /> 
           
         <Container style={{marginLeft: 0}}>
-          <Home user={this.state.user} />
+          <Home user={this.state.user}/>
         </Container>
         
         {/* <UserInfo user={this.state.user} /> */}       
