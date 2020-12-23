@@ -8,7 +8,9 @@ const SideNav = () => {
     // click on specific pet would trigger a callback function onClick.
     // => re-render tamagotchi's screen
     return(
-        <h2>Me SideNav</h2>
+        <div className="sideNav">
+            <h2>Me SideNav</h2>
+        </div>
     )
 }
 export default SideNav

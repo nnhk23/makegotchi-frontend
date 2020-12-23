@@ -1,5 +1,5 @@
 import React from 'react';
-// import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container'
 // import Row from 'react-bootstrap/Row'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -16,7 +16,12 @@ class App extends React.Component {
 
   // fetch user
   state = {
-    user: null
+    user: {
+      id: 1,
+      username: "alex",
+      name: "Alex G",
+      buys_left: 1
+    }
   }
 
   setUser = (currentUser) => {
@@ -25,16 +30,16 @@ class App extends React.Component {
 
   render(){
     return (
-      
+
         /* <TopNav />
 
        <Container style={{marginLeft: 0}}>
          <Home user={this.state.user} />
          </Container>
-        
-       /* <UserInfo user={this.state.user} /> */      
+
+       /* <UserInfo user={this.state.user} /> */
          /* SignIn component */
-       <div> 
+       <div>
         <Router>
           <div className="App">
             <Route path="/" render={() => <TopNav loggedIn={!!this.state.user} setUser={this.setUser}/>} />
@@ -44,10 +49,23 @@ class App extends React.Component {
 
             {!!this.state.user ?
               <Redirect to="/home" render={() => <Home user={this.state.user}/> } /> : <Redirect to="/" render={() => <SignUp setUser={this.setUser}/> }/>}
+
+              <div className="temp_app">
+
+                <TopNav />
+
+                <Container style={{marginLeft: 0 }} id="container">
+                  <Home user={this.state.user} />
+                </Container>
+
+              {/* <UserInfo user={this.state.user} /> */}
+              {/* SignIn component */}
+
+              </div>
           </div>
         </Router>
+      
 
-          
       </div>
     );
   }

@@ -1,0 +1,34 @@
+#screen_div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tamagotchi_background {
+    /* background: url("../images/makegotchi_egg.png"); */
+    background-size: cover;
+    position: relative;
+    width: 935px;
+    height:870px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#tamagotchi_pic{
+    width:100%;
+    height: 100%;
+}
+
+#screen {
+    position: absolute;
+    border-radius: 25px;
+    width: 610px;
+    height: 454px;
+    top: 215px;
+    left: 167px;
+    background-color: rgb(235, 238, 240);
+  }
+
+  
