@@ -22,24 +22,28 @@ export default class Tamagotchi extends React.Component{
 
         // update locally
         if(this.state.currentUser){
-            this.state.currentUser.user_pets.push(newTama)
+            this.setState(prevState => {
+                return{
+                    currentUser: prevState.currentUser.user_pets.push(newTama)
+                }
+            })
         }
 
         // update database with new user pet arr
-        fetch(`http://localhost:3000/users/${this.props.userId}`,{
-            method: 'PATCH',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Accept' : 'application/json'
-            },
-            body: JSON.stringify({
-                user_pets: this.state.currentUser.user_pets
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => this.setState({currentUser: data}))
-        console.log(this.state.currentUser)
-        // debugger
+        // fetch(`http://localhost:3000/users/${this.props.userId}/user_pets`,{
+        //     method: 'PATCH',
+        //     headers: {
+        //         'Content-Type' : 'application/json',
+        //         'Accept' : 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         pets: this.state.currentUser.user_pets
+        //     })
+        // })
+        // .then(resp => resp.json())
+        // .then(data => console.log(data))
+        
+        console.log(this.state.currentUser)        
     }
 
     render(){
