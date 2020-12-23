@@ -1,8 +1,8 @@
 import React from 'react';
 import SideNav from './SideNav'
 import Tamagotchi from './Tamagotchi'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+// import Row from 'react-bootstrap/Row'
+// import Col from 'react-bootstrap/Col'
 // import { Link } from 'react-router-dom';
 
 export default class Home extends React.Component{
@@ -33,16 +33,10 @@ export default class Home extends React.Component{
 
     render(){
         return(
-            <div>
-                <Row>
-                    <Col sm={3} id='sideNav'> 
-                        <SideNav userPets={this.state.userPets} tamaStore={this.state.tamaStore} purchasePets={this.purchasePets}/> 
-                    </Col>
-                    
-                    <Col> 
-                        <Tamagotchi allSpecies={this.state.allSpecies} tamaStore={this.state.tamaStore} userId={this.props.user.id}/> 
-                    </Col>
-                </Row>
+            <div className="home">
+                <SideNav userPets={this.state.userPets} tamaStore={this.state.tamaStore} purchasePets={this.purchasePets />
+                {!!this.props.user ? `Hi ${this.props.user.name}!` : null}
+                <Tamagotchi allSpecies={this.state.allSpecies} tamaStore={this.state.tamaStore} userId={this.props.user.id}/>
             </div>
         )
     }

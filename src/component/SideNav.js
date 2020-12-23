@@ -9,9 +9,9 @@ const SideNav = ({purchasePets}) => {
     // click on specific pet would trigger a callback function onClick.
     // => re-render tamagotchi's screen
     return(
-        <div>
+        <div className="sideNav">
             <h2>User's Tamagotchis</h2>
-            <Button variant="outline-warning" onClick={purchasePets}>Buy Pet</Button>{' '}
+            <Button variant="outline-warning" onClick={purchasePets}>Buy Pet</Button>
         </div>
     )
 }

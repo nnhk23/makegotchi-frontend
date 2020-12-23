@@ -1,7 +1,10 @@
 import React from 'react';
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
+
 // import { Link } from 'react-router-dom';
+import egg_draft from '../images/makegotchi_egg.png'
+import "./Tamagotchi.css"
 
 export default class Tamagotchi extends React.Component{
 
@@ -46,15 +49,26 @@ export default class Tamagotchi extends React.Component{
         console.log(this.state.currentUser)        
     }
 
+
     render(){
         return(
-            <div>
-                <h2>Me Tamagotchi</h2>
-                {/* conditional rendering between tamastore and user's pet */}
-                {this.props.tamaStore ? <TamaStore allSpecies={this.props.allSpecies} purchaseTama={this.purchaseTama} /> : <UserPet /> }
+            // eslint-disable-next-line react/style-prop-object
+            <div className="tamagotchi_container" id='screen_div'>
+                <div className="tamagotchi_background">
+                    <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                    <div id='screen'>
+                        {this.props.tamaStore ? <TamaStore allSpecies={this.props.allSpecies} purchaseTama={this.purchaseTama} /> : <UserPet /> }
+                    </div>
 
-                {/* maybe minigames latur ? */}
+                    {/* maybe minigames latur ? */}
+          
+                </div>
+          
+                <div className="btn-container">
+                    <button> random HELLO</button>
+                </div>
             </div>
         )
     }
 }
+
