@@ -12,9 +12,9 @@ const SideNav = ({ userPets, handleIconClick }) => {
     // => re-render tamagotchi's screen
 
     const renderBtns = () => {
-        return userPets.map(pet => {
+        return userPets.map(userPet => {
             return (
-                <RenderPetBtn userPet={pet} handleIconClick={handleIconClick} />
+                <RenderPetBtn key={userPet.id} userPet={userPet} handleIconClick={handleIconClick} />
             )
         })
     }
