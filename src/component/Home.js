@@ -16,10 +16,11 @@ export default class Home extends React.Component{
         currentPet: null
     }
 
+    // should we fetch this with the user in App instead?
     componentDidMount() {
-        fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
+        return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
         .then(res => res.json())
-        .then(userPets => this.setState({ userPets, currentPet: userPets[0] }))
+        .then(pets => this.setState({ userPets: pets, currentPet: pets[0] }))
     }
 
     handleIconClick = (currentPet) => {
