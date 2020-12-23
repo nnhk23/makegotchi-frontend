@@ -8,6 +8,46 @@ import "./Tamagotchi.css"
 
 export default class Tamagotchi extends React.Component{
 
+    state = {
+        currentUser: null
+    }
+
+    componentDidMount(){
+        fetch(`http://localhost:3000/users/${this.props.userId}`)
+        .then(resp => resp.json())
+        .then(data => this.setState({currentUser: data}))
+    }
+
+    purchaseTama = (newTama) => {
+        // add new tama to user's pet list
+        // adjust buys_left
+        alert('Tama is bought!')
+
+        // update locally
+        if(this.state.currentUser){
+            this.setState(prevState => {
+                return{
+                    currentUser: prevState.currentUser.user_pets.push(newTama)
+                }
+            })
+        }
+
+        // update database with new user pet arr
+        // fetch(`http://localhost:3000/users/${this.props.userId}/user_pets`,{
+        //     method: 'PATCH',
+        //     headers: {
+        //         'Content-Type' : 'application/json',
+        //         'Accept' : 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         pets: this.state.currentUser.user_pets
+        //     })
+        // })
+        // .then(resp => resp.json())
+        // .then(data => console.log(data))
+        
+        console.log(this.state.currentUser)        
+    }
 
 
     render(){
@@ -17,19 +57,16 @@ export default class Tamagotchi extends React.Component{
                 <div className="tamagotchi_background">
                     <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
                     <div id='screen'>
-                        "If you see this, you're reading off of the screen c: . . . Look for the div that has an ID of screen"
+                        {this.props.tamaStore ? <TamaStore allSpecies={this.props.allSpecies} purchaseTama={this.purchaseTama} /> : <UserPet /> }
                     </div>
 
-                    {/* render specific pet chose by user */}
-                    {/* <UserPet /> */}
-                    {/* add AllSpecies to show all species */}
-                    {/* <TamaStore /> */}
                     {/* maybe minigames latur ? */}
+          
                 </div>
+          
                 <div className="btn-container">
                     <button> random HELLO</button>
                 </div>
-
             </div>
         )
     }

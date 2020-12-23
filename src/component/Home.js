@@ -9,30 +9,35 @@ export default class Home extends React.Component{
 
     // side nav appearwhen logged in.
     // fetching Alex's pets.
+    
+    state={
+        allSpecies: [],
+        userPets: [],
+        tamaStore: false
+    }
+    
     // fetching list of all species.
+    componentDidMount() {
+        fetch('http://localhost:3000/pets')
+        .then(resp => resp.json())
+        .then(data => this.setState({allSpecies: data}))
+    }
+
+    purchasePets = () => {
+        alert('tama store is activated')
+        // debugger
+        // render tamaStore in tamagotchi
+        this.setState({tamaStore: true})
+    }
+    
 
     render(){
         return(
             <div className="home">
-                <SideNav />
-                {!!this.props.user? `Hi ${this.props.user.name}!` : null}
-                <Tamagotchi />
+                <SideNav userPets={this.state.userPets} tamaStore={this.state.tamaStore} purchasePets={this.purchasePets />
+                {!!this.props.user ? `Hi ${this.props.user.name}!` : null}
+                <Tamagotchi allSpecies={this.state.allSpecies} tamaStore={this.state.tamaStore} userId={this.props.user.id}/>
             </div>
         )
     }
 }
-
-// render(){
-//     return(
-//         <div>
-//             <Row>
-//                 <Col sm={3} id='sideNav'> <SideNav /> </Col>
-//                 {/* <Col id="tamagotchi_col">  */}
-//                 <div id= 'tamagotchi_col'>
-//                 <Tamagotchi /> 
-//                 </div>
-//                 {/* </Col> */}
-//             </Row>
-//         </div>
-//     )
-// }

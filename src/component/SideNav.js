@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button'
+// import { Link } from 'react-router-dom';
 
-const SideNav = () => {
+const SideNav = ({purchasePets}) => {
     // appear after logged in
     // render Alex's pets from Home
     // buy pet buttons would trigger a callback function onClick.
@@ -9,7 +10,8 @@ const SideNav = () => {
     // => re-render tamagotchi's screen
     return(
         <div className="sideNav">
-            <h2>Me SideNav</h2>
+            <h2>User's Tamagotchis</h2>
+            <Button variant="outline-warning" onClick={purchasePets}>Buy Pet</Button>
         </div>
     )
 }
