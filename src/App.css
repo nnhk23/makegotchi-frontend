@@ -28,8 +28,10 @@
   color: #61dafb;
 }
 
+/* side nav */
 #sideNav {
   background-color: #f11414;
+  height: 100vh;
 }
 
 @keyframes App-logo-spin {

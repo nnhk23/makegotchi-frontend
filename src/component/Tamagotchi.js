@@ -9,10 +9,9 @@ export default class Tamagotchi extends React.Component{
         return(
             <div>
                 <h2>Me Tamagotchi</h2>
-                {/* render specific pet chose by user */}
-                {/* <UserPet /> */}
-                {/* add AllSpecies to show all species */}
-                {/* <TamaStore /> */}
+                {/* conditional rendering between tamastore and user's pet */}
+                {this.props.tamaStore ? <TamaStore allSpecies={this.props.allSpecies}/> : <UserPet /> }
+
                 {/* maybe minigames latur ? */}
             </div>
         )
