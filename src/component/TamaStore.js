@@ -26,7 +26,9 @@ class TamaStore extends React.Component{
         } else {
             this.setState({tamaNumber: 0})
         }
+
     }
+
 
     render(){
         return(
@@ -35,16 +37,22 @@ class TamaStore extends React.Component{
 
                 {/* list of tamagotchis */}
                 <ListGroup variant="flush">
-                    {this.props.allSpecies.slice(this.state.tamaNumber, this.state.tamaNumber + 2).map(pet => 
+                    {this.props.allSpecies.slice(this.state.tamaNumber, this.state.tamaNumber + 2).map((pet, idx) => 
                         <ListGroup.Item>
                             <Container>
                                 <Row>
                                     <Col>
                                         <img src={pet.img_url} alt='tamagotchiiii'/>
                                         
+                                        {/* should link to user's pet list */}
+                                        <Button id={idx} variant="outline-info" onClick={() => this.props.purchaseTama(this.props.allSpecies[idx])}>Purchase</Button>
                                     </Col>
+
                                     <Col>Specie: {pet.species}</Col>
                                     <Col>Personality: {pet.personality}</Col>
+                                    <Col>Hangry Rate: {pet.hunger_rate}</Col>
+                                    <Col>Shleepy Rate: {pet.sleepy_rate}</Col>
+                                    <Col>Smelly Rate: {pet.dirt_rate}</Col>
                                 </Row>
                             </Container>
                         </ListGroup.Item>

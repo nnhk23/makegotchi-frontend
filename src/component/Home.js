@@ -40,7 +40,7 @@ export default class Home extends React.Component{
                     </Col>
                     
                     <Col> 
-                        <Tamagotchi allSpecies={this.state.allSpecies} tamaStore={this.state.tamaStore}/> 
+                        <Tamagotchi allSpecies={this.state.allSpecies} tamaStore={this.state.tamaStore} userId={this.props.user.id}/> 
                     </Col>
                 </Row>
             </div>
