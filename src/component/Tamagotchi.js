@@ -57,7 +57,9 @@ export default class Tamagotchi extends React.Component{
                 <div className="tamagotchi_background">
                     <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
                     <div id='screen'>
-                        {this.props.tamaStore ? <TamaStore allSpecies={this.props.allSpecies} purchaseTama={this.purchaseTama} /> : <UserPet /> }
+                        {this.props.tamaStore ? 
+                        <TamaStore allSpecies={this.props.allSpecies} purchaseTama={this.purchaseTama} /> : 
+                        <UserPet currentPet={this.props.currentPet}/> }
                     </div>
 
                     {/* maybe minigames latur ? */}
