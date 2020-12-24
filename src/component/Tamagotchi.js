@@ -65,7 +65,7 @@ export default class Tamagotchi extends React.Component{
                     {/* maybe minigames latur ? */}
           
                 </div>
-          
+                
                 <div className="btn-container">
                     <button> random HELLO</button>
                 </div>
