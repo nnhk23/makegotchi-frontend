@@ -20,29 +20,23 @@ class App extends React.Component {
   }
 
   setUser = (currentUser) => {
-    console.log(currentUser)
     this.setState({user:currentUser})
   }
 
   render(){
-    console.log(!!this.state.user)
     return (
        <div>
         <Router>
           <div className="App">
+
             <Route path="/" render={() => <TopNav loggedIn={!!this.state.user} setUser={this.setUser}/>} />
-            {/* <Route exact path="/" component={LogIn} /> */}
+  
             <Route exact path="/" >
               {!!this.state.user ? <Redirect to="/home" /> : <SignUp setUser={this.setUser} />}
             </Route>
             <Route exact path="/home" >
               {!!this.state.user ?  <Home user={this.state.user} /> : <Redirect to="/" />}
             </Route>
-
-            {/* {!!this.state.user ?
-              <Redirect to="/home" render={() => <Home user={this.state.user}/> } /> : 
-              <Redirect to="/" render={() => <SignUp setUser={this.setUser}/> }/>
-            } */}
           </div>
         </Router>
       

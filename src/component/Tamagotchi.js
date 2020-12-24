@@ -23,30 +23,21 @@ export default class Tamagotchi extends React.Component{
         // adjust buys_left
         alert('Tama is bought!')
 
-        // update locally
-        if(this.state.currentUser){
-            this.setState(prevState => {
-                return{
-                    currentUser: prevState.currentUser.user_pets.push(newTama)
-                }
+        // update database with new user pet
+        fetch('http://localhost:3000/user_pets',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
+            },
+            body: JSON.stringify({
+                name: "Beans",
+                user_id: this.props.userId,
+                pet_id: newTama.id
             })
-        }
-
-        // update database with new user pet arr
-        // fetch(`http://localhost:3000/users/${this.props.userId}/user_pets`,{
-        //     method: 'PATCH',
-        //     headers: {
-        //         'Content-Type' : 'application/json',
-        //         'Accept' : 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         pets: this.state.currentUser.user_pets
-        //     })
-        // })
-        // .then(resp => resp.json())
-        // .then(data => console.log(data))
-        
-        console.log(this.state.currentUser)        
+        })
+        .then(resp => resp.json())
+        .then(data => this.props.updatePetList(data))
     }
 
 
@@ -58,8 +49,14 @@ export default class Tamagotchi extends React.Component{
                     <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
                     <div id='screen'>
                         {this.props.tamaStore ? 
-                        <TamaStore allSpecies={this.props.allSpecies} purchaseTama={this.purchaseTama} /> : 
-                        <UserPet currentPet={this.props.currentPet}/> }
+                        <TamaStore 
+                            allSpecies={this.props.allSpecies} 
+                            purchaseTama={this.purchaseTama} 
+                        /> 
+                        : 
+                        <UserPet 
+                            currentPet={this.props.currentPet}
+                        /> }
                     </div>
 
                     {/* maybe minigames latur ? */}
