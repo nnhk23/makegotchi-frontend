@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-/* 
 .App-header {
   background-color: #282c34;
   min-height: 90vh;
@@ -16,7 +15,7 @@
 
 .App-link {
   color: #61dafb;
-} */
+} 
 
 .App {
   width: 100%;
@@ -73,7 +72,7 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 .tempDiv {
   text-align:center;

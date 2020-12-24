@@ -13,14 +13,26 @@ export default class Home extends React.Component{
     state={
         allSpecies: [],
         userPets: [],
-        tamaStore: false
+        tamaStore: false,
+        currentPet: null
     }
     
     // fetching list of all species.
     componentDidMount() {
+        this.getAllPets()
+        this.getUserPets()
+    }
+    
+    getAllPets = () => {
         fetch('http://localhost:3000/pets')
         .then(resp => resp.json())
         .then(data => this.setState({allSpecies: data}))
+    }
+
+    getUserPets = () => {
+        return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
+        .then(res => res.json())
+        .then(pets => this.setState({ userPets: pets, currentPet: pets[0] }))
     }
 
     purchasePets = () => {
@@ -28,18 +40,6 @@ export default class Home extends React.Component{
         // debugger
         // render tamaStore in tamagotchi
         this.setState({tamaStore: true})
-    }
-    
-    state = {
-        userPets: [],
-        currentPet: null
-    }
-
-    // should we fetch this with the user in App instead?
-    componentDidMount() {
-        return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
-        .then(res => res.json())
-        .then(pets => this.setState({ userPets: pets, currentPet: pets[0] }))
     }
 
     handleIconClick = (currentPet) => {
