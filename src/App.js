@@ -16,52 +16,33 @@ class App extends React.Component {
 
   // fetch user
   state = {
-    user: {
-      id: 1,
-      username: "alex",
-      name: "Alex G",
-      buys_left: 1
-    }
+    user: null
   }
 
   setUser = (currentUser) => {
+    console.log(currentUser)
     this.setState({user:currentUser})
   }
 
   render(){
+    console.log(!!this.state.user)
     return (
-
-        /* <TopNav />
-
-       <Container style={{marginLeft: 0}}>
-         <Home user={this.state.user} />
-         </Container>
-
-       /* <UserInfo user={this.state.user} /> */
-         /* SignIn component */
        <div>
         <Router>
           <div className="App">
             <Route path="/" render={() => <TopNav loggedIn={!!this.state.user} setUser={this.setUser}/>} />
             {/* <Route exact path="/" component={LogIn} /> */}
-            <Route exact path="/" render={() => <SignUp setUser={this.setUser} />}  />
-            <Route exact path="/home" render={() => <Home user={this.state.user} />}  />
+            <Route exact path="/" >
+              {!!this.state.user ? <Redirect to="/home" /> : <SignUp setUser={this.setUser} />}
+            </Route>
+            <Route exact path="/home" >
+              {!!this.state.user ?  <Home user={this.state.user} /> : <Redirect to="/" />}
+            </Route>
 
-            {!!this.state.user ?
-              <Redirect to="/home" render={() => <Home user={this.state.user}/> } /> : <Redirect to="/" render={() => <SignUp setUser={this.setUser}/> }/>}
-
-              <div className="temp_app">
-
-                <TopNav />
-
-                <Container style={{marginLeft: 0 }} id="container">
-                  <Home user={this.state.user} />
-                </Container>
-
-              {/* <UserInfo user={this.state.user} /> */}
-              {/* SignIn component */}
-
-              </div>
+            {/* {!!this.state.user ?
+              <Redirect to="/home" render={() => <Home user={this.state.user}/> } /> : 
+              <Redirect to="/" render={() => <SignUp setUser={this.setUser}/> }/>
+            } */}
           </div>
         </Router>
       
