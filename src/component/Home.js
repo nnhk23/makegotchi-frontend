@@ -46,12 +46,34 @@ export default class Home extends React.Component{
         this.setState({ currentPet })
     }
 
+    updatePetList = (newUserPet) => {
+        this.setState(prevState => {
+            return{
+                userPets: [...prevState.userPets, newUserPet]
+            }
+        })
+        console.log(newUserPet)
+    }
+
     render(){
         return(
             <div className="home">
-                <SideNav userPets={this.state.userPets} tamaStore={this.state.tamaStore} purchasePets={this.purchasePets} handleIconClick={this.handleIconClick} />
+                <SideNav 
+                userPets={this.state.userPets} 
+                tamaStore={this.state.tamaStore} 
+                purchasePets={this.purchasePets} 
+                handleIconClick={this.handleIconClick} 
+                />
+
                 {!!this.props.user ? `Hi ${this.props.user.name}!` : null}
-                <Tamagotchi allSpecies={this.state.allSpecies} currentPet={this.state.currentPet} tamaStore={this.state.tamaStore} userId={this.props.user.id}/>
+
+                <Tamagotchi 
+                updatePetList={this.updatePetList}
+                allSpecies={this.state.allSpecies} 
+                currentPet={this.state.currentPet} 
+                tamaStore={this.state.tamaStore}
+                userId={this.props.user.id}
+                />
             </div>
         )
     }
