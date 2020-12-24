@@ -4,7 +4,7 @@ import RenderPetBtn from './RenderPetBtn';
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 
-const SideNav = ({ userPets, handleIconClick }) => {
+const SideNav = ({purchasePets, userPets, handleIconClick}) => {
     // appear after logged in
     // render Alex's pets from Home
     // buy pet buttons would trigger a callback function onClick.
@@ -20,8 +20,9 @@ const SideNav = ({ userPets, handleIconClick }) => {
     }
 
     return(
-        <div>
-            <Button>BUY PETS</Button> {/* temp */}
+        <div className="sideNav">
+            <h2>User's Tamagotchis</h2>
+            <Button variant="outline-warning" onClick={purchasePets}>Buy Pet</Button>
             <br /><br />
             {renderBtns()}
         </div>
