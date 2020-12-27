@@ -18,17 +18,20 @@ export default class Tamagotchi extends React.Component{
         .then(data => this.setState({currentUser: data}))
     }
 
+
     purchaseTama = (newTama) => {
         // add new tama to user's pet list
         // adjust buys_left
         alert('Tama is bought!')
 
         // update database with new user pet
+        // reach out to Lantz or Hal JWT
         fetch('http://localhost:3000/user_pets',{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
-                'Accept' : 'application/json'
+                'Accept' : 'application/json',
+                'Authorization' : `Bearer ${this.props.token}`
             },
             body: JSON.stringify({
                 name: "Beans",
@@ -42,6 +45,7 @@ export default class Tamagotchi extends React.Component{
 
 
     render(){
+      
         return(
             // eslint-disable-next-line react/style-prop-object
             <div className="tamagotchi_container" id='screen_div'>

@@ -73,6 +73,7 @@ export default class Home extends React.Component{
                 currentPet={this.state.currentPet} 
                 tamaStore={this.state.tamaStore}
                 userId={this.props.user.id}
+                token={this.props.token}
                 />
             </div>
         )
