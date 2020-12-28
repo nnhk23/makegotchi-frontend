@@ -49,11 +49,11 @@ class FormRender extends Component  {
                 <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleChange} />
             </Form.Group>
 
-            {this.props.name === "SignUp" ? 
+            {/* {this.props.name === "SignUp" ? 
             <Form.Group >
                 <Form.Label htmlFor="password">Password Confirmation</Form.Label>
                 <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-            </Form.Group> : null}
+            </Form.Group> : null} */}
         
             <Button variant="primary" type="submit" onClick={this.handleSubmit}>{this.props.name === "SignUp" ? "Sign up" : "Log in"}</Button>
         </Form>

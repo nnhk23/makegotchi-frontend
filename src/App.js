@@ -7,15 +7,17 @@ import TopNav from './component/TopNav'
 import FormRender from './component/FormRender'
 import './App.css';
 import { Redirect } from "react-router-dom";
-// import SignUp from './component/SignUp';
-
+import ModalForm from './component/ModalForm';
 
 
 class App extends React.Component {
 
   state = {
     user: "",
-    token: ""
+    token: "",
+    isOpen: false,
+    modalForm: false,
+    tamaName: null
   }
 
   // rendering components  --- > 
@@ -71,6 +73,18 @@ class App extends React.Component {
 
 
 
+  // handle modal form
+  openModal = () => this.setState({ isOpen: true });
+  closeModal = () => this.setState({ isOpen: false });
+  renderModalForm = () => this.setState({ modalForm: true })
+
+  // naming new tama
+  handleSubmit = (tamaName) => {
+    this.setState({ modalForm: false, tamaName })
+    this.closeModal()
+    // debugger
+  }
+
 
   render(){
     return (
@@ -79,7 +93,18 @@ class App extends React.Component {
 
         <Switch>
             <Route exact path="/home" >
-              {!!this.state.user ?  <Home user={this.state.user} token={this.state.token} /> : <Redirect to="/login" />}
+              {!!this.state.user ?  
+                <Home 
+                  user={this.state.user} 
+                  token={this.state.token} 
+                  renderModalForm={this.renderModalForm} 
+                  openModal={this.openModal} 
+                  tamaName={this.state.tamaName} 
+                  modalForm={this.state.modalForm}
+                />
+                 : 
+                <Redirect to="/login" />
+              }
             </Route>
 
             <Route exact path="/" >
@@ -89,6 +114,17 @@ class App extends React.Component {
             <Route path="/signup" exact component={this.renderForm} />
             <Route path="/login" exact component={this.renderForm} />
         </Switch>
+
+        {/* render modal form conditionally */}
+        { this.state.modalForm ? 
+          <ModalForm 
+            closeModal={this.closeModal} 
+            isOpen={this.state.isOpen} 
+            handleSubmit={this.handleSubmit}
+          /> 
+          : 
+          null 
+        }
 
       </div>
 

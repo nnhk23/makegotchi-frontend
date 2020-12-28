@@ -14,7 +14,8 @@ export default class Home extends React.Component{
         allSpecies: [],
         userPets: [],
         tamaStore: false,
-        currentPet: null
+        currentPet: null,
+        buysLeft: this.props.user.buys_left
     }
     
     // fetching list of all species.
@@ -32,18 +33,26 @@ export default class Home extends React.Component{
     getUserPets = () => {
         return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
         .then(res => res.json())
-        .then(pets => this.setState({ userPets: pets, currentPet: pets[0] }))
+        .then(pets => this.setState({userPets: pets, currentPet: pets[0]})
+        )
     }
 
     purchasePets = () => {
         alert('tama store is activated')
-        // debugger
         // render tamaStore in tamagotchi
         this.setState({tamaStore: true})
     }
 
+    updateBuysLeft = () => this.setState(prevState => { return {
+            buysLeft: prevState.buysLeft - 1
+        }
+    })
+
     handleIconClick = (currentPet) => {
-        this.setState({ currentPet })
+        this.setState({ 
+            tamaStore: false,
+            currentPet
+        })
     }
 
     updatePetList = (newUserPet) => {
@@ -52,28 +61,41 @@ export default class Home extends React.Component{
                 userPets: [...prevState.userPets, newUserPet]
             }
         })
-        console.log(newUserPet)
+    }
+
+    startMiniGame = (e) => {
+        alert('Start minigame')
+        // empty tamagotchi's screen
+        // populate with minigames
     }
 
     render(){
+        console.log(this.state.buysLeft)
         return(
             <div className="home">
                 <SideNav 
-                userPets={this.state.userPets} 
-                tamaStore={this.state.tamaStore} 
-                purchasePets={this.purchasePets} 
-                handleIconClick={this.handleIconClick} 
+                    userPets={this.state.userPets} 
+                    tamaStore={this.state.tamaStore} 
+                    purchasePets={this.purchasePets} 
+                    handleIconClick={this.handleIconClick} 
+                    startMiniGame={this.startMiniGame}
                 />
 
                 {!!this.props.user ? `Hi ${this.props.user.name}!` : null}
 
                 <Tamagotchi 
-                updatePetList={this.updatePetList}
-                allSpecies={this.state.allSpecies} 
-                currentPet={this.state.currentPet} 
-                tamaStore={this.state.tamaStore}
-                userId={this.props.user.id}
-                token={this.props.token}
+                    updatePetList={this.updatePetList}
+                    allSpecies={this.state.allSpecies} 
+                    currentPet={this.state.currentPet} 
+                    tamaStore={this.state.tamaStore}
+                    user={this.props.user}
+                    token={this.props.token}
+                    renderModalForm={this.props.renderModalForm}
+                    openModal={this.props.openModal}
+                    tamaName={this.props.tamaName} 
+                    modalForm={this.props.modalForm}
+                    updateBuysLeft={this.updateBuysLeft}
+                    buysLeft={this.state.buysLeft}
                 />
             </div>
         )

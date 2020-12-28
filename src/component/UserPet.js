@@ -16,7 +16,7 @@ const UserPet = ({ currentPet }) => {
                     <p>Happiness: {happiness_score}</p>
                 </Row>
                 <Row>
-                    <img id="pet-img" src={pet.img_url} alt="Pet Image" />
+                    <img id="pet-img" src={pet.img_url} alt="Pet Img" />
                 </Row>
                 <Row>
                     <UserPetBio name={name} pet={pet} />

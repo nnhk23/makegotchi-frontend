@@ -45,7 +45,20 @@ class TamaStore extends React.Component{
                                         <img src={pet.img_url} alt='tamagotchiiii'/>
                                         
                                         {/* should link to user's pet list */}
-                                        <Button id={idx+this.state.tamaNumber} variant="outline-info" onClick={() => this.props.purchaseTama(this.props.allSpecies[idx+this.state.tamaNumber])}>Purchase</Button>
+                                        {console.log(this.props.buysLeft)}
+                                        {this.props.buysLeft > 0 ? 
+                                            <Button 
+                                            id={idx+this.state.tamaNumber} 
+                                            variant="outline-info" 
+                                            onClick={() =>{ 
+                                                this.props.openModal()
+                                                this.props.purchaseTama(this.props.allSpecies[idx+this.state.tamaNumber])}
+                                            }>
+                                                Purchase
+                                            </Button>
+                                            :
+                                            null
+                                        }
                                     </Col>
 
                                     <Col>Specie: {pet.species}</Col>
