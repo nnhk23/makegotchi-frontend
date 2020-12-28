@@ -7,6 +7,7 @@ import TopNav from './component/TopNav'
 import FormRender from './component/FormRender'
 import './App.css';
 import { Redirect } from "react-router-dom";
+import egg_login from './images/makegotchi_login.png'
 // import SignUp from './component/SignUp';
 
 
@@ -18,22 +19,22 @@ class App extends React.Component {
     token: ""
   }
 
-  // rendering components  --- > 
+  // rendering components  --- >
   renderHome = () => <Home user={this.state.user} />
-  
+
   renderForm = (routerProps) => {
     if (routerProps.location.pathname === "/signup"){
-      return <FormRender name="SignUp" handleSubmit={this.handleSignup} />
+      return <div className='login_screen'><FormRender name="SignUp" handleSubmit={this.handleSignup} /></div>
     } else if (routerProps.location.pathname === "/login"){
-      return <FormRender name="Login" handleSubmit={this.handleLogin} />
+      return <div className='login_screen'><FormRender name="Login" handleSubmit={this.handleLogin} /></div>
     }
   }
 
-  // sign up, log in, auth, log out --- > 
+  // sign up, log in, auth, log out --- >
   handleSignup = (info) => {
     let data = {
-      name: info.name, 
-      username: info.username, 
+      name: info.name,
+      username: info.username,
       password: info.password
     }
     this.handleAuth(data, "http://localhost:3000/users")
@@ -41,7 +42,7 @@ class App extends React.Component {
 
   handleLogin = (info) => {
     let data = {
-      username: info.username, 
+      username: info.username,
       password: info.password
     }
     this.handleAuth(data, "http://localhost:3000/login")
@@ -56,7 +57,7 @@ class App extends React.Component {
       body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(data => { 
+    .then(data => {
       // debugger
       this.setState({user: data.user, token: data.token}, () => {
       this.props.history.push('/home')
@@ -76,20 +77,25 @@ class App extends React.Component {
     return (
       <div className="App">
         <TopNav loggedIn={!!this.state.user} handleLogout={this.handleLogout}/>
+        <div className="makegotchi_background">
+          <img src={egg_login} alt='tamagotchi_login' id='tamagotchi_login' />
+        
 
-        <Switch>
-            <Route exact path="/home" >
-              {!!this.state.user ?  <Home user={this.state.user} token={this.state.token} /> : <Redirect to="/login" />}
-            </Route>
+          <div className='login_screen_div'>
+            <Switch>
+                <Route exact path="/home" >
+                  {!!this.state.user ?  <Home user={this.state.user} token={this.state.token} /> : <Redirect to="/login" />}
+                </Route>
 
-            <Route exact path="/" >
-              {!!this.state.user ? <Redirect to="/home" /> : <Redirect to="/login" />}
-            </Route>
+                <Route exact path="/" >
+                  {!!this.state.user ? <Redirect to="/home" /> : <Redirect to="/login" />}
+                </Route>
 
-            <Route path="/signup" exact component={this.renderForm} />
-            <Route path="/login" exact component={this.renderForm} />
-        </Switch>
-
+                <Route path="/signup" exact component={this.renderForm} />
+                <Route path="/login" exact component={this.renderForm} />
+            </Switch>
+          </div>
+        </div>
       </div>
 
     )

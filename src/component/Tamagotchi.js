@@ -3,7 +3,7 @@ import UserPet from './UserPet'
 import TamaStore from './TamaStore'
 
 // import { Link } from 'react-router-dom';
-import egg_draft from '../images/makegotchi_egg.png'
+import egg from '../images/makegotchi_wide3.png'
 import "./Tamagotchi.css"
 
 export default class Tamagotchi extends React.Component{
@@ -45,28 +45,28 @@ export default class Tamagotchi extends React.Component{
 
 
     render(){
-      
+
         return(
             // eslint-disable-next-line react/style-prop-object
             <div className="tamagotchi_container" id='screen_div'>
                 <div className="tamagotchi_background">
-                    <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                    <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                     <div id='screen'>
-                        {this.props.tamaStore ? 
-                        <TamaStore 
-                            allSpecies={this.props.allSpecies} 
-                            purchaseTama={this.purchaseTama} 
-                        /> 
-                        : 
-                        <UserPet 
+                        {this.props.tamaStore ?
+                        <TamaStore
+                            allSpecies={this.props.allSpecies}
+                            purchaseTama={this.purchaseTama}
+                        />
+                        :
+                        <UserPet
                             currentPet={this.props.currentPet}
                         /> }
                     </div>
 
                     {/* maybe minigames latur ? */}
-          
+
                 </div>
-                
+
                 <div className="btn-container">
                     <button> random HELLO</button>
                 </div>

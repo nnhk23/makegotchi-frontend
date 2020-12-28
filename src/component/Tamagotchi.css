@@ -10,12 +10,13 @@
     /* background: url("../images/makegotchi_egg.png"); */
     background-size: cover;
     position: relative;
-    width: 935px;
-    height:870px;
+    width: 1070px;
+    height: 775px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 #tamagotchi_pic{
     width:100%;
     height: 100%;

@@ -9,20 +9,20 @@ export default class Home extends React.Component{
 
     // side nav appearwhen logged in.
     // fetching Alex's pets.
-    
+
     state={
         allSpecies: [],
         userPets: [],
         tamaStore: false,
         currentPet: null
     }
-    
+
     // fetching list of all species.
     componentDidMount() {
         this.getAllPets()
         this.getUserPets()
     }
-    
+
     getAllPets = () => {
         fetch('http://localhost:3000/pets')
         .then(resp => resp.json())
@@ -58,19 +58,19 @@ export default class Home extends React.Component{
     render(){
         return(
             <div className="home">
-                <SideNav 
-                userPets={this.state.userPets} 
-                tamaStore={this.state.tamaStore} 
-                purchasePets={this.purchasePets} 
-                handleIconClick={this.handleIconClick} 
+                <SideNav
+                userPets={this.state.userPets}
+                tamaStore={this.state.tamaStore}
+                purchasePets={this.purchasePets}
+                handleIconClick={this.handleIconClick}
                 />
 
                 {!!this.props.user ? `Hi ${this.props.user.name}!` : null}
 
-                <Tamagotchi 
+                <Tamagotchi
                 updatePetList={this.updatePetList}
-                allSpecies={this.state.allSpecies} 
-                currentPet={this.state.currentPet} 
+                allSpecies={this.state.allSpecies}
+                currentPet={this.state.currentPet}
                 tamaStore={this.state.tamaStore}
                 userId={this.props.user.id}
                 token={this.props.token}
