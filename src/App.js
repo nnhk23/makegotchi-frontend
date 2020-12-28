@@ -77,14 +77,14 @@ class App extends React.Component {
     return (
       <div className="App">
         <TopNav loggedIn={!!this.state.user} handleLogout={this.handleLogout}/>
+
         <div className="makegotchi_background">
           <img src={egg_login} alt='tamagotchi_login' id='tamagotchi_login' />
-        
 
           <div className='login_screen_div'>
             <Switch>
                 <Route exact path="/home" >
-                  {!!this.state.user ?  <Home user={this.state.user} token={this.state.token} /> : <Redirect to="/login" />}
+                  {!!this.state.user ?  <Home user={this.state.user} token={this.state.token} />: <Redirect to="/login" />}
                 </Route>
 
                 <Route exact path="/" >

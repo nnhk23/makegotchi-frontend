@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Press+Start+2P&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka+One&family=Press+Start+2P&family=Roboto&family=Schoolbell&display=swap');
 
 .App-link {
   color: #61dafb;
@@ -9,6 +9,9 @@
   width: 100%;
   height: 100%;
   align-items: center;
+  background-image: url(https://i.imgur.com/Z8aGgg0.gif);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 #container {
@@ -17,20 +20,20 @@
   padding: 0;
 }
 
-.home {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  background-image: url("https://thumbs.gfycat.com/TenseExcitableGilamonster-small.gif");
-}
 
-.navbar{
+
+.ml-auto{
   font-family: 'Press Start 2P', cursive;
-  height: 45px;
+  height: 48px;
 }
 .nav-link{
   color: #a560ff;
 
+}
+
+#logo_topNav{
+  color: #a560ff;
+  margin-top: 8px;
 }
 
 
@@ -63,16 +66,6 @@
 }
 
 
-/* .tempDiv {
-  text-align:center;
-  background-color: #4ccca1;
-  padding: 10em; 
-  width: 400px;
-  margin: auto;
-  padding: 20px;
-} */
-
-
 .makegotchi_background {
   width: 80%;
   height: 90%;
@@ -90,27 +83,43 @@
   padding-top: 15px;
 }
 
+/* Now called .login_screen_div */
+/* .tempDiv {
+  text-align:center;
+  background-color: #4ccca1;
+  padding: 10em;
+  width: 400px;
+  margin: auto;
+  padding: 20px;
+} */
+
 .login_screen_div{
-  position: absolute;
   width: 80%;
   height: 86%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  padding-top: 27px;
+
 }
 
 .login_screen {
-  
-  width: 610px;
-  height: 450px;
+
+  min-width: 50%;
+  min-height: 65%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 25px;
+  border-radius: 20px;
   /* top: 220px;
   left: 167px; */
-  background-color: rgb(235, 238, 240);
+  background-color: rgb(238, 242, 245);
+  font-family: 'Fredoka One', cursive;
+  color: rgb(117, 71, 179);
+  /* -webkit-box-shadow: -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px -7px 27px 1px #8E5CFF, 16px 8px 4px -1px rgba(0,0,0,0);
+  box-shadow: -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px -7px 27px 1px #8E5CFF, 16px 8px 4px -1px rgba(0,0,0,0); */
 
 }

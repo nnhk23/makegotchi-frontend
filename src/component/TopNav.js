@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav'
 const TopNav = ({ loggedIn, handleLogout }) => {
 
 
-    
+
     return(
         <Navbar
         className='ml-auto'
@@ -14,8 +14,8 @@ const TopNav = ({ loggedIn, handleLogout }) => {
         variant="dark"
         activeKey="/home"
         // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-        >
-        { loggedIn ? 
+        ><h4 id="logo_topNav">MAKEGOTCHI</h4>
+        { loggedIn ?
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
                     <Nav.Link href="/home">Profile</Nav.Link>
@@ -25,7 +25,7 @@ const TopNav = ({ loggedIn, handleLogout }) => {
                     <Nav.Link eventKey="link-1" onClick={() => handleLogout()}>Logout</Nav.Link>
                 </Nav.Item>
             </Navbar.Collapse>
-            : 
+            :
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
                     <Nav.Link href=""></Nav.Link>

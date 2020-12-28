@@ -5,6 +5,8 @@ import Tamagotchi from './Tamagotchi'
 // import Col from 'react-bootstrap/Col'
 // import { Link } from 'react-router-dom';
 
+import "./Home.css"
+
 export default class Home extends React.Component{
 
     // side nav appearwhen logged in.
