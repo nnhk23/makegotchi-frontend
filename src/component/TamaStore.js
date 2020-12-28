@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 // import { Link } from 'react-router-dom';
+import "./TamaStore.css"
 
 class TamaStore extends React.Component{
 
@@ -15,7 +16,7 @@ class TamaStore extends React.Component{
 
     // render 2 new tamas on click
     moreTamagotchis = () => {
-        
+
         // when hit last tama, render tama list again from beginning
         if(this.state.tamaNumber <= this.props.allSpecies.length-2){
             this.setState(prevState => {
@@ -37,13 +38,13 @@ class TamaStore extends React.Component{
 
                 {/* list of tamagotchis */}
                 <ListGroup variant="flush">
-                    {this.props.allSpecies.slice(this.state.tamaNumber, this.state.tamaNumber + 2).map((pet, idx) => 
+                    {this.props.allSpecies.slice(this.state.tamaNumber, this.state.tamaNumber + 2).map((pet, idx) =>
                         <ListGroup.Item>
                             <Container>
                                 <Row>
                                     <Col>
                                         <img src={pet.img_url} alt='tamagotchiiii'/>
-                                        
+
                                         {/* should link to user's pet list */}
                                         <Button id={idx+this.state.tamaNumber} variant="outline-info" onClick={() => this.props.purchaseTama(this.props.allSpecies[idx+this.state.tamaNumber])}>Purchase</Button>
                                     </Col>

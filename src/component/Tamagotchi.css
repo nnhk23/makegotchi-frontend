@@ -5,10 +5,9 @@
 }
 
 .tamagotchi_background {
-    /* background: url("../images/makegotchi_egg.png"); */
     position: relative;
     min-width: 1000px;
-    min-height: 750px;
+    min-height: 760px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,12 +15,17 @@
 
 
 #screen {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
     position: absolute;
     border-radius: 25px;
-    width: 610px;
-    height: 454px;
-    top: 215px;
-    left: 167px;
-    background-color: rgb(235, 238, 240);
+    max-width: 60%;
+    min-height: 436px;
+    top: 21%;
+    left: 20%;
+    background-color: rgb(243, 245, 247);
   }
 

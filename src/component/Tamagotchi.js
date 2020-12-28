@@ -49,8 +49,10 @@ export default class Tamagotchi extends React.Component{
         return(
             // eslint-disable-next-line react/style-prop-object
             <div className="tamagotchi_container" id='screen_div'>
+
                 <div className="tamagotchi_background">
                     <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
+
                     <div id='screen'>
                         {this.props.tamaStore ?
                         <TamaStore
@@ -62,14 +64,12 @@ export default class Tamagotchi extends React.Component{
                             currentPet={this.props.currentPet}
                         /> }
                     </div>
-
-                    {/* maybe minigames latur ? */}
-
                 </div>
-
-                <div className="btn-container">
-                    <button> random HELLO</button>
-                </div>
+                {/* <div className="btn-container">
+                    <button>FEED</button>
+                    <button>CLEAN</button>
+                    <button>SLEEP</button>
+                </div> */}
             </div>
         )
     }

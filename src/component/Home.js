@@ -45,7 +45,7 @@ export default class Home extends React.Component{
     }
 
     handleIconClick = (currentPet) => {
-        this.setState({ currentPet })
+        this.setState({ tamaStore: false, currentPet })
     }
 
     updatePetList = (newUserPet) => {
@@ -77,6 +77,8 @@ export default class Home extends React.Component{
                 userId={this.props.user.id}
                 token={this.props.token}
                 />
+
+                
             </div>
         )
     }
