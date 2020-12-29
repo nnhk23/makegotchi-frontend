@@ -1,23 +1,25 @@
 import React from 'react';
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
-
+import UserPetBio from './UserPetBio';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 // import { Link } from 'react-router-dom';
-import egg_draft from '../images/makegotchi_egg.png'
-import "./Tamagotchi.css"
+import egg_draft from '../images/makegotchi_egg.png';
+import "./Tamagotchi.css";
 
 export default class Tamagotchi extends React.Component{
 
-    state = {
-        currentUser: null
-    }
+    // state = {
+    //     currentUser: null
+    // }
 
-    componentDidMount(){
-        fetch(`http://localhost:3000/users/${this.props.userId}`)
-        .then(resp => resp.json())
-        .then(data => this.setState({currentUser: data}))
-    }
-
+    // componentDidMount(){
+    //     fetch(`http://localhost:3000/users/${this.props.userId}`)
+    //     .then(resp => resp.json())
+    //     .then(data => this.setState({currentUser: data}))
+    // }
 
     purchaseTama = (newTama) => {
         // add new tama to user's pet list
@@ -43,35 +45,66 @@ export default class Tamagotchi extends React.Component{
         .then(data => this.props.updatePetList(data))
     }
 
+    // feedPet = () => {
+
+    // }
 
     render(){
-      
-        return(
+        return this.props.tamaStore ? 
+        (
             // eslint-disable-next-line react/style-prop-object
-            <div className="tamagotchi_container" id='screen_div'>
-                <div className="tamagotchi_background">
-                    <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
-                    <div id='screen'>
-                        {this.props.tamaStore ? 
-                        <TamaStore 
-                            allSpecies={this.props.allSpecies} 
-                            purchaseTama={this.purchaseTama} 
-                        /> 
-                        : 
-                        <UserPet 
-                            currentPet={this.props.currentPet}
-                        /> }
+            <div>
+                <Row className="tamagotchi_container" id='screen_div'>
+                    <div className="tamagotchi_background">
+                        <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                        <div id='screen'>
+                            <TamaStore 
+                                allSpecies={this.props.allSpecies} 
+                                purchaseTama={this.purchaseTama} 
+                            /> 
+                        </div>
                     </div>
-
-                    {/* maybe minigames latur ? */}
-          
-                </div>
-                
-                <div className="btn-container">
-                    <button> random HELLO</button>
-                </div>
+                </Row>
             </div>
-        )
+        ) :
+
+        this.props.currentPet ?
+        (
+            <div>
+                <Row className="tamagotchi_container" id='screen_div'>
+                    <div className="tamagotchi_background">
+                        <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                        <div id='screen'>
+                            <UserPet 
+                                currentPet={this.props.currentPet}
+                            />
+                        </div>
+
+                        {/* maybe minigames latur ? */}
+            
+                    </div>
+                </Row>
+
+                {/* temporary, to be able to press buttons */}
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <Row className="btn-container">
+                    <Button>Feed</Button>
+                    <Button>Sleep</Button>
+                    <Button>Clean</Button>
+                </Row>
+
+                <Row>
+                    <UserPetBio currentPet={this.props.currentPet} />
+                </Row>
+            </div>
+        ) :
+        null
     }
 }
 

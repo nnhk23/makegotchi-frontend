@@ -49,7 +49,9 @@ export default class Home extends React.Component{
     updatePetList = (newUserPet) => {
         this.setState(prevState => {
             return{
-                userPets: [...prevState.userPets, newUserPet]
+                userPets: [...prevState.userPets, newUserPet],
+                currentPet: newUserPet,
+                tamaStore: false
             }
         })
         console.log(newUserPet)
