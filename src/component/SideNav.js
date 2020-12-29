@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import RenderPetBtn from './RenderPetBtn';
-import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 
 const SideNav = ({purchasePets, userPets, handleIconClick, startMiniGame}) => {

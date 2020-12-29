@@ -15,7 +15,8 @@ export default class Home extends React.Component{
         userPets: [],
         tamaStore: false,
         currentPet: null,
-        buysLeft: this.props.user.buys_left
+        buysLeft: this.props.user.buys_left,
+        ticTacToe: false
     }
     
     // fetching list of all species.
@@ -40,13 +41,23 @@ export default class Home extends React.Component{
     purchasePets = () => {
         alert('tama store is activated')
         // render tamaStore in tamagotchi
-        this.setState({tamaStore: true})
+        this.setState({ tamaStore: true })
     }
 
-    updateBuysLeft = () => this.setState(prevState => { return {
-            buysLeft: prevState.buysLeft - 1
-        }
-    })
+    updateBuysLeft = () => {
+        fetch(`http://localhost:3000/users/${this.props.user.id}`,{
+            method: 'PATCH',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
+            },
+            body: JSON.stringify({
+                buys_left: this.state.buysLeft - 1
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => this.setState({ buysLeft: data }))
+    }
 
     handleIconClick = (currentPet) => {
         this.setState({ 
@@ -55,16 +66,17 @@ export default class Home extends React.Component{
         })
     }
 
-    updatePetList = (newUserPet) => {
+    updatePetList = (newUserPet) =>{ 
         this.setState(prevState => {
             return{
                 userPets: [...prevState.userPets, newUserPet]
             }
         })
     }
-
+    
     startMiniGame = (e) => {
         alert('Start minigame')
+        this.setState({ticTacToe: true, tamaStore: false})
         // empty tamagotchi's screen
         // populate with minigames
     }
@@ -94,8 +106,10 @@ export default class Home extends React.Component{
                     openModal={this.props.openModal}
                     tamaName={this.props.tamaName} 
                     modalForm={this.props.modalForm}
+                    clearTamaName={this.props.clearTamaName}
                     updateBuysLeft={this.updateBuysLeft}
                     buysLeft={this.state.buysLeft}
+                    ticTacToe={this.state.ticTacToe}
                 />
             </div>
         )

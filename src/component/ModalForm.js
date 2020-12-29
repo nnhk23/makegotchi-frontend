@@ -10,7 +10,9 @@ class ModalForm extends Component {
     handleChange = (e) => this.setState({name: e.target.value})
     
     render(){
+
     const {closeModal, isOpen, handleSubmit} = this.props
+
     return (
         <>
           <div
@@ -18,7 +20,11 @@ class ModalForm extends Component {
             style={{ height: "100vh" }}
           >
           </div>
-          <Modal show={isOpen} onHide={closeModal}>
+          <Modal 
+            show={isOpen} 
+            onHide={closeModal} 
+            backdrop="static"
+          >
             <Modal.Header closeButton>
               <Modal.Title>Name Your Tama</Modal.Title>
             </Modal.Header>

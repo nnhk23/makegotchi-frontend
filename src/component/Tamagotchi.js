@@ -1,6 +1,7 @@
 import React from 'react';
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
+import Game from './Game'
 
 import egg_draft from '../images/makegotchi_egg.png'
 import "./Tamagotchi.css"
@@ -41,12 +42,20 @@ export default class Tamagotchi extends React.Component{
 
         // enable modal form in App
         this.props.renderModalForm()
-        this.props.updateBuysLeft()
         
         // delay for 8sec to make sure states are set (ex: tamaName, modalForm)
         await this.sleep(8000)
         if (!this.props.modalForm && this.props.tamaName){
+            alert('generating Tamagotchi. Pls wait!')
+            this.props.updateBuysLeft()
             this.updateUserPetData(newTama)
+            // clear tamaname from state
+            this.props.clearTamaName()
+        } else {
+            await this.sleep(4000) 
+            if (!this.props.modalForm && this.props.tamaName) { 
+                this.updateUserPetData(newTama)
+            }
         }
     }
 
@@ -66,13 +75,14 @@ export default class Tamagotchi extends React.Component{
                                 buysLeft={this.props.buysLeft}
                             /> 
                             : 
-                            <UserPet 
-                                currentPet={this.props.currentPet}
-                            /> 
+                            // render minigame when tictactoe is activated
+                            this.props.ticTacToe ?
+                                <Game />
+                                :
+                                <UserPet currentPet={this.props.currentPet}/> 
                         }
-                    </div>
 
-                    {/* maybe minigames latur ? */}
+                    </div>
           
                 </div>
                 

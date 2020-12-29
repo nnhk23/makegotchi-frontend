@@ -76,13 +76,13 @@ class App extends React.Component {
   // handle modal form
   openModal = () => this.setState({ isOpen: true });
   closeModal = () => this.setState({ isOpen: false });
+  clearTamaName = () => this.setState({ tamaName: null })
   renderModalForm = () => this.setState({ modalForm: true })
 
   // naming new tama
   handleSubmit = (tamaName) => {
     this.setState({ modalForm: false, tamaName })
     this.closeModal()
-    // debugger
   }
 
 
@@ -101,6 +101,7 @@ class App extends React.Component {
                   openModal={this.openModal} 
                   tamaName={this.state.tamaName} 
                   modalForm={this.state.modalForm}
+                  clearTamaName={this.clearTamaName}
                 />
                  : 
                 <Redirect to="/login" />
