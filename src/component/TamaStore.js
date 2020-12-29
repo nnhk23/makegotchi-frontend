@@ -45,7 +45,6 @@ class TamaStore extends React.Component{
                                         <img src={pet.img_url} alt='tamagotchiiii'/>
                                         
                                         {/* should link to user's pet list */}
-                                        {console.log(this.props.buysLeft)}
                                         {this.props.buysLeft > 0 ? 
                                             <Button 
                                             id={idx+this.state.tamaNumber} 

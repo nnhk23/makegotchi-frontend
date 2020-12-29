@@ -25,6 +25,10 @@ export default class Home extends React.Component{
         this.getUserPets()
     }
     
+    sleep = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     getAllPets = () => {
         fetch('http://localhost:3000/pets')
         .then(resp => resp.json())
@@ -34,7 +38,10 @@ export default class Home extends React.Component{
     getUserPets = () => {
         return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
         .then(res => res.json())
-        .then(pets => this.setState({userPets: pets, currentPet: pets[0]})
+        .then(pets => {
+            this.setState({userPets: pets, currentPet: pets[0]})
+            this.updateBuysLeft(pets)
+            }
         )
     }
 
@@ -44,7 +51,15 @@ export default class Home extends React.Component{
         this.setState({ tamaStore: true })
     }
 
-    updateBuysLeft = () => {
+    updateBuysLeft = async (pets) => {
+        let buysLeft
+        let userPetsLength
+
+        await this.sleep(1000)
+        pets ? userPetsLength = pets.length : userPetsLength = this.state.userPets.length
+
+        userPetsLength === 0 ? buysLeft = 3 : buysLeft = 3 - userPetsLength
+
         fetch(`http://localhost:3000/users/${this.props.user.id}`,{
             method: 'PATCH',
             headers: {
@@ -52,11 +67,11 @@ export default class Home extends React.Component{
                 'Accept' : 'application/json'
             },
             body: JSON.stringify({
-                buys_left: this.state.buysLeft - 1
+                buys_left: buysLeft
             })
         })
         .then(resp => resp.json())
-        .then(data => this.setState({ buysLeft: data }))
+        .then(data => this.setState({ buysLeft: data.buys_left }))
     }
 
     handleIconClick = (currentPet) => {
@@ -93,8 +108,7 @@ export default class Home extends React.Component{
                     startMiniGame={this.startMiniGame}
                 />
 
-                {!!this.props.user ? `Hi ${this.props.user.name}!` : null}
-
+                {!!this.props.user ? `Hi ${this.props.user.name}! You have ${this.state.buysLeft} slots left.` : null}
                 <Tamagotchi 
                     updatePetList={this.updatePetList}
                     allSpecies={this.state.allSpecies} 
