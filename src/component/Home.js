@@ -43,7 +43,7 @@ export default class Home extends React.Component{
     }
 
     handleIconClick = (currentPet) => {
-        this.setState({ currentPet })
+        this.setState({ currentPet, tamaStore: false })
     }
 
     updatePetList = (newUserPet) => {
@@ -57,7 +57,44 @@ export default class Home extends React.Component{
         console.log(newUserPet)
     }
 
+    handleActionBtnClick = (e) => {
+        let dateTime = new Date();
+        console.log(dateTime)
+        let body = {}
+        if (e.target.id === 'feed-btn') {
+            body = {
+                'last_fed': dateTime
+            }
+        }
+        else if (e.target.id === 'sleep-btn') {
+            body = {
+                'last_slept': dateTime
+            }
+        }
+        else if (e.target.id === 'clean-btn') {
+            body = {
+                'last_cleaned': dateTime
+            }
+        }
+        else {
+            return
+        }
+
+        console.log(body)
+        fetch(`http://localhost:3000/user_pets/${this.state.currentPet.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        .then(res => res.json())
+        .then(updatedPet => this.setState({ currentPet: updatedPet }))
+    }
+
     render(){
+        console.log(this.state.currentPet)
         return(
             <div className="home">
                 <SideNav 
@@ -76,6 +113,7 @@ export default class Home extends React.Component{
                 tamaStore={this.state.tamaStore}
                 userId={this.props.user.id}
                 token={this.props.token}
+                handleActionBtnClick={this.handleActionBtnClick}
                 />
             </div>
         )

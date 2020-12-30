@@ -64,13 +64,9 @@ class App extends React.Component {
     })
   }
 
-
   handleLogout = () => {
     console.log("")
   }
-
-
-
 
   render(){
     return (

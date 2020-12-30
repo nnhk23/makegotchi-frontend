@@ -38,73 +38,86 @@ export default class Tamagotchi extends React.Component{
             body: JSON.stringify({
                 name: "Beans",
                 user_id: this.props.userId,
-                pet_id: newTama.id
+                pet_id: newTama.id,
             })
         })
         .then(resp => resp.json())
         .then(data => this.props.updatePetList(data))
     }
 
-    // feedPet = () => {
-
-    // }
-
     render(){
-        return this.props.tamaStore ? 
-        (
-            // eslint-disable-next-line react/style-prop-object
-            <div>
-                <Row className="tamagotchi_container" id='screen_div'>
-                    <div className="tamagotchi_background">
-                        <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
-                        <div id='screen'>
-                            <TamaStore 
-                                allSpecies={this.props.allSpecies} 
-                                purchaseTama={this.purchaseTama} 
-                            /> 
-                        </div>
+        switch (true) {
+            case this.props.tamaStore:
+                console.log('store')
+
+                return (
+                    // eslint-disable-next-line react/style-prop-object
+                    <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                    <TamaStore 
+                                        allSpecies={this.props.allSpecies} 
+                                        purchaseTama={this.purchaseTama} 
+                                    /> 
+                                </div>
+                            </div>
+                        </Row>
                     </div>
-                </Row>
-            </div>
-        ) :
+                ) 
 
-        this.props.currentPet ?
-        (
-            <div>
-                <Row className="tamagotchi_container" id='screen_div'>
-                    <div className="tamagotchi_background">
-                        <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
-                        <div id='screen'>
-                            <UserPet 
-                                currentPet={this.props.currentPet}
-                            />
-                        </div>
+            case !!this.props.currentPet:
+                console.log('current pet')
+                return (
+                    <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                    <UserPet 
+                                        currentPet={this.props.currentPet}
+                                    />
+                                </div>
 
-                        {/* maybe minigames latur ? */}
-            
+                                {/* maybe minigames latur ? */}
+                    
+                            </div>
+                        </Row>
+
+                        {/* temporary, to be able to press buttons */}
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <Row className="btn-container" onClick={this.props.handleActionBtnClick}>
+                            <Button id="feed-btn">Feed</Button>
+                            <Button id="sleep-btn">Sleep</Button>
+                            <Button id="clean-btn">Clean</Button>
+                        </Row>
+
+                        <Row>
+                            <UserPetBio currentPet={this.props.currentPet} />
+                        </Row>
                     </div>
-                </Row>
-
-                {/* temporary, to be able to press buttons */}
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-
-                <Row className="btn-container">
-                    <Button>Feed</Button>
-                    <Button>Sleep</Button>
-                    <Button>Clean</Button>
-                </Row>
-
-                <Row>
-                    <UserPetBio currentPet={this.props.currentPet} />
-                </Row>
-            </div>
-        ) :
-        null
+                )
+            default:
+                console.log('default')
+                return (
+                    <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                </div>
+                            </div>
+                        </Row>
+                    </div>
+                )
+        }
     }
 }
 
