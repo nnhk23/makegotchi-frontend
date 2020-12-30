@@ -94,8 +94,6 @@ class FormRender extends Component  {
                           <Form.Control type="password" name="password_confirmation" value={this.state.password_confirmation} onChange={this.handleChange} />
                       </Form.Group> : null}
 
-
-
                       {this.props.name === "Update" ? 
                       <Button variant="outline-warning" type="submit" onClick={this.handleSubmit}>Update</Button> :
                       <Button variant="primary" type="submit" onClick={this.handleSubmit}>{this.props.name === "SignUp" ? "Sign up" : "Log in"}</Button> }

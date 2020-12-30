@@ -6,7 +6,6 @@ import Home from './component/Home'
 import TopNav from './component/TopNav'
 import FormRender from './component/FormRender'
 import './App.css';
-// import SignUp from './component/SignUp';
 
 
 
@@ -144,7 +143,6 @@ class App extends React.Component {
           
             
         </Switch>
-
       </div>
 
     )
@@ -152,4 +150,3 @@ class App extends React.Component {
 }
 
 export default withRouter(App)
-

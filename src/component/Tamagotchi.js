@@ -1,30 +1,15 @@
 import React from 'react';
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
+import Game from './Game'
 import UserPetBio from './UserPetBio';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-// import { Link } from 'react-router-dom';
 import egg_draft from '../images/makegotchi_egg.png';
 import "./Tamagotchi.css";
 
 export default class Tamagotchi extends React.Component{
-
-    // state = {
-    //     currentUser: null
-    // }
-
-    // componentDidMount(){
-    //     fetch(`http://localhost:3000/users/${this.props.userId}`)
-    //     .then(resp => resp.json())
-    //     .then(data => this.setState({currentUser: data}))
-    // }
-
-    purchaseTama = (newTama) => {
-        // add new tama to user's pet list
-        // adjust buys_left
-        alert('Tama is bought!')
 
         // update database with new user pet
         // reach out to Lantz or Hal JWT
@@ -43,7 +28,6 @@ export default class Tamagotchi extends React.Component{
             })
         })
         .then(resp => resp.json())
-        // .then(data => {debugger})
         .then(data => this.props.updatePetList(data))
     }
 
@@ -60,6 +44,7 @@ export default class Tamagotchi extends React.Component{
                                 <div id='screen'>
                                     <TamaStore 
                                         allSpecies={this.props.allSpecies} 
+                                        buysLeft={this.props.buysLeft}
                                         purchaseTama={this.purchaseTama} 
                                     /> 
                                 </div>
@@ -67,7 +52,8 @@ export default class Tamagotchi extends React.Component{
                         </Row>
                     </div>
                 ) 
-
+            case this.props.ticTacToe:
+                return <Game />
             case !!this.props.currentPet:
                 return (
                     <div>
@@ -81,10 +67,7 @@ export default class Tamagotchi extends React.Component{
                                         sleepIn={this.props.sleepIn}
                                         cleanIn={this.props.cleanIn}
                                     />
-                                </div>
-
-                                {/* maybe minigames latur ? */}
-                    
+                                </div>               
                             </div>
                         </Row>
 
