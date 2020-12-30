@@ -48,7 +48,6 @@ export default class Tamagotchi extends React.Component{
     render(){
         switch (true) {
             case this.props.tamaStore:
-                console.log('store')
 
                 return (
                     // eslint-disable-next-line react/style-prop-object
@@ -68,7 +67,6 @@ export default class Tamagotchi extends React.Component{
                 ) 
 
             case !!this.props.currentPet:
-                console.log('current pet')
                 return (
                     <div>
                         <Row className="tamagotchi_container" id='screen_div'>
@@ -77,6 +75,9 @@ export default class Tamagotchi extends React.Component{
                                 <div id='screen'>
                                     <UserPet 
                                         currentPet={this.props.currentPet}
+                                        feedIn={this.props.feedIn}
+                                        sleepIn={this.props.sleepIn}
+                                        cleanIn={this.props.cleanIn}
                                     />
                                 </div>
 
@@ -105,7 +106,6 @@ export default class Tamagotchi extends React.Component{
                     </div>
                 )
             default:
-                console.log('default')
                 return (
                     <div>
                         <Row className="tamagotchi_container" id='screen_div'>

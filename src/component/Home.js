@@ -14,13 +14,22 @@ export default class Home extends React.Component{
         allSpecies: [],
         userPets: [],
         tamaStore: false,
-        currentPet: null
+        currentPet: null,
+        interval: null,
+        feedIn: -1,
+        cleanIn: -1,
+        sleepIn: -1
     }
     
     // fetching list of all species.
     componentDidMount() {
         this.getAllPets()
         this.getUserPets()
+        this.setState({ interval: setInterval(this.checkPetStatus, 1000) })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.interval)
     }
     
     getAllPets = () => {
@@ -32,7 +41,75 @@ export default class Home extends React.Component{
     getUserPets = () => {
         return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
         .then(res => res.json())
-        .then(pets => this.setState({ userPets: pets, currentPet: pets[0] }))
+        .then(userPets => {
+            const currentPet = userPets[0]
+            const currentTime = new Date()
+            return this.setState({    
+            userPets: userPets, 
+            currentPet: currentPet, 
+            feedIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.hunger_rate ?
+                currentPet.pet.hunger_rate - (currentTime - currentPet.last_fed)/1000 :
+                -1,
+            sleepIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.sleepy_rate ?
+                currentPet.pet.sleepy_rate - (currentTime - currentPet.last_slept)/1000 :
+                -1,
+            cleanIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.dirt_rate ?
+                currentPet.pet.dirt_rate - (currentTime - currentPet.last_cleaned)/1000 :
+                -1
+        })})
+    }
+
+    checkPetStatus = () => {
+        const currentPet = this.state.currentPet
+        if (currentPet) {
+            const currentTime = new Date()
+
+            const timeSinceLastFed = (currentTime - Date.parse(currentPet.last_fed))/1000
+            if (timeSinceLastFed < currentPet.pet.hunger_rate) {
+                this.setState({ 
+                    feedIn: Math.floor(currentPet.pet.hunger_rate - (currentTime - Date.parse(currentPet.last_fed))/1000)
+                })
+            } else {
+                this.setState({ feedIn: -1 })
+                this.decreaseHappiness()
+            }
+
+
+            const timeSinceLastSlept = (currentTime - Date.parse(currentPet.last_slept))/1000
+            if (timeSinceLastSlept < currentPet.pet.sleepy_rate) {
+                this.setState({ 
+                    sleepIn: Math.floor(currentPet.pet.sleepy_rate - (currentTime - Date.parse(currentPet.last_slept))/1000)
+                }) 
+            } else {
+                this.setState({ sleepIn: -1 })
+                this.decreaseHappiness()
+            }
+
+            const timeSinceLastCleaned = (currentTime - Date.parse(currentPet.last_cleaned))/1000
+            if (timeSinceLastCleaned < currentPet.pet.dirt_rate) {
+                this.setState({ 
+                    cleanIn: Math.floor(currentPet.pet.dirt_rate - (currentTime - Date.parse(currentPet.last_cleaned))/1000)
+                }) 
+            } else {
+                this.setState({ cleanIn: -1 })
+                this.decreaseHappiness()
+            }
+        }
+        return null
+    }
+
+    decreaseHappiness = () => {
+        const body = { happiness_score: this.state.currentPet.happiness_score - 1 }
+        fetch(`http://localhost:3000/user_pets/${this.state.currentPet.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        .then(res => res.json())
+        .then(currentPet => this.setState({ currentPet }))
     }
 
     purchasePets = () => {
@@ -54,33 +131,33 @@ export default class Home extends React.Component{
                 tamaStore: false
             }
         })
-        console.log(newUserPet)
     }
 
     handleActionBtnClick = (e) => {
         let dateTime = new Date();
-        console.log(dateTime)
         let body = {}
         if (e.target.id === 'feed-btn') {
             body = {
-                'last_fed': dateTime
+                'last_fed': dateTime,
+                'happiness_score': this.state.currentPet.happiness_score + 5
             }
         }
         else if (e.target.id === 'sleep-btn') {
             body = {
-                'last_slept': dateTime
+                'last_slept': dateTime,
+                'happiness_score': this.state.currentPet.happiness_score + 5
             }
         }
         else if (e.target.id === 'clean-btn') {
             body = {
-                'last_cleaned': dateTime
+                'last_cleaned': dateTime,
+                'happiness_score': this.state.currentPet.happiness_score + 5
             }
         }
         else {
             return
         }
 
-        console.log(body)
         fetch(`http://localhost:3000/user_pets/${this.state.currentPet.id}`, {
             method: 'PATCH',
             headers: {
@@ -90,11 +167,32 @@ export default class Home extends React.Component{
             body: JSON.stringify(body)
         })
         .then(res => res.json())
-        .then(updatedPet => this.setState({ currentPet: updatedPet }))
+        .then(updatedPet => {
+            switch (e.target.id) {
+                case 'feed-btn':
+                    return this.setState({ 
+                        currentPet: updatedPet,
+                        feedIn: updatedPet.pet.hunger_rate
+                    })
+                case 'sleep-btn':
+                    return this.setState({ 
+                        currentPet: updatedPet,
+                        sleepIn: updatedPet.pet.sleepy_rate
+                    })
+                case 'clean-btn':
+                    return this.setState({ 
+                        currentPet: updatedPet,
+                        cleanIn: updatedPet.pet.dirt_rate
+                    })
+                default:
+                    return this.setState({
+                        currentPet: updatedPet
+                    })
+            }
+        })
     }
 
     render(){
-        console.log(this.state.currentPet)
         return(
             <div className="home">
                 <SideNav 
@@ -114,6 +212,9 @@ export default class Home extends React.Component{
                 userId={this.props.user.id}
                 token={this.props.token}
                 handleActionBtnClick={this.handleActionBtnClick}
+                feedIn ={this.state.feedIn}
+                sleepIn = {this.state.sleepIn}
+                cleanIn = {this.state.cleanIn}
                 />
             </div>
         )
