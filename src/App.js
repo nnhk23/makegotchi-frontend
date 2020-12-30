@@ -1,43 +1,47 @@
 import React from 'react';
-import {Route, Switch, withRouter} from 'react-router-dom'
+import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './component/Home'
 import TopNav from './component/TopNav'
 import FormRender from './component/FormRender'
 import './App.css';
-import { Redirect } from "react-router-dom";
 import egg_login from './images/makegotchi_login.png'
-// import SignUp from './component/SignUp';
+
 
 
 
 class App extends React.Component {
 
   state = {
-    user: "",
-    token: ""
+    user: ""
   }
 
-  // rendering components  --- >
-  renderHome = () => <Home user={this.state.user} />
+
+  // rendering components  --- > 
+  renderHome = () => <Home user={this.state.user} token={localStorage.getItem('jwt')} refresh={this.handleRefresh} />
 
   renderForm = (routerProps) => {
+    
     if (routerProps.location.pathname === "/signup"){
       return <div className='login_screen'><FormRender name="SignUp" handleSubmit={this.handleSignup} /></div>
     } else if (routerProps.location.pathname === "/login"){
       return <div className='login_screen'><FormRender name="Login" handleSubmit={this.handleLogin} /></div>
+    } else if (routerProps.location.pathname === "/editprofile"){
+      return <div className='login_screen'><FormRender name="Update" handleSubmit={this.handleUpdate} handleDelete={this.handleDelete}/></div>
     }
   }
 
-  // sign up, log in, auth, log out --- >
+  // sign up, log in, auth, log out --- > 
+
   handleSignup = (info) => {
     let data = {
       name: info.name,
       username: info.username,
       password: info.password
     }
-    this.handleAuth(data, "http://localhost:3000/users")
+    this.handleAuth(data, "http://localhost:3000/users", "POST")
+    
   }
 
   handleLogin = (info) => {
@@ -45,54 +49,106 @@ class App extends React.Component {
       username: info.username,
       password: info.password
     }
-    this.handleAuth(data, "http://localhost:3000/login")
+    this.handleAuth(data, "http://localhost:3000/login", "POST")
   }
 
-  handleAuth = (data, resource) => {
+  handleUpdate = (info) => {
+    let data = {
+      username: info.username, 
+      password: info.password
+    }
+    this.handleAuth(data, `http://localhost:3000/users/${info.id}`, "PATCH")
+  }
+
+  handleAuth = (data, resource, method) => {
     fetch(resource, {
-      method: "POST",
+      method:  method,
       headers: {
           "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(data => {
-      // debugger
-      this.setState({user: data.user, token: data.token}, () => {
-      this.props.history.push('/home')
+    .then(data => { 
+  
+        data.error ? this.handleError(data) :
+        this.setState({user: data.user} ,() => {
+          if (data.token){
+            localStorage.setItem('jwt', data.token)
+            this.props.history.push('/home')
+          } else {
+          alert("Profile Succesfully Updated!")
+          this.props.history.push('/home')}
       })
     })
   }
 
-
-  handleLogout = () => {
-    console.log("")
+  handleError = (data) => {
+    if (data.error === "Username has already been taken. Please try again."){
+      alert(`${data.error}`)
+      this.props.history.push('/signup')
+    } else {
+      alert(`${data.error}`)
+      this.props.history.push('/login')
+    } 
   }
 
+ 
+  handleLogout = () => {
+    localStorage.clear()
+    this.setState({user: ""}, ()=>{
+      this.props.history.push('/login')
+    })
+  }
 
+  handleRefresh = (data) => {
+    this.setState({user: data.user})
+  }
 
+  handleDelete = (id) => {
+    fetch(`http://localhost:3000/users/${id}`, {
+      method:  "DELETE",
+      headers: {"Content-Type": "application/json"}
+    })
+    .then(res => res.json())
+    .then(() => this.handleLogout())
+  }
 
   render(){
     return (
       <div className="App">
-        <TopNav loggedIn={!!this.state.user} handleLogout={this.handleLogout}/>
+        <TopNav loggedIn={!!this.state.user} handleLogout={this.handleLogout} />
+
 
         <div className="makegotchi_background">
           <img src={egg_login} alt='tamagotchi_login' id='tamagotchi_login' />
 
           <div className='login_screen_div'>
+       
             <Switch>
-                <Route exact path="/home" >
-                  {!!this.state.user ?  <Home user={this.state.user} token={this.state.token} />: <Redirect to="/login" />}
-                </Route>
+              <Route exact path="/home" >
+                {!!localStorage.getItem('jwt') ?  this.renderHome(): <Redirect to="/login" />}
+              </Route>
 
-                <Route exact path="/" >
-                  {!!this.state.user ? <Redirect to="/home" /> : <Redirect to="/login" />}
-                </Route>
+              <Route exact path="/login" >
+                {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
+                <Route path="/login" exact component={this.renderForm} />}
+              </Route> 
 
-                <Route path="/signup" exact component={this.renderForm} />
-                <Route path="/login" exact component={this.renderForm} />
+              <Route exact path="/signup" >
+                {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
+                <Route path="/signup" exact component={this.renderForm} />}
+              </Route>
+
+              <Route exact path="/" >
+                {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
+                <Redirect to="/login" exact component={this.renderForm} />}
+              </Route>
+
+              <Route exact path="/editprofile" >
+                {!!localStorage.getItem('jwt') ? <Route path="/editprofile" exact component={this.renderForm} /> : 
+                <Redirect to="/login" exact component={this.renderForm} />}
+              </Route>
             </Switch>
           </div>
         </div>
@@ -103,4 +159,3 @@ class App extends React.Component {
 }
 
 export default withRouter(App)
-
