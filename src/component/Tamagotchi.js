@@ -1,7 +1,8 @@
 import React from 'react';
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
-
+// import Row from 'react-bootstrap/Row'
+// import Col from 'react-bootstrap/Col'
 import egg from '../images/makegotchi_wide3.png'
 import "./Tamagotchi.css"
 
