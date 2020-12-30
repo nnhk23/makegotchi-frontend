@@ -44,19 +44,27 @@ export default class Home extends React.Component{
         .then(userPets => {
             const currentPet = userPets[0]
             const currentTime = new Date()
-            return this.setState({    
-            userPets: userPets, 
-            currentPet: currentPet, 
-            feedIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.hunger_rate ?
-                currentPet.pet.hunger_rate - (currentTime - currentPet.last_fed)/1000 :
-                -1,
-            sleepIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.sleepy_rate ?
-                currentPet.pet.sleepy_rate - (currentTime - currentPet.last_slept)/1000 :
-                -1,
-            cleanIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.dirt_rate ?
-                currentPet.pet.dirt_rate - (currentTime - currentPet.last_cleaned)/1000 :
-                -1
-        })})
+            if (currentPet) {
+                return this.setState({    
+                userPets: userPets, 
+                currentPet: currentPet, 
+                feedIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.hunger_rate ?
+                    currentPet.pet.hunger_rate - (currentTime - currentPet.last_fed)/1000 :
+                    -1,
+                sleepIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.sleepy_rate ?
+                    currentPet.pet.sleepy_rate - (currentTime - currentPet.last_slept)/1000 :
+                    -1,
+                cleanIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.dirt_rate ?
+                    currentPet.pet.dirt_rate - (currentTime - currentPet.last_cleaned)/1000 :
+                    -1
+                })
+            }
+            else {
+                return this.setState({    
+                    userPets: userPets
+                })
+            }
+        })
     }
 
     checkPetStatus = () => {
