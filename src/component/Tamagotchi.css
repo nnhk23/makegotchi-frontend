@@ -7,7 +7,7 @@
 
 .tamagotchi_background {
     min-width: 1000px;
-    min-height: 760px;
+    min-height: 750px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -18,8 +18,8 @@
 #tamagotchi_pic{
     display: flex;
     position: absolute;
-    top: -17px;
-    width: 94%;
+    top: -8px;
+    width: 92%;
 }
 
 
