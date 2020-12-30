@@ -19,9 +19,23 @@ export default class Home extends React.Component{
     
     // fetching list of all species.
     componentDidMount() {
+        if (localStorage.getItem('jwt')){
+            fetch('http://localhost:3000/getuser',{
+              method: 'GET',
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization' : `Bearer ${localStorage.getItem('jwt')}`
+            }})
+            .then(res => res.json())
+            .then(data => {this.props.refresh(data)})
+            .then(() => {
+            this.getAllPets()
+            this.getUserPets()})
+        } else {
         this.getAllPets()
-        this.getUserPets()
+        this.getUserPets()}
     }
+
     
     getAllPets = () => {
         fetch('http://localhost:3000/pets')
