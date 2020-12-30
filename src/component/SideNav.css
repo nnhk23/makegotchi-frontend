@@ -6,11 +6,15 @@ font-family: 'Schoolbell', cursive; */
 
 
 .sideNav{
-    padding:10px;
+    padding:0px;
     display:flex;
     flex-direction: column;
     align-items: center;
     /* overflow-y: scroll; */
+    min-height: 100%;
+    background-color: #bce7ff;
+    width: 300px;
+    font-family: 'Fredoka One', cursive;
 }
 
 
@@ -79,3 +83,4 @@ font-family: 'Schoolbell', cursive; */
     box-shadow: 0 0 0 0 black;
 
  }
+

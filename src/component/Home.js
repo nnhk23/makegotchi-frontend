@@ -66,8 +66,8 @@ export default class Home extends React.Component{
                 purchasePets={this.purchasePets}
                 handleIconClick={this.handleIconClick}
                 />
-
-                {!!this.props.user ? `Hi ${this.props.user.name}!` : null}
+                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!` : null}</div>
+                
 
                 <Tamagotchi
                 updatePetList={this.updatePetList}
@@ -78,7 +78,7 @@ export default class Home extends React.Component{
                 token={this.props.token}
                 />
 
-                
+
             </div>
         )
     }

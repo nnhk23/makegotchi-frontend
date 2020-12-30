@@ -42,12 +42,7 @@ font-family: 'Schoolbell', cursive; */
   margin-top: 8px;
 }
 
-.sideNav {
-  min-height: 100%;
-  background-color: #bce7ff;
-  min-width: 250px;
-  font-family: 'Fredoka One', cursive;
-}
+
 
 #pet-img {
   height: 200px;

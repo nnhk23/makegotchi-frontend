@@ -8,5 +8,14 @@
     flex-direction: row;
     background-image: url("https://thumbs.gfycat.com/TenseExcitableGilamonster-small.gif");
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: 100% 108%;
+  }
+
+  .greeting{
+    display: flex;
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-family: 'Press Start 2P';
+    color: #600f88;
   }
