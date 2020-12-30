@@ -91,8 +91,7 @@ class App extends React.Component {
     } 
   }
 
-  
-
+ 
   handleLogout = () => {
     localStorage.clear()
     this.setState({user: ""}, ()=>{
@@ -112,8 +111,6 @@ class App extends React.Component {
     .then(res => res.json())
     .then(() => this.handleLogout())
   }
-
-
 
   render(){
     return (
