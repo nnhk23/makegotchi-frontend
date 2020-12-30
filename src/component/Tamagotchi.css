@@ -2,30 +2,86 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .tamagotchi_background {
-    position: relative;
     min-width: 1000px;
     min-height: 760px;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+#tamagotchi_pic{
+    display: flex;
+    position: absolute;
+    top: -53px;
+    width: 100%;
 }
 
 
+
 #screen {
+    width: 666px;
+    height: 62%;
     display: flex;
     align-items: center;
     text-align: center;
-    padding-left: 30px;
-    padding-right: 30px;
     position: absolute;
     border-radius: 25px;
-    max-width: 60%;
-    min-height: 436px;
-    top: 21%;
-    left: 20%;
+    top: 13%;
+    left: 17%;
     background-color: rgb(243, 245, 247);
-  }
+}
 
+
+
+.btn_container{
+    width: 655px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    /* left: 172px; */
+    bottom: 298px;
+}
+
+.controls{
+    /* outline: none; */
+    padding: -7px 7px;
+    border: none;
+    border-radius: 35px;
+    padding-top: 15px;
+    padding-left: 8px;
+    padding-right: 5px;
+    bottom: -229px;
+    height: 35%;
+    width: 11%;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background-color: #55acee;
+    margin: 10px;
+    position: relative;
+    /* display: inline-block; */
+    text-transform: uppercase;
+    box-shadow: 0px 9px 0px 0px #3C93D5;
+}
+
+
+.controls:hover {
+    background-color: #6FC6FF;
+}
+
+
+.controls:active {
+    transform: translate(0px, 5px);
+    box-shadow: 0 0 0 0 black;
+   
+    /* box-shadow: 0px 0px 0px 0px rgba(#000, .25); */
+ }

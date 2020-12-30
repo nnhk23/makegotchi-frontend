@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import RenderPetBtn from './RenderPetBtn';
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
+import './SideNav.css';
 
 const SideNav = ({purchasePets, userPets, handleIconClick}) => {
     // appear after logged in
@@ -21,8 +22,9 @@ const SideNav = ({purchasePets, userPets, handleIconClick}) => {
 
     return(
         <div className="sideNav">
-            <h2>User's Tamagotchis</h2>
-            <Button variant="outline-warning" onClick={purchasePets}>Buy Pet</Button>
+            <h2 id="sideNav_header">Your Tamagotchis</h2>
+            <Button className="buyPet_btn" variant="outline-warning" onClick={purchasePets}>Buy a Pet</Button>
+            <Button className="minigames_btn" variant="outline-warning" onClick={null}>Mini Games</Button>
             <br /><br />
             {renderBtns()}
         </div>

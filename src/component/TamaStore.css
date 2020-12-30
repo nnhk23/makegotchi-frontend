@@ -1,0 +1,36 @@
+.tama_store_div{
+width: 100%;
+height: 100%;
+}
+
+.store_name{
+font-family: 'Fredoka One', cursive;
+}
+.list_item{
+    width: 666px;
+    height:max-content;
+    background-color: #f3f5f7;
+}
+
+.tama_store_row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -26px;
+    margin-left: -26px;
+}
+
+.tama_pic{
+    padding:5px;
+    min-width: 100px;
+    height: 130px;;
+}
+
+.tama_info{
+    height: 50%;
+}
+
+.purchase_btn{
+    width: 90px;
+    border-radius: 15px;
+   
+}

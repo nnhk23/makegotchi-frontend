@@ -62,14 +62,18 @@ export default class Tamagotchi extends React.Component{
                         :
                         <UserPet
                             currentPet={this.props.currentPet}
+
                         /> }
+
+                    </div>
+                    <div className="btn_container">
+                        <button className="controls" value="feed" onClick={null}><p>?</p></button>
+                        <button className="controls" value="feed" onClick={null}><p>FEED</p></button>
+                        <button className="controls" value="clean" onClick={null}><p>CLEAN</p></button>
+                        <button className="controls" value="sleep" onClick={null}><p>SLEEP</p></button>
                     </div>
                 </div>
-                {/* <div className="btn-container">
-                    <button>FEED</button>
-                    <button>CLEAN</button>
-                    <button>SLEEP</button>
-                </div> */}
+
             </div>
         )
     }

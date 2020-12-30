@@ -33,27 +33,25 @@ class TamaStore extends React.Component{
 
     render(){
         return(
-            <div>
-                <h3>Tama Store</h3>
+            <div className="tama_store_div">
+                <h3 className="store_name">Tama Store</h3>
 
                 {/* list of tamagotchis */}
                 <ListGroup variant="flush">
                     {this.props.allSpecies.slice(this.state.tamaNumber, this.state.tamaNumber + 2).map((pet, idx) =>
-                        <ListGroup.Item>
+                        <ListGroup.Item className="list_item">
                             <Container>
-                                <Row>
+                                <Row className="tama_store_row">
                                     <Col>
-                                        <img src={pet.img_url} alt='tamagotchiiii'/>
-
-                                        {/* should link to user's pet list */}
-                                        <Button id={idx+this.state.tamaNumber} variant="outline-info" onClick={() => this.props.purchaseTama(this.props.allSpecies[idx+this.state.tamaNumber])}>Purchase</Button>
+                                        <img src={pet.img_url} alt='tamagotchiiii' className="tama_pic"/>
+                                        <Button className="purchase_btn" id={idx+this.state.tamaNumber} variant="outline-info" onClick={() => this.props.purchaseTama(this.props.allSpecies[idx+this.state.tamaNumber])}>Purchase</Button>
                                     </Col>
 
-                                    <Col>Specie: {pet.species}</Col>
-                                    <Col>Personality: {pet.personality}</Col>
-                                    <Col>Hangry Rate: {pet.hunger_rate}</Col>
-                                    <Col>Shleepy Rate: {pet.sleepy_rate}</Col>
-                                    <Col>Smelly Rate: {pet.dirt_rate}</Col>
+                                    <Col className="tama_info">Specie: {pet.species}</Col>
+                                    <Col className="tama_info">Personality: {pet.personality}</Col>
+                                    <Col className="tama_info">Hangry Rate: {pet.hunger_rate}</Col>
+                                    <Col className="tama_info">Shleepy Rate: {pet.sleepy_rate}</Col>
+                                    <Col className="tama_info">Smelly Rate: {pet.dirt_rate}</Col>
                                 </Row>
                             </Container>
                         </ListGroup.Item>

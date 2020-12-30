@@ -1,5 +1,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka+One&family=Press+Start+2P&family=Roboto&family=Schoolbell&display=swap');
+/* font-family: 'Chewy', cursive;
+font-family: 'Fredoka One', cursive; <<--- current Login page font
+font-family: 'Press Start 2P', cursive; <<--- LOGO FONT
+font-family: 'Roboto', sans-serif;
+font-family: 'Schoolbell', cursive; */
+
 
 .App-link {
   color: #61dafb;
@@ -21,11 +27,11 @@
 }
 
 
-
 .ml-auto{
   font-family: 'Press Start 2P', cursive;
   height: 48px;
 }
+
 .nav-link{
   color: #a560ff;
 
@@ -36,7 +42,6 @@
   margin-top: 8px;
 }
 
-
 .sideNav {
   min-height: 100%;
   background-color: #bce7ff;
@@ -44,25 +49,8 @@
   font-family: 'Fredoka One', cursive;
 }
 
-.icon-row {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.icon-info {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.icon-img {
-  display: block;
-  height: 80px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 #pet-img {
-  height: 160px;
+  height: 200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -75,7 +63,6 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 #tamagotchi_login{
@@ -102,11 +89,9 @@
   align-items: center;
   position: absolute;
   padding-top: 27px;
-
 }
 
 .login_screen {
-
   min-width: 50%;
   min-height: 65%;
   display: flex;
@@ -120,7 +105,5 @@
   background-color: rgb(238, 242, 245);
   font-family: 'Fredoka One', cursive;
   color: rgb(117, 71, 179);
-  /* -webkit-box-shadow: -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px -7px 27px 1px #8E5CFF, 16px 8px 4px -1px rgba(0,0,0,0);
-  box-shadow: -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px -7px 27px 1px #8E5CFF, 16px 8px 4px -1px rgba(0,0,0,0); */
 
 }
