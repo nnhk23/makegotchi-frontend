@@ -83,6 +83,7 @@ class App extends React.Component {
   handleSubmit = (tamaName) => {
     this.setState({ modalForm: false, tamaName })
     this.closeModal()
+    alert('generating Tamagotchi. Pls wait!')
   }
 
 

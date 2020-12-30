@@ -77,6 +77,7 @@ export default class Home extends React.Component{
     handleIconClick = (currentPet) => {
         this.setState({ 
             tamaStore: false,
+            ticTacToe: false,
             currentPet
         })
     }
@@ -91,7 +92,7 @@ export default class Home extends React.Component{
     
     startMiniGame = (e) => {
         alert('Start minigame')
-        this.setState({ticTacToe: true, tamaStore: false})
+        this.setState({ ticTacToe: true, tamaStore: false })
         // empty tamagotchi's screen
         // populate with minigames
     }

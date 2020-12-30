@@ -46,7 +46,6 @@ export default class Tamagotchi extends React.Component{
         // delay for 8sec to make sure states are set (ex: tamaName, modalForm)
         await this.sleep(8000)
         if (!this.props.modalForm && this.props.tamaName){
-            alert('generating Tamagotchi. Pls wait!')
             this.props.updateBuysLeft()
             this.updateUserPetData(newTama)
             // clear tamaname from state
