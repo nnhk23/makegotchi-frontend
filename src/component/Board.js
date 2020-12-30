@@ -23,6 +23,8 @@ class Board extends React.Component {
             squares[indx] = 'O'
         }
 
+        // squares[i] = this.state.xIsNext ? 'X' : 'O'
+
         this.setState(prevState => {
             return{
                 squares: squares,
@@ -56,7 +58,6 @@ class Board extends React.Component {
         <Square 
             value={this.state.squares[i]} 
             handleClick={() => this.handleClick(i)}
-            xIsNext={this.state.xIsNext} 
         />
 
     render(){

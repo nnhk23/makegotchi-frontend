@@ -4,9 +4,8 @@ class Square extends React.Component {
 
   state={ xIsNext: false }
 
-  autoClick = (squares) => {   
+  autoClick = (squares) => {
     const arr = Array.prototype.slice.call(squares)
-    // debugger
     let indx = arr.findIndex(s => !s.value )
     squares[indx].click()
     this.toggleX()
@@ -24,7 +23,7 @@ class Square extends React.Component {
           onClick={this.props.handleClick}
           >
             {this.props.value}
-            {!this.state.xIsNext && squares.length === 9 ? this.autoClick(squares) : null}
+            {!this.state.xIsNext && squares.length !== 0 ? this.autoClick(squares) : console.log(this.state.xIsNext, squares.length)}
           </button>
       )
   }
