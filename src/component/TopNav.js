@@ -1,11 +1,10 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+
 // import { Link } from 'react-router-dom';
 
-const TopNav = ({ loggedIn, handleLogout }) => {
-
-
+const TopNav = ({ loggedIn, handleLogout}) => {
     
     return(
         <Navbar
@@ -18,9 +17,9 @@ const TopNav = ({ loggedIn, handleLogout }) => {
         { loggedIn ? 
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
-                    <Nav.Link href="/home">Profile</Nav.Link>
+                    <Nav.Link href="/editprofile">Profile</Nav.Link>
                 </Nav.Item>
-
+                
                 <Nav.Item>
                     <Nav.Link eventKey="link-1" onClick={() => handleLogout()}>Logout</Nav.Link>
                 </Nav.Item>
@@ -28,7 +27,7 @@ const TopNav = ({ loggedIn, handleLogout }) => {
             : 
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
-                    <Nav.Link href=""></Nav.Link>
+                    <Nav.Link href="/home"></Nav.Link>
                 </Nav.Item>
             </Navbar.Collapse>
         }
