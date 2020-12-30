@@ -7,17 +7,17 @@ import TopNav from './component/TopNav'
 import FormRender from './component/FormRender'
 import './App.css';
 import { Redirect } from "react-router-dom";
-import ModalForm from './component/ModalForm';
+// import ModalForm from './component/ModalForm';
 
 
 class App extends React.Component {
 
   state = {
     user: "",
-    token: "",
-    isOpen: false,
-    modalForm: false,
-    tamaName: null
+    token: ""
+    // isOpen: false,
+    // modalForm: false,
+    // newTama: null
   }
 
   // rendering components  --- > 
@@ -74,17 +74,28 @@ class App extends React.Component {
 
 
   // handle modal form
-  openModal = () => this.setState({ isOpen: true });
-  closeModal = () => this.setState({ isOpen: false });
-  clearTamaName = () => this.setState({ tamaName: null })
-  renderModalForm = () => this.setState({ modalForm: true })
+  // openModal = () => this.setState({ isOpen: true });
+  // closeModal = () => this.setState({ isOpen: false });
+  // clearTamaName = () => this.setState({ tamaName: null })
+  // renderModalForm = () => this.setState({ modalForm: true })
 
   // naming new tama
-  handleSubmit = (tamaName) => {
-    this.setState({ modalForm: false, tamaName })
-    this.closeModal()
-    alert('generating Tamagotchi. Pls wait!')
-  }
+  // handleSubmit = (tamaName) => {
+  //   this.setState(prevState =>{
+  //     return{ 
+  //       modalForm: false,
+  //       newTama: {...prevState.newTama, name: tamaName}
+  //     }
+  //   })
+  //   this.closeModal()
+  //   alert('generating Tamagotchi. Pls wait!')
+  // }
+
+  // purchaseTama = (newTama) => {
+  //   this.openModal()
+  //   this.renderModalForm()
+  //   this.setState({ newTama })
+  // }
 
 
   render(){
@@ -97,12 +108,14 @@ class App extends React.Component {
               {!!this.state.user ?  
                 <Home 
                   user={this.state.user} 
-                  token={this.state.token} 
-                  renderModalForm={this.renderModalForm} 
-                  openModal={this.openModal} 
-                  tamaName={this.state.tamaName} 
-                  modalForm={this.state.modalForm}
-                  clearTamaName={this.clearTamaName}
+                  token={this.state.token}
+                  // renderModalForm={this.renderModalForm} 
+                  // openModal={this.openModal} 
+                  // tamaName={this.state.tamaName} 
+                  // modalForm={this.state.modalForm}
+                  // clearTamaName={this.clearTamaName}
+                  // purchaseTama={this.purchaseTama}
+                  // newTama={this.state.newTama.name ? this.state.newTama : null}
                 />
                  : 
                 <Redirect to="/login" />
@@ -118,15 +131,16 @@ class App extends React.Component {
         </Switch>
 
         {/* render modal form conditionally */}
-        { this.state.modalForm ? 
+        {/* { this.state.modalForm ? 
           <ModalForm 
             closeModal={this.closeModal} 
             isOpen={this.state.isOpen} 
             handleSubmit={this.handleSubmit}
+
           /> 
           : 
           null 
-        }
+        } */}
 
       </div>
 

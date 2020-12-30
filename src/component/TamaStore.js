@@ -50,7 +50,7 @@ class TamaStore extends React.Component{
                                             id={idx+this.state.tamaNumber} 
                                             variant="outline-info" 
                                             onClick={() =>{ 
-                                                this.props.openModal()
+                                                // this.props.openModal()
                                                 this.props.purchaseTama(this.props.allSpecies[idx+this.state.tamaNumber])}
                                             }>
                                                 Purchase

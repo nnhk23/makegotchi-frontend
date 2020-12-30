@@ -1,14 +1,11 @@
 import React from 'react';
 import SideNav from './SideNav'
 import Tamagotchi from './Tamagotchi'
-// import Row from 'react-bootstrap/Row'
-// import Col from 'react-bootstrap/Col'
-// import { Link } from 'react-router-dom';
+import ModalForm from './ModalForm';
+
 
 export default class Home extends React.Component{
 
-    // side nav appearwhen logged in.
-    // fetching Alex's pets.
     
     state={
         allSpecies: [],
@@ -16,7 +13,10 @@ export default class Home extends React.Component{
         tamaStore: false,
         currentPet: null,
         buysLeft: this.props.user.buys_left,
-        ticTacToe: false
+        ticTacToe: false,
+        isOpen: false,
+        modalForm: false,
+        newTama: null
     }
     
     // fetching list of all species.
@@ -89,6 +89,57 @@ export default class Home extends React.Component{
             }
         })
     }
+
+    // create new userpets
+    createUserPetData =  () => {
+        // update database with new user pet
+        // reach out to Lantz or Hal JWT
+        fetch('http://localhost:3000/user_pets',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
+            },
+            body: JSON.stringify({
+                name: this.state.newTama.name,
+                user_id: this.props.user.id,
+                pet_id: this.state.newTama.id
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            // debugger
+            this.updatePetList(data)
+        })
+    }
+
+    // handle modal form
+    openModal = () => this.setState({ isOpen: true });
+    closeModal = () => this.setState({ isOpen: false });
+    renderModalForm = () => this.setState({ modalForm: true })
+
+    // naming tama
+    handleSubmit = (tamaName) => {
+        this.setState(prevState =>{
+          return{ 
+            modalForm: false,
+            newTama: {...prevState.newTama, name: tamaName}
+          }
+        }, () => {
+            this.createUserPetData()
+        })
+
+        this.closeModal()
+        
+        alert('generating Tamagotchi. Pls wait!')
+    }
+    
+    purchaseTama = (newTama) => {
+        this.openModal()
+        this.renderModalForm()
+        this.setState({ newTama })
+    }
+
     
     startMiniGame = (e) => {
         alert('Start minigame')
@@ -111,21 +162,34 @@ export default class Home extends React.Component{
 
                 {!!this.props.user ? `Hi ${this.props.user.name}! You have ${this.state.buysLeft} slots left.` : null}
                 <Tamagotchi 
-                    updatePetList={this.updatePetList}
+                    // updatePetList={this.updatePetList}
                     allSpecies={this.state.allSpecies} 
                     currentPet={this.state.currentPet} 
                     tamaStore={this.state.tamaStore}
                     user={this.props.user}
                     token={this.props.token}
-                    renderModalForm={this.props.renderModalForm}
-                    openModal={this.props.openModal}
-                    tamaName={this.props.tamaName} 
-                    modalForm={this.props.modalForm}
-                    clearTamaName={this.props.clearTamaName}
+                    // renderModalForm={this.props.renderModalForm}
+                    // openModal={this.props.openModal}
+                    // tamaName={this.props.tamaName} 
+                    // modalForm={this.props.modalForm}
+                    // clearTamaName={this.props.clearTamaName}
+                    purchaseTama={this.purchaseTama}
                     updateBuysLeft={this.updateBuysLeft}
                     buysLeft={this.state.buysLeft}
                     ticTacToe={this.state.ticTacToe}
                 />
+
+                { this.state.modalForm ? 
+                    <ModalForm 
+                        closeModal={this.closeModal} 
+                        isOpen={this.state.isOpen} 
+                        handleSubmit={this.handleSubmit}
+
+                    /> 
+                    : 
+                    null 
+                }           
+
             </div>
         )
     }

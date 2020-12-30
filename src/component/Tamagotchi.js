@@ -12,51 +12,51 @@ export default class Tamagotchi extends React.Component{
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    updateUserPetData =  (newTama) => {
-        // update database with new user pet
-        // reach out to Lantz or Hal JWT
-        fetch('http://localhost:3000/user_pets',{
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Accept' : 'application/json',
-                'Authorization' : `Bearer ${this.props.token}`
-            },
-            body: JSON.stringify({
-                name: this.props.tamaName,
-                user_id: this.props.user.id,
-                pet_id: newTama.id
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            // debugger
-            this.props.updatePetList(data)
-        })
-    }
+    // updateUserPetData =  (newTama) => {
+    //     // update database with new user pet
+    //     // reach out to Lantz or Hal JWT
+    //     fetch('http://localhost:3000/user_pets',{
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type' : 'application/json',
+    //             'Accept' : 'application/json',
+    //             'Authorization' : `Bearer ${this.props.token}`
+    //         },
+    //         body: JSON.stringify({
+    //             name: this.props.tamaName,
+    //             user_id: this.props.user.id,
+    //             pet_id: newTama.id
+    //         })
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(data => {
+    //         // debugger
+    //         this.props.updatePetList(data)
+    //     })
+    // }
 
-    purchaseTama = async (newTama) => {
-        // add new tama to user's pet list
-        // adjust buys_left
-        alert('Tama is bought!')
+    // purchaseTama = async (newTama) => {
+    //     // add new tama to user's pet list
+    //     // adjust buys_left
+    //     alert('Tama is bought!')
 
-        // enable modal form in App
-        this.props.renderModalForm()
+    //     // enable modal form in App
+    //     this.props.renderModalForm()
         
-        // delay for 8sec to make sure states are set (ex: tamaName, modalForm)
-        await this.sleep(8000)
-        if (!this.props.modalForm && this.props.tamaName){
-            this.props.updateBuysLeft()
-            this.updateUserPetData(newTama)
-            // clear tamaname from state
-            this.props.clearTamaName()
-        } else {
-            await this.sleep(4000) 
-            if (!this.props.modalForm && this.props.tamaName) { 
-                this.updateUserPetData(newTama)
-            }
-        }
-    }
+    //     // delay for 8sec to make sure states are set (ex: tamaName, modalForm)
+    //     await this.sleep(8000)
+    //     if (!this.props.modalForm && this.props.tamaName){
+    //         this.props.updateBuysLeft()
+    //         this.updateUserPetData(newTama)
+    //         // clear tamaname from state
+    //         this.props.clearTamaName()
+    //     } else {
+    //         await this.sleep(4000) 
+    //         if (!this.props.modalForm && this.props.tamaName) { 
+    //             this.updateUserPetData(newTama)
+    //         }
+    //     }
+    // }
 
 
     render(){
@@ -69,9 +69,10 @@ export default class Tamagotchi extends React.Component{
                         {this.props.tamaStore ? 
                             <TamaStore 
                                 allSpecies={this.props.allSpecies} 
-                                purchaseTama={this.purchaseTama}
-                                openModal={this.props.openModal}
+                                // purchaseTama={this.purchaseTama}
+                                // openModal={this.props.openModal}
                                 buysLeft={this.props.buysLeft}
+                                purchaseTama={this.props.purchaseTama}
                             /> 
                             : 
                             // render minigame when tictactoe is activated
