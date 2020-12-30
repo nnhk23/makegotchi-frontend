@@ -11,7 +11,7 @@
     background-size: 100% 108%;
   }
 
-  .greeting{
+  #greeting{
     display: flex;
     position: absolute;
     right: 35px;
