@@ -2,19 +2,16 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-// import { Link } from 'react-router-dom';
-
 const TopNav = ({ loggedIn, handleLogout}) => {
-    
+
     return(
         <Navbar
         className='ml-auto'
         bg="dark"
         variant="dark"
         activeKey="/home"
-        // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-        >
-        { loggedIn ? 
+        ><h4 id="logo_topNav">MAKEGOTCHI</h4>
+        { loggedIn ?
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
                     <Nav.Link href="/editprofile">Profile</Nav.Link>
@@ -24,7 +21,7 @@ const TopNav = ({ loggedIn, handleLogout}) => {
                     <Nav.Link eventKey="link-1" onClick={() => handleLogout()}>Logout</Nav.Link>
                 </Nav.Item>
             </Navbar.Collapse>
-            : 
+            :
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
                     <Nav.Link href="/home"></Nav.Link>
@@ -33,7 +30,6 @@ const TopNav = ({ loggedIn, handleLogout}) => {
         }
         </Navbar>
     )
-    // logo and app name left side.
-    // when logged in: logout and profile button would appear.
+
 }
 export default TopNav

@@ -1,6 +1,7 @@
 import React from 'react';
 import RenderPetBtn from './RenderPetBtn';
 import Button from 'react-bootstrap/Button'
+import './SideNav.css';
 
 const SideNav = ({purchasePets, userPets, handleIconClick, startMiniGame}) => {
     // appear after logged in
@@ -19,11 +20,10 @@ const SideNav = ({purchasePets, userPets, handleIconClick, startMiniGame}) => {
 
     return(
         <div className="sideNav">
-            <h2>User's Tamagotchis</h2>
-            <Button variant="outline-warning" onClick={purchasePets}>Buy Pet</Button>
-            <br />
-            <Button variant="outline-success" onClick={startMiniGame}>Minigames</Button>
-            <br />
+            <h2 id="sideNav_header">Your Tamagotchis</h2>
+            <Button className="buyPet_btn" variant="outline-warning" onClick={purchasePets}>Buy a Pet</Button>
+            <Button className="minigames_btn" variant="outline-warning" onClick={startMiniGame}>Mini Games</Button>
+            <br /><br />
             {renderBtns()}
         </div>
     )

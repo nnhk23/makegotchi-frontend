@@ -6,6 +6,8 @@ import Home from './component/Home'
 import TopNav from './component/TopNav'
 import FormRender from './component/FormRender'
 import './App.css';
+import egg_login from './images/makegotchi_login.png'
+
 
 
 
@@ -15,26 +17,27 @@ class App extends React.Component {
     user: ""
   }
 
+
   // rendering components  --- > 
   renderHome = () => <Home user={this.state.user} token={localStorage.getItem('jwt')} refresh={this.handleRefresh} />
-  
+
   renderForm = (routerProps) => {
     
     if (routerProps.location.pathname === "/signup"){
-      return <FormRender name="SignUp" handleSubmit={this.handleSignup} />
+      return <div className='login_screen'><FormRender name="SignUp" handleSubmit={this.handleSignup} /></div>
     } else if (routerProps.location.pathname === "/login"){
-      return <FormRender name="Login" handleSubmit={this.handleLogin} />
+      return <div className='login_screen'><FormRender name="Login" handleSubmit={this.handleLogin} /></div>
     } else if (routerProps.location.pathname === "/editprofile"){
-      return <FormRender name="Update" handleSubmit={this.handleUpdate} handleDelete={this.handleDelete}/>
+      return <div className='login_screen'><FormRender name="Update" handleSubmit={this.handleUpdate} handleDelete={this.handleDelete}/></div>
     }
   }
 
- 
   // sign up, log in, auth, log out --- > 
+
   handleSignup = (info) => {
     let data = {
-      name: info.name, 
-      username: info.username, 
+      name: info.name,
+      username: info.username,
       password: info.password
     }
     this.handleAuth(data, "http://localhost:3000/users", "POST")
@@ -43,7 +46,7 @@ class App extends React.Component {
 
   handleLogin = (info) => {
     let data = {
-      username: info.username, 
+      username: info.username,
       password: info.password
     }
     this.handleAuth(data, "http://localhost:3000/login", "POST")
@@ -116,33 +119,39 @@ class App extends React.Component {
       <div className="App">
         <TopNav loggedIn={!!this.state.user} handleLogout={this.handleLogout} />
 
-        <Switch>
-            <Route exact path="/home" >
-              {!!localStorage.getItem('jwt') ?  this.renderHome(): <Redirect to="/login" />}
-            </Route>
 
-            <Route exact path="/login" >
-              {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
-              <Route path="/login" exact component={this.renderForm} />}
-            </Route> 
+        <div className="makegotchi_background">
+          <img src={egg_login} alt='tamagotchi_login' id='tamagotchi_login' />
 
-            <Route exact path="/signup" >
-            {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
-            <Route path="/signup" exact component={this.renderForm} />}
-          </Route>
+          <div className='login_screen_div'>
+       
+            <Switch>
+              <Route exact path="/home" >
+                {!!localStorage.getItem('jwt') ?  this.renderHome(): <Redirect to="/login" />}
+              </Route>
 
-          <Route exact path="/" >
-            {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
-            <Redirect to="/login" exact component={this.renderForm} />}
-          </Route>
+              <Route exact path="/login" >
+                {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
+                <Route path="/login" exact component={this.renderForm} />}
+              </Route> 
 
-          <Route exact path="/editprofile" >
-            {!!localStorage.getItem('jwt') ? <Route path="/editprofile" exact component={this.renderForm} /> : 
-            <Redirect to="/login" exact component={this.renderForm} />}
-          </Route>
-          
-            
-        </Switch>
+              <Route exact path="/signup" >
+                {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
+                <Route path="/signup" exact component={this.renderForm} />}
+              </Route>
+
+              <Route exact path="/" >
+                {!!localStorage.getItem('jwt') ? <Redirect to="/home" /> : 
+                <Redirect to="/login" exact component={this.renderForm} />}
+              </Route>
+
+              <Route exact path="/editprofile" >
+                {!!localStorage.getItem('jwt') ? <Route path="/editprofile" exact component={this.renderForm} /> : 
+                <Redirect to="/login" exact component={this.renderForm} />}
+              </Route>
+            </Switch>
+          </div>
+        </div>
       </div>
 
     )

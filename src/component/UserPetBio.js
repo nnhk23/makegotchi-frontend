@@ -12,7 +12,7 @@ const UserPetBio = ({ currentPet }) => {
     }
 
     return (
-        <div>
+        <div className="userPet_bio">
             <p>Hi! My name is {name}, and I am {article} {personality.toLowerCase()} {species}. I get hungry every {hunger_rate} seconds and sleepy every {sleepy_rate} seconds, and I need a bath every {dirt_rate} seconds! </p>
         </div>
     )

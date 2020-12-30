@@ -1,0 +1,39 @@
+/* font-family: 'Chewy', cursive;
+font-family: 'Fredoka One', cursive; <<--- current Login page font
+font-family: 'Press Start 2P', cursive; <<--- LOGO FONT
+font-family: 'Roboto', sans-serif;
+font-family: 'Schoolbell', cursive; */
+
+
+
+.icon-row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 15px;
+    width: 270px;
+  }
+
+.icon-info {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.icon-img {
+    display: block;
+    height: 95px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#icon_name{
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    color: rgb(57, 82, 129);
+}
+
+#icon_species{
+    font-family: 'Schoolbell', cursive;
+    font-weight: 600;
+    font-size: 22px;
+    color: rgb(98, 102, 110);
+}

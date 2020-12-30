@@ -1,13 +1,14 @@
 import React from 'react';
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
+import egg from '../images/makegotchi_wide3.png'
+import "./Tamagotchi.css"
 import Game from './Game'
 import UserPetBio from './UserPetBio';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import egg_draft from '../images/makegotchi_egg.png';
-import "./Tamagotchi.css";
+
 
 export default class Tamagotchi extends React.Component{
 
@@ -40,7 +41,7 @@ export default class Tamagotchi extends React.Component{
                     <div>
                         <Row className="tamagotchi_container" id='screen_div'>
                             <div className="tamagotchi_background">
-                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
                                     <TamaStore 
                                         allSpecies={this.props.allSpecies} 
@@ -53,13 +54,25 @@ export default class Tamagotchi extends React.Component{
                     </div>
                 ) 
             case this.props.ticTacToe:
-                return <Game />
+                return (
+                   <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                    <Game />
+                                </div>
+                            </div>
+                        </Row>
+                    </div>
+                    )
+                
             case !!this.props.currentPet:
                 return (
                     <div>
                         <Row className="tamagotchi_container" id='screen_div'>
                             <div className="tamagotchi_background">
-                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
                                     <UserPet 
                                         currentPet={this.props.currentPet}
@@ -71,18 +84,11 @@ export default class Tamagotchi extends React.Component{
                             </div>
                         </Row>
 
-                        {/* temporary, to be able to press buttons */}
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-
+               
                         <Row className="btn-container" onClick={this.props.handleActionBtnClick}>
-                            <Button id="feed-btn">Feed</Button>
-                            <Button id="sleep-btn">Sleep</Button>
-                            <Button id="clean-btn">Clean</Button>
+                          <button className="controls" value="feed" id="feed-btn"><p>FEED</p></button>
+                          <button className="controls" value="clean" id="clean-btn"><p>CLEAN</p></button>
+                          <button className="controls" value="sleep" id="sleep-btn"><p>SLEEP</p></button>
                         </Row>
 
                         <Row>
@@ -95,7 +101,7 @@ export default class Tamagotchi extends React.Component{
                     <div>
                         <Row className="tamagotchi_container" id='screen_div'>
                             <div className="tamagotchi_background">
-                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
                                 </div>
                             </div>
@@ -103,6 +109,7 @@ export default class Tamagotchi extends React.Component{
                     </div>
                 )
         }
+
     }
 }
 

@@ -1,0 +1,21 @@
+.home {
+    position: fixed;
+    left:0;
+    top: 48px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: row;
+    background-image: url("https://thumbs.gfycat.com/TenseExcitableGilamonster-small.gif");
+    background-repeat: no-repeat;
+    background-size: 100% 108%;
+  }
+
+  #greeting{
+    display: flex;
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-family: 'Press Start 2P';
+    color: #600f88;
+  }

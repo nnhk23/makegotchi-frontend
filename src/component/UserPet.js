@@ -1,16 +1,16 @@
 import React from 'react';
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import './UserPet.css';
 
 const UserPet = ({ currentPet, feedIn, sleepIn, cleanIn }) => {
     const { name, happiness_score, last_fed, last_slept, last_cleaned, pet } = currentPet
     return (
-        <div>
+        <div className="userPet_obj">
             <Row>
-                <h2>{name}</h2>
+                <h2 className="userPet_name">{name}</h2>
             </Row>
             <Row>
-                <p>Happiness: {happiness_score}</p> 
+                <p className="userPet_happy">Happiness: {happiness_score}</p> 
             </Row>
             <Row>
                 {feedIn > 0 ? <p>Feed me in {feedIn} seconds!</p> : <p>I NEED FOOD NOW!!!</p>}
@@ -26,5 +26,6 @@ const UserPet = ({ currentPet, feedIn, sleepIn, cleanIn }) => {
             </Row>
         </div>
     )
+
 }
 export default UserPet

@@ -4,9 +4,10 @@ import Tamagotchi from './Tamagotchi'
 import ModalForm from './ModalForm';
 
 
+import "./Home.css"
+
 export default class Home extends React.Component{
 
-    
     state={
         allSpecies: [],
         userPets: [],
@@ -22,7 +23,7 @@ export default class Home extends React.Component{
         cleanIn: -1,
         sleepIn: -1
     }
-    
+
     // fetching list of all species.
     componentDidMount() {
         fetch('http://localhost:3000/getuser',{
@@ -43,11 +44,6 @@ export default class Home extends React.Component{
 
     componentWillUnmount() {
         clearInterval(this.state.interval)
-    }
-
-    
-    sleep = (ms) => {
-        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     getAllPets = () => {
@@ -169,6 +165,7 @@ export default class Home extends React.Component{
     }
 
     handleIconClick = (currentPet) => {
+
         this.setState({ 
             tamaStore: false,
             ticTacToe: false,
@@ -314,8 +311,9 @@ export default class Home extends React.Component{
                     handleIconClick={this.handleIconClick} 
                     startMiniGame={this.startMiniGame}
                 />
+               
 
-                {!!this.props.user ? `Hi ${this.props.user.name}! You have ${this.state.buysLeft} slots left.` : null}
+                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}! You have ${this.state.buysLeft} slots left.` : null}</div>
                 <Tamagotchi 
                     allSpecies={this.state.allSpecies} 
                     currentPet={this.state.currentPet} 
@@ -337,10 +335,8 @@ export default class Home extends React.Component{
                         closeModal={this.closeModal} 
                         isOpen={this.state.isOpen} 
                         handleSubmit={this.handleSubmit}
-
                     /> 
-                    : 
-                    null 
+                    : null 
                 }           
 
             </div>

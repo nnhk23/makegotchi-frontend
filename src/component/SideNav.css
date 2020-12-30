@@ -1,0 +1,86 @@
+/* font-family: 'Chewy', cursive;
+font-family: 'Fredoka One', cursive; <<--- current Login page font
+font-family: 'Press Start 2P', cursive; <<--- LOGO FONT
+font-family: 'Roboto', sans-serif;
+font-family: 'Schoolbell', cursive; */
+
+
+.sideNav{
+    padding:0px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    /* overflow-y: scroll; */
+    min-height: 100%;
+    background-color: #bce7ff;
+    width: 300px;
+    font-family: 'Fredoka One', cursive;
+}
+
+
+#sideNav_header{
+    font-family: 'Schoolbell', cursive;
+    font-weight: 900;
+    padding: 20px;
+    color: rgb(73, 0, 133);
+}
+
+
+.buyPet_btn{
+    padding: 10px;
+    border: none;
+    border-radius: 35px;
+    /* padding-top: 15px;
+    padding-left: 8px;
+    padding-right: 5px; */
+    /* bottom: -229px;
+    height: 35%;
+    width: 11%; */
+    /* display: inline-block; */
+    /* left: 58px; */
+    /* position: relative; */
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    color: rgb(30, 3, 73);
+    background-color: #f8c621;
+    margin: 10px;
+    text-transform: uppercase;
+    box-shadow: 0px 9px 0px 0px #d1b200;
+}
+
+.buyPet_btn:hover {
+    background-color: #f5d56e;
+}
+
+
+.buyPet_btn:active {
+    transform: translate(0px, 5px);
+    box-shadow: 0 0 0 0 black;
+ }
+
+ .minigames_btn{
+    padding: 10px;
+    border: none;
+    border-radius: 35px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    color: rgb(30, 3, 73);
+    background-color: #f8c621;
+    margin: 10px;
+    text-transform: uppercase;
+    box-shadow: 0px 9px 0px 0px #d1b200;
+ }
+
+ .minigames_btn:hover {
+    background-color: #f5d56e;
+}
+
+
+.minigames_btn:active {
+    transform: translate(0px, 5px);
+    box-shadow: 0 0 0 0 black;
+
+ }
+

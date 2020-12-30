@@ -1,6 +1,7 @@
 import React from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import './RenderPetBtn.css'
 
 const RenderPetBtn = ({ userPet, handleIconClick }) => {
     const { name, pet } = userPet
@@ -13,10 +14,10 @@ const RenderPetBtn = ({ userPet, handleIconClick }) => {
             </Col>
             <Col className="icon-info">
                 <Row>
-                    <h5>{ name }</h5>
+                    <h5 id="icon_name">{ name }</h5>
                 </Row>
                 <Row>
-                    <p>{ species }</p>
+                    <p id="icon_species">{ species }</p>
                 </Row>
             </Col>
         </Row>
