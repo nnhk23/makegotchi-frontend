@@ -2,95 +2,107 @@ import React from 'react';
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
 import Game from './Game'
-
-import egg_draft from '../images/makegotchi_egg.png'
-import "./Tamagotchi.css"
+import UserPetBio from './UserPetBio';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import egg_draft from '../images/makegotchi_egg.png';
+import "./Tamagotchi.css";
 
 export default class Tamagotchi extends React.Component{
-    
-    sleep = (ms) => {
-        return new Promise(resolve => setTimeout(resolve, ms));
+
+        // update database with new user pet
+        // reach out to Lantz or Hal JWT
+        fetch('http://localhost:3000/user_pets',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
+                // ,
+                // 'Authorization' : `Bearer ${localStorage.getItem('jwt')}`
+            },
+            body: JSON.stringify({
+                name: "Beans",
+                user_id: this.props.userId,
+                pet_id: newTama.id,
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => this.props.updatePetList(data))
     }
 
-    // updateUserPetData =  (newTama) => {
-    //     // update database with new user pet
-    //     // reach out to Lantz or Hal JWT
-    //     fetch('http://localhost:3000/user_pets',{
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type' : 'application/json',
-    //             'Accept' : 'application/json',
-    //             'Authorization' : `Bearer ${this.props.token}`
-    //         },
-    //         body: JSON.stringify({
-    //             name: this.props.tamaName,
-    //             user_id: this.props.user.id,
-    //             pet_id: newTama.id
-    //         })
-    //     })
-    //     .then(resp => resp.json())
-    //     .then(data => {
-    //         // debugger
-    //         this.props.updatePetList(data)
-    //     })
-    // }
-
-    // purchaseTama = async (newTama) => {
-    //     // add new tama to user's pet list
-    //     // adjust buys_left
-    //     alert('Tama is bought!')
-
-    //     // enable modal form in App
-    //     this.props.renderModalForm()
-        
-    //     // delay for 8sec to make sure states are set (ex: tamaName, modalForm)
-    //     await this.sleep(8000)
-    //     if (!this.props.modalForm && this.props.tamaName){
-    //         this.props.updateBuysLeft()
-    //         this.updateUserPetData(newTama)
-    //         // clear tamaname from state
-    //         this.props.clearTamaName()
-    //     } else {
-    //         await this.sleep(4000) 
-    //         if (!this.props.modalForm && this.props.tamaName) { 
-    //             this.updateUserPetData(newTama)
-    //         }
-    //     }
-    // }
-
-
     render(){
-      
-        return(
-            <div className="tamagotchi_container" id='screen_div'>
-                <div className="tamagotchi_background">
-                    <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
-                    <div id='screen'>
-                        {this.props.tamaStore ? 
-                            <TamaStore 
-                                allSpecies={this.props.allSpecies} 
-                                // purchaseTama={this.purchaseTama}
-                                // openModal={this.props.openModal}
-                                buysLeft={this.props.buysLeft}
-                                purchaseTama={this.props.purchaseTama}
-                            /> 
-                            : 
-                            // render minigame when tictactoe is activated
-                            this.props.ticTacToe ?
-                                <Game />
-                                :
-                                <UserPet currentPet={this.props.currentPet}/> 
-                        }
+        switch (true) {
+            case this.props.tamaStore:
 
+                return (
+                    // eslint-disable-next-line react/style-prop-object
+                    <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                    <TamaStore 
+                                        allSpecies={this.props.allSpecies} 
+                                        buysLeft={this.props.buysLeft}
+                                        purchaseTama={this.purchaseTama} 
+                                    /> 
+                                </div>
+                            </div>
+                        </Row>
                     </div>
-          
-                </div>
-                
-                <div className="btn-container">
-                    <button> random HELLO</button>
-                </div>
-            </div>
-        )
+                ) 
+            case this.props.ticTacToe:
+                return <Game />
+            case !!this.props.currentPet:
+                return (
+                    <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                    <UserPet 
+                                        currentPet={this.props.currentPet}
+                                        feedIn={this.props.feedIn}
+                                        sleepIn={this.props.sleepIn}
+                                        cleanIn={this.props.cleanIn}
+                                    />
+                                </div>               
+                            </div>
+                        </Row>
+
+                        {/* temporary, to be able to press buttons */}
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <Row className="btn-container" onClick={this.props.handleActionBtnClick}>
+                            <Button id="feed-btn">Feed</Button>
+                            <Button id="sleep-btn">Sleep</Button>
+                            <Button id="clean-btn">Clean</Button>
+                        </Row>
+
+                        <Row>
+                            <UserPetBio currentPet={this.props.currentPet} />
+                        </Row>
+                    </div>
+                )
+            default:
+                return (
+                    <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg_draft} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                </div>
+                            </div>
+                        </Row>
+                    </div>
+                )
+        }
     }
 }
 
