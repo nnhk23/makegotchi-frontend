@@ -32,8 +32,9 @@ export default class Tamagotchi extends React.Component{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
-                'Accept' : 'application/json',
-                'Authorization' : `Bearer ${this.props.token}`
+                'Accept' : 'application/json'
+                // ,
+                // 'Authorization' : `Bearer ${localStorage.getItem('jwt')}`
             },
             body: JSON.stringify({
                 name: "Beans",
@@ -42,6 +43,7 @@ export default class Tamagotchi extends React.Component{
             })
         })
         .then(resp => resp.json())
+        // .then(data => {debugger})
         .then(data => this.props.updatePetList(data))
     }
 
