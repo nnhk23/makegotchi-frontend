@@ -13,7 +13,7 @@ export default class Home extends React.Component{
         userPets: [],
         tamaStore: false,
         currentPet: null,
-        buysLeft: this.props.user.buys_left,
+        buysLeft: null,
         ticTacToe: false,
         isOpen: false,
         modalForm: false,
@@ -33,13 +33,16 @@ export default class Home extends React.Component{
             'Authorization' : `Bearer ${localStorage.getItem('jwt')}`
         }})
         .then(res => res.json())
-        .then(data => {this.props.refresh(data)})
+        .then(data => {
+            this.setState({ buysLeft: data.user.buys_left})
+            this.props.refresh(data)
+        })
         .then(() => {
         this.getAllPets()
         this.getUserPets()
-        this.setState({ interval: setInterval(this.checkPetStatus, 1000) })
+        this.setState({ interval: setInterval(this.checkPetStatus, 1000)})
         })
-        
+
     }
 
     componentWillUnmount() {
@@ -56,13 +59,12 @@ export default class Home extends React.Component{
         return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
         .then(res => res.json())
         .then(userPets => {
-            this.updateBuysLeft(userPets)
             const currentPet = userPets[0]
             const currentTime = new Date()
             if (currentPet) {
-                return this.setState({    
-                userPets: userPets, 
-                currentPet: currentPet, 
+                return this.setState({
+                userPets: userPets,
+                currentPet: currentPet,
                 feedIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.hunger_rate ?
                     currentPet.pet.hunger_rate - (currentTime - currentPet.last_fed)/1000 :
                     -1,
@@ -75,7 +77,7 @@ export default class Home extends React.Component{
                 })
             }
             else {
-                return this.setState({    
+                return this.setState({
                     userPets: userPets
                 })
             }
@@ -89,7 +91,7 @@ export default class Home extends React.Component{
 
             const timeSinceLastFed = (currentTime - Date.parse(currentPet.last_fed))/1000
             if (timeSinceLastFed < currentPet.pet.hunger_rate) {
-                this.setState({ 
+                this.setState({
                     feedIn: Math.floor(currentPet.pet.hunger_rate - (currentTime - Date.parse(currentPet.last_fed))/1000)
                 })
             } else {
@@ -100,9 +102,9 @@ export default class Home extends React.Component{
 
             const timeSinceLastSlept = (currentTime - Date.parse(currentPet.last_slept))/1000
             if (timeSinceLastSlept < currentPet.pet.sleepy_rate) {
-                this.setState({ 
+                this.setState({
                     sleepIn: Math.floor(currentPet.pet.sleepy_rate - (currentTime - Date.parse(currentPet.last_slept))/1000)
-                }) 
+                })
             } else {
                 this.setState({ sleepIn: -1 })
                 this.decreaseHappiness()
@@ -110,9 +112,9 @@ export default class Home extends React.Component{
 
             const timeSinceLastCleaned = (currentTime - Date.parse(currentPet.last_cleaned))/1000
             if (timeSinceLastCleaned < currentPet.pet.dirt_rate) {
-                this.setState({ 
+                this.setState({
                     cleanIn: Math.floor(currentPet.pet.dirt_rate - (currentTime - Date.parse(currentPet.last_cleaned))/1000)
-                }) 
+                })
             } else {
                 this.setState({ cleanIn: -1 })
                 this.decreaseHappiness()
@@ -141,14 +143,15 @@ export default class Home extends React.Component{
         this.setState({ tamaStore: true })
     }
 
-    updateBuysLeft = async (pets) => {
-        let buysLeft
-        let userPetsLength
+    updateBuysLeft = () => {
+        
+        let buysLeft = this.state.buysLeft - 1
+        // let userPetsLength
 
-        await this.sleep(1000)
-        pets ? userPetsLength = pets.length : userPetsLength = this.state.userPets.length
+        // await this.sleep(1000)
+        // pets ? userPetsLength = pets.length : userPetsLength = this.state.userPets.length
 
-        userPetsLength === 0 ? buysLeft = 3 : buysLeft = 3 - userPetsLength
+        // userPetsLength === 0 ? buysLeft = 3 : buysLeft = 3 - userPetsLength
 
         fetch(`http://localhost:3000/users/${this.props.user.id}`,{
             method: 'PATCH',
@@ -166,14 +169,14 @@ export default class Home extends React.Component{
 
     handleIconClick = (currentPet) => {
 
-        this.setState({ 
+        this.setState({
             tamaStore: false,
             ticTacToe: false,
             currentPet
         })
     }
 
-    updatePetList = (newUserPet) =>{ 
+    updatePetList = (newUserPet) =>{
         this.setState(prevState => {
             return{
                 userPets: [...prevState.userPets, newUserPet],
@@ -220,17 +223,17 @@ export default class Home extends React.Component{
         .then(updatedPet => {
             switch (e.target.id) {
                 case 'feed-btn':
-                    return this.setState({ 
+                    return this.setState({
                         currentPet: updatedPet,
                         feedIn: updatedPet.pet.hunger_rate
                     })
                 case 'sleep-btn':
-                    return this.setState({ 
+                    return this.setState({
                         currentPet: updatedPet,
                         sleepIn: updatedPet.pet.sleepy_rate
                     })
                 case 'clean-btn':
-                    return this.setState({ 
+                    return this.setState({
                         currentPet: updatedPet,
                         cleanIn: updatedPet.pet.dirt_rate
                     })
@@ -273,26 +276,27 @@ export default class Home extends React.Component{
     // naming tama
     handleSubmit = (tamaName) => {
         this.setState(prevState =>{
-          return{ 
+          return{
             modalForm: false,
             newTama: {...prevState.newTama, name: tamaName}
           }
         }, () => {
             this.createUserPetData()
+            this.updateBuysLeft()
         })
 
         this.closeModal()
-        
+
         alert('generating Tamagotchi. Pls wait!')
     }
-    
+
     purchaseTama = (newTama) => {
         this.openModal()
         this.renderModalForm()
         this.setState({ newTama })
     }
 
-    
+
     startMiniGame = (e) => {
         alert('Start minigame')
         this.setState({ ticTacToe: true, tamaStore: false })
@@ -301,27 +305,27 @@ export default class Home extends React.Component{
     }
 
     render(){
-        console.log(this.state.buysLeft)
+        // console.log(this.state.buysLeft)
         return(
             <div className="home">
-                <SideNav 
-                    userPets={this.state.userPets} 
-                    tamaStore={this.state.tamaStore} 
-                    purchasePets={this.purchasePets} 
-                    handleIconClick={this.handleIconClick} 
+                <SideNav
+                    userPets={this.state.userPets}
+                    tamaStore={this.state.tamaStore}
+                    purchasePets={this.purchasePets}
+                    handleIconClick={this.handleIconClick}
                     startMiniGame={this.startMiniGame}
                 />
-               
+
 
                 <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}! You have ${this.state.buysLeft} slots left.` : null}</div>
-                <Tamagotchi 
-                    allSpecies={this.state.allSpecies} 
-                    currentPet={this.state.currentPet} 
+                <Tamagotchi
+                    allSpecies={this.state.allSpecies}
+                    currentPet={this.state.currentPet}
                     tamaStore={this.state.tamaStore}
                     user={this.props.user}
-                    token={this.props.token}      
+                    token={this.props.token}
                     purchaseTama={this.purchaseTama}
-                    updateBuysLeft={this.updateBuysLeft}
+                    // updateBuysLeft={this.updateBuysLeft}
                     buysLeft={this.state.buysLeft}
                     ticTacToe={this.state.ticTacToe}
                     handleActionBtnClick={this.handleActionBtnClick}
@@ -330,14 +334,14 @@ export default class Home extends React.Component{
                     cleanIn = {this.state.cleanIn}
                 />
 
-                { this.state.modalForm ? 
-                    <ModalForm 
-                        closeModal={this.closeModal} 
-                        isOpen={this.state.isOpen} 
+                { this.state.modalForm ?
+                    <ModalForm
+                        closeModal={this.closeModal}
+                        isOpen={this.state.isOpen}
                         handleSubmit={this.handleSubmit}
-                    /> 
-                    : null 
-                }           
+                    />
+                    : null
+                }
 
             </div>
         )
