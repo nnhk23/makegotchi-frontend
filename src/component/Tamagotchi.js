@@ -12,26 +12,6 @@ import Button from 'react-bootstrap/Button';
 
 export default class Tamagotchi extends React.Component{
 
-        // update database with new user pet
-        // reach out to Lantz or Hal JWT
-        fetch('http://localhost:3000/user_pets',{
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Accept' : 'application/json'
-                // ,
-                // 'Authorization' : `Bearer ${localStorage.getItem('jwt')}`
-            },
-            body: JSON.stringify({
-                name: "Beans",
-                user_id: this.props.userId,
-                pet_id: newTama.id,
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => this.props.updatePetList(data))
-    }
-
     render(){
         switch (true) {
             case this.props.tamaStore:
@@ -43,16 +23,16 @@ export default class Tamagotchi extends React.Component{
                             <div className="tamagotchi_background">
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
-                                    <TamaStore 
-                                        allSpecies={this.props.allSpecies} 
+                                    <TamaStore
+                                        allSpecies={this.props.allSpecies}
                                         buysLeft={this.props.buysLeft}
-                                        purchaseTama={this.purchaseTama} 
-                                    /> 
+                                        purchaseTama={this.props.purchaseTama}
+                                    />
                                 </div>
                             </div>
                         </Row>
                     </div>
-                ) 
+                )
             case this.props.ticTacToe:
                 return (
                    <div>
@@ -66,7 +46,7 @@ export default class Tamagotchi extends React.Component{
                         </Row>
                     </div>
                     )
-                
+
             case !!this.props.currentPet:
                 return (
                     <div>
@@ -74,21 +54,21 @@ export default class Tamagotchi extends React.Component{
                             <div className="tamagotchi_background">
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
-                                    <UserPet 
+                                    <UserPet
                                         currentPet={this.props.currentPet}
                                         feedIn={this.props.feedIn}
                                         sleepIn={this.props.sleepIn}
                                         cleanIn={this.props.cleanIn}
                                     />
-                                </div>               
+                                </div>
                             </div>
                         </Row>
 
-               
+
                         <Row className="btn-container" onClick={this.props.handleActionBtnClick}>
-                          <button className="controls" value="feed" id="feed-btn"><p>FEED</p></button>
-                          <button className="controls" value="clean" id="clean-btn"><p>CLEAN</p></button>
-                          <button className="controls" value="sleep" id="sleep-btn"><p>SLEEP</p></button>
+                          <button className="controls" value="feed" id="feed-btn">FEED</button>
+                          <button className="controls" value="clean" id="clean-btn">CLEAN</button>
+                          <button className="controls" value="sleep" id="sleep-btn">SLEEP</button>
                         </Row>
 
                         <Row>

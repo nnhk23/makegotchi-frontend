@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 import { Link } from 'react-router-dom';
-import egg_draft from '../images/makegotchi_egg.png'
+// import egg from '../images/makegotchi_wide3.png'
 import "./Tamagotchi.css"
 
 class FormRender extends Component  {
