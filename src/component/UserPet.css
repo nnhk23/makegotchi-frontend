@@ -1,14 +1,52 @@
 .userPet_obj{
     padding-left: 30px;
     padding-right: 30px;
+    height: 410px;
+    width: 620px;
 }
-
-.userPet_name{
-    padding-left: 25px;
+.userPet_obj #pet_notifications{
+    display:inline;
 
 }
 
 .userPet_happy{
+    padding-top: 3px;
     padding-left: 25px;
+}
+
+#pet_img_row{
+    justify-content: center;
+    /* margin-right: 5px; */
+    width: 600px;
+    position: absolute;
+    bottom: 19px;
+    padding-left: 30px;
+    padding-right: 30px;
+    /* margin-left: auto; */
+}
+
+
+
+.bubble{
+    /*
+    width: 200px;
+    border-radius: 12px;
+    margin: 20px;
+    background-color: #b2b9dc; */
+    height: 40px;
+    box-sizing: border-box;
+    float: right;
+    width: auto;
+    max-width: 80%;
+    position: relative;
+    clear: both;
+    background: #e8dbe9;
+    border: solid 1px rgba(255, 252, 252, 0.5);
+    border-radius: 20px;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    color: rgb(53, 3, 73);
+    word-wrap: break-word;
+
 }
 

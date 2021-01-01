@@ -144,7 +144,7 @@ export default class Home extends React.Component{
     }
 
     updateBuysLeft = () => {
-        
+
         let buysLeft = this.state.buysLeft - 1
         // let userPetsLength
 
@@ -317,7 +317,7 @@ export default class Home extends React.Component{
                 />
 
 
-                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}! You have ${this.state.buysLeft} slots left.` : null}</div>
+                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!     You have ${this.state.buysLeft} slots left.`: null}</div>
                 <Tamagotchi
                     allSpecies={this.state.allSpecies}
                     currentPet={this.state.currentPet}

@@ -13,9 +13,12 @@
 
   #greeting{
     display: flex;
+    width: 292px;
+    padding: 10px;
+    /* align-items: center; */
     position: absolute;
     right: 35px;
     top: 15px;
     font-family: 'Press Start 2P';
-    color: #600f88;
+    color: #480085;
   }
