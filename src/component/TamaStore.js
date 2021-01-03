@@ -17,7 +17,7 @@ class TamaStore extends React.Component{
     moreTamagotchis = () => {
 
         // when hit last tama, render tama list again from beginning
-        if(this.state.tamaNumber <= this.props.allSpecies.length-2){
+        if(this.state.tamaNumber < this.props.allSpecies.length-2){
             this.setState(prevState => {
                 return{
                     tamaNumber: prevState.tamaNumber + 2
