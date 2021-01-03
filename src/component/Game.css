@@ -1,0 +1,47 @@
+
+.board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  .square {
+    height: 120px;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 15px;
+    background: rgb(235, 201, 235);
+    border: 5px solid rgb(243, 245, 247);
+    float: left;
+    font-size: 60px;
+    font-family: 'Press Start 2P';
+    line-height: 34px;
+    text-align: center;
+    border-radius: 15px;
+    color: #af84a3;
+}
+
+  .square:focus {
+    outline: none;
+  }
+  .square:hover{
+      background-color:  #e2b5d5;;
+  }
+
+  .square:active{
+    transform: scale(1.1);
+  }
+
+  .game {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .status {
+    margin-left: 20px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px;
+    color: #8d4ac4;
+  }

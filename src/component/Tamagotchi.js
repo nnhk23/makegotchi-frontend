@@ -71,7 +71,7 @@ export default class Tamagotchi extends React.Component{
                           <button className="controls" value="clean" id="clean-btn">CLEAN</button>
                         </Row>
 
-                        <Row>
+                        <Row id="pet_bio">
                             <UserPetBio currentPet={this.props.currentPet} />
                         </Row>
                     </div>

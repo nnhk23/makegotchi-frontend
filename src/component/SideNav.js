@@ -20,10 +20,10 @@ const SideNav = ({purchasePets, userPets, handleIconClick, startMiniGame}) => {
 
     return(
         <div className="sideNav">
-            <h2 id="sideNav_header">Your Tamagotchis</h2>
             <Button className="buyPet_btn" variant="outline-warning" onClick={purchasePets}>Buy a Pet</Button>
             <Button className="minigames_btn" variant="outline-warning" onClick={startMiniGame}>Mini Games</Button>
-            <br /><br />
+            <h2 id="sideNav_header">Your Tamagotchis</h2>
+            
             {renderBtns()}
         </div>
     )

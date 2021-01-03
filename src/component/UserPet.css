@@ -1,17 +1,21 @@
 .userPet_obj{
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
     height: 410px;
     width: 620px;
 }
-.userPet_obj #pet_notifications{
-    display:inline;
 
+.userPet_name{
+    font-family: 'Press Start 2P';
+    font-size: 20px;
+    padding-left: 15px;
 }
 
 .userPet_happy{
     padding-top: 3px;
     padding-left: 25px;
+    font-family: 'Schoolbell', cursive;
+
 }
 
 #pet_img_row{
@@ -25,28 +29,29 @@
     /* margin-left: auto; */
 }
 
-
+#bubble_div{
+    display: flex;
+    width: 590px;
+}
 
 .bubble{
-    /*
-    width: 200px;
-    border-radius: 12px;
-    margin: 20px;
-    background-color: #b2b9dc; */
-    height: 40px;
+    height: 58px;
     box-sizing: border-box;
     float: right;
-    width: auto;
-    max-width: 80%;
     position: relative;
-    clear: both;
     background: #e8dbe9;
     border: solid 1px rgba(255, 252, 252, 0.5);
     border-radius: 20px;
-    margin-bottom: 10px;
-    padding: 6px 10px;
+    margin-right: 10px;
+    padding-top: 11px;
+    padding-left: 5px;
+    padding-right: 5px;
+    /* margin-bottom: 10px; */
+    /* padding: 9px 5px; */
     color: rgb(53, 3, 73);
-    word-wrap: break-word;
+    font-family: 'Schoolbell', cursive;
+    font-size: 18px;
+    line-height: 1.2rem;
 
 }
 
