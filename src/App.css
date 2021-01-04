@@ -76,6 +76,11 @@ font-family: 'Schoolbell', cursive; */
   padding: 20px;
 } */
 
+#formRender_div{
+  width: 310px;
+  line-height: 1rem;
+}
+
 .login_screen_div{
   width: 80%;
   height: 86%;

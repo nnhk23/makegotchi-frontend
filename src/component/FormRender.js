@@ -59,7 +59,7 @@ class FormRender extends Component  {
     
     render() {
       return (
-          <div>
+          <div id="formRender_div">
             <Form>
                 <h1>{this.props.name}</h1>
                 {this.props.name === "SignUp" ? 
