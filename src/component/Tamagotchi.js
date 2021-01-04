@@ -5,9 +5,10 @@ import egg from '../images/makegotchi_wide3.png'
 import "./Tamagotchi.css"
 import Game from './Game'
 import UserPetBio from './UserPetBio';
-import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
+import JankenGame from './JankenGame'
+import Minigames from './Minigames'
+
 
 
 export default class Tamagotchi extends React.Component{
@@ -41,6 +42,32 @@ export default class Tamagotchi extends React.Component{
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
                                     <Game />
+                                </div>
+                            </div>
+                        </Row>
+                    </div>
+                    )
+            case this.props.janKen:
+                return (
+                    <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                    <JankenGame user={this.props.user} startMiniGame={this.props.startMiniGame} />
+                                </div>
+                            </div>
+                        </Row>
+                    </div>
+                    )
+            case this.props.miniGames:
+                return (
+                    <div>
+                        <Row className="tamagotchi_container" id='screen_div'>
+                            <div className="tamagotchi_background">
+                                <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
+                                <div id='screen'>
+                                <Minigames startMiniGame={this.props.startMiniGame}/>
                                 </div>
                             </div>
                         </Row>

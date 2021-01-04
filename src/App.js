@@ -7,32 +7,47 @@ import TopNav from './component/TopNav'
 import FormRender from './component/FormRender'
 import './App.css';
 import egg_login from './images/makegotchi_login.png'
-
-
+import ModalDelete from './component/ModalDelete'
 
 
 class App extends React.Component {
 
   state = {
-    user: ""
+    id: "",
+    user: "",
+    modalDelete: false,
+    openDeleteModal: false
   }
-
 
   // rendering components  --- > 
   renderHome = () => <Home user={this.state.user} token={localStorage.getItem('jwt')} refresh={this.handleRefresh} />
 
   renderForm = (routerProps) => {
-    
-    if (routerProps.location.pathname === "/signup"){
-      return <div className='login_screen'><FormRender name="SignUp" handleSubmit={this.handleSignup} /></div>
-    } else if (routerProps.location.pathname === "/login"){
-      return <div className='login_screen'><FormRender name="Login" handleSubmit={this.handleLogin} /></div>
-    } else if (routerProps.location.pathname === "/editprofile"){
-      return <div className='login_screen'><FormRender name="Update" handleSubmit={this.handleUpdate} handleDelete={this.handleDelete}/></div>
+  
+    switch (routerProps.location.pathname){
+      case "/signup" :
+        return <div className='login_screen'><FormRender name="SignUp" handleSubmit={this.handleSignup} /></div>
+
+      case "/login" :
+        return <div className='login_screen'><FormRender name="Login" handleSubmit={this.handleLogin} /></div>
+
+      case "/editprofile" :
+        return <div className='login_screen'><FormRender name="Update" handleSubmit={this.handleUpdate} handleDelete={this.openModal} history={this.props.history}/></div>
+
+      default : break
     }
   }
 
-  // sign up, log in, auth, log out --- > 
+  openModal = (id) => {
+    this.setState({ 
+      openDeleteModal: true, 
+      modalDelete: true,
+      id: id})
+    }
+
+  closeModal = () => this.setState({ openDeleteModal: false });
+
+  // sign up, log in, auth, update, log out --- > 
 
   handleSignup = (info) => {
     let data = {
@@ -63,36 +78,31 @@ class App extends React.Component {
   handleAuth = (data, resource, method) => {
     fetch(resource, {
       method:  method,
-      headers: {
-          "Content-Type": "application/json"
-      },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(data)
     })
     .then(res => res.json())
     .then(data => { 
-  
-        data.error ? this.handleError(data) :
+
+      if (data.error) { 
+        this.handleError(data) }
+      else {
         this.setState({user: data.user} ,() => {
           if (data.token){
             localStorage.setItem('jwt', data.token)
             this.props.history.push('/home')
-          } else {
-          alert("Profile Succesfully Updated!")
-          this.props.history.push('/home')}
-      })
+          }  else  {
+            alert("Profile Succesfully Updated!")
+            this.props.history.push('/home')}
+      })}
     })
   }
 
   handleError = (data) => {
-    if (data.error === "Username has already been taken. Please try again."){
-      alert(`${data.error}`)
-      this.props.history.push('/signup')
-    } else {
-      alert(`${data.error}`)
-      this.props.history.push('/login')
-    } 
+    alert(`${data.error}`)
+    this.props.history.push(
+      data.error === "Incorrect credentials, please try again." ? '/login' : '/signup')
   }
-
  
   handleLogout = () => {
     localStorage.clear()
@@ -105,8 +115,9 @@ class App extends React.Component {
     this.setState({user: data.user})
   }
 
-  handleDelete = (id) => {
-    fetch(`http://localhost:3000/users/${id}`, {
+  handleDelete = () => {
+    this.closeModal()
+    fetch(`http://localhost:3000/users/${this.state.id}`, {
       method:  "DELETE",
       headers: {"Content-Type": "application/json"}
     })
@@ -152,8 +163,14 @@ class App extends React.Component {
             </Switch>
           </div>
         </div>
+        { this.state.modalDelete ?
+          <ModalDelete
+              closeModal={this.closeModal}
+              openModal={this.state.openDeleteModal}
+              handleDelete={this.handleDelete}
+          />
+          : null }
       </div>
-
     )
   }
 }

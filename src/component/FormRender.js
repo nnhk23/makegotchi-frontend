@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 import { Link } from 'react-router-dom';
-// import egg from '../images/makegotchi_wide3.png'
 import "./Tamagotchi.css"
 
 class FormRender extends Component  {
@@ -27,28 +26,40 @@ class FormRender extends Component  {
             .then(res => res.json())
             .then(data => {
                 this.setState({username: data.user.username, id: data.user.id})})
-        }
+        } 
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
 
-        if (this.props.name === "Update"){
-            if (e.target.textContent === "Delete Account") {
-            this.props.handleDelete(this.state.id)
-            } else if (this.state.password === this.state.password_confirmation){this.props.handleSubmit(this.state)} 
-        } else if (this.state.password_confirmation && 
-            this.state.password === this.state.password_confirmation){this.props.handleSubmit(this.state)
-        } else if (!this.state.password_confirmation) {
-                this.props.handleSubmit(this.state)
-        } else { 
-            alert("Sorry! Passwords do not match. Please try again.")
-            this.setState({
-                password : "",
-                password_confirmation : ""
-            })
-        }
+        switch (true) {
 
+            case (this.props.name === "Update" && 
+            e.target.textContent === "Delete Account"):
+                return this.props.handleDelete(this.state.id)
+
+            case (this.props.name === "Login"): 
+                return this.props.handleSubmit(this.state)
+
+            case (this.state.password === "" &&
+            this.state.password_confirmation === ""):
+                return alert("Passwords cannot be blank.")
+
+            case (this.props.name === "SignUp" && 
+            this.state.password === this.state.password_confirmation):
+            return this.props.handleSubmit(this.state)
+            
+            case (this.props.name === "Update" && 
+            this.state.password === this.state.password_confirmation):
+                return this.props.handleSubmit(this.state)
+            
+            default: { 
+                alert("Sorry! Passwords do not match. Please try again.")
+                this.setState({
+                    password : "",
+                    password_confirmation : ""
+                })}
+        }
     }
 
     handleChange = (e) => {
@@ -57,19 +68,25 @@ class FormRender extends Component  {
             [name]: value.charAt(0).toUpperCase() + value.slice(1)
     })}
     
+    handleCancelUpdate = () => {
+        this.props.history.push('/home')
+    }
+
+
     render() {
       return (
           <div id="formRender_div">
+
+              {this.props.name === "Update" ? <h4 type="submit" onClick={this.handleCancelUpdate}>x</h4> : null}
+
             <Form>
                 <h1>{this.props.name}</h1>
                 {this.props.name === "SignUp" ? 
 
-                //sample conditionation for update (input values)
-                // set state on a condition
                 <Form.Group >
                     <Form.Label htmlFor="name">Name</Form.Label>
                     <Form.Control type="text" name="name" 
-                    value={this.props.name ==="Update" ? {/*currentuser data*/} : this.state.name} 
+                    value={this.state.name} 
                     onChange={this.handleChange} />
                 </Form.Group> : null}
 
@@ -104,7 +121,7 @@ class FormRender extends Component  {
             {this.props.name === "Update" ? 
             <Button variant="outline-danger" type="submit" onClick={this.handleSubmit}>Delete Account</Button> : null }
             
-
+            
     </div>
     );
     }
