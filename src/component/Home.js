@@ -21,7 +21,9 @@ export default class Home extends React.Component{
         interval: null,
         feedIn: -1,
         cleanIn: -1,
-        sleepIn: -1
+        sleepIn: -1,
+        janKen: false,
+        miniGames: false
     }
 
     // fetching list of all species.
@@ -168,7 +170,6 @@ export default class Home extends React.Component{
     }
 
     handleIconClick = (currentPet) => {
-
         this.setState({
             tamaStore: false,
             ticTacToe: false,
@@ -298,8 +299,15 @@ export default class Home extends React.Component{
 
 
     startMiniGame = (e) => {
-        alert('Start minigame')
-        this.setState({ ticTacToe: true, tamaStore: false })
+        // debugger
+        // alert('Start minigame')
+        let name = e.target.id
+        if (name === "miniGames"){
+            this.setState({[name]: true, tamaStore: false, ticTacToe: false, janKen: false})}
+        else { 
+            this.setState({[name]: true, tamaStore: false, miniGames: false})}
+        // this.setState({ janKen: true, tamaStore: false })
+        // this.setState({ ticTacToe: true, tamaStore: false })
         // empty tamagotchi's screen
         // populate with minigames
     }
@@ -325,13 +333,16 @@ export default class Home extends React.Component{
                     user={this.props.user}
                     token={this.props.token}
                     purchaseTama={this.purchaseTama}
-                    // updateBuysLeft={this.updateBuysLeft}
                     buysLeft={this.state.buysLeft}
                     ticTacToe={this.state.ticTacToe}
                     handleActionBtnClick={this.handleActionBtnClick}
                     feedIn ={this.state.feedIn}
                     sleepIn = {this.state.sleepIn}
                     cleanIn = {this.state.cleanIn}
+
+                    startMiniGame={this.startMiniGame}
+                    janKen={this.state.janKen}
+                    miniGames={this.state.miniGames}
                 />
 
                 { this.state.modalForm ?
