@@ -8,8 +8,7 @@ import UserPetBio from './UserPetBio';
 import Row from 'react-bootstrap/Row';
 import JankenGame from './JankenGame'
 import Minigames from './Minigames'
-// import Col from 'react-bootstrap/Col';
-// import Button from 'react-bootstrap/Button';
+
 
 
 export default class Tamagotchi extends React.Component{

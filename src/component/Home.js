@@ -287,8 +287,6 @@ export default class Home extends React.Component{
         })
 
         this.closeModal()
-
-        alert('generating Tamagotchi. Pls wait!')
     }
 
     purchaseTama = (newTama) => {
