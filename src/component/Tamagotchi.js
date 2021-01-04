@@ -5,9 +5,7 @@ import egg from '../images/makegotchi_wide3.png'
 import "./Tamagotchi.css"
 import Game from './Game'
 import UserPetBio from './UserPetBio';
-import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 
 
 export default class Tamagotchi extends React.Component{

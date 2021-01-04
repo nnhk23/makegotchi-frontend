@@ -86,7 +86,7 @@ class Board extends React.Component {
 
         return(
         <div>
-            {winner || draw ? <button onClick={this.resetSquares}> Restart Game</button> : null}
+            {winner || draw ? <button className="restart_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</button> : null}
             <div className="status">{status}</div>
     
             <div className="board-row">
