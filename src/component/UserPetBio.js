@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-import './UserPetBio.css'
+import '../css/UserPetBio.css'
 
 const UserPetBio = ({ currentPet }) => {
     const { name, pet } = currentPet

@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
-import "./TamaStore.css"
+import "../css/TamaStore.css"
 
 class TamaStore extends React.Component{
 
