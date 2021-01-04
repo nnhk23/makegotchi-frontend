@@ -10,7 +10,7 @@ const TopNav = ({ loggedIn, handleLogout}) => {
         bg="dark"
         variant="dark"
         activeKey="/home"
-        ><h4 id="logo_topNav">MAKEGOTCHI</h4>
+        ><Nav.Link href="/home"><h4 id="logo_topNav">MAKEGOTCHI</h4></Nav.Link>
         { loggedIn ?
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
