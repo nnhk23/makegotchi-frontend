@@ -2,7 +2,7 @@ import React from 'react';
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
 import egg from '../images/makegotchi_wide3.png'
-import "./Tamagotchi.css"
+import "../css/Tamagotchi.css"
 import Game from './Game'
 import UserPetBio from './UserPetBio';
 import Row from 'react-bootstrap/Row';

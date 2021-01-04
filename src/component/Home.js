@@ -4,7 +4,7 @@ import Tamagotchi from './Tamagotchi'
 import ModalForm from './ModalForm';
 
 
-import "./Home.css"
+import "../css/Home.css"
 
 export default class Home extends React.Component{
 
@@ -23,7 +23,8 @@ export default class Home extends React.Component{
         cleanIn: -1,
         sleepIn: -1,
         janKen: false,
-        miniGames: false
+        miniGames: false,
+        money: null
     }
 
     // fetching list of all species.
@@ -36,7 +37,8 @@ export default class Home extends React.Component{
         }})
         .then(res => res.json())
         .then(data => {
-            this.setState({ buysLeft: data.user.buys_left})
+            debugger
+            this.setState({ buysLeft: data.user.buys_left, money: data.user.money})
             this.props.refresh(data)
         })
         .then(() => {
@@ -323,7 +325,7 @@ export default class Home extends React.Component{
                 />
 
 
-                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!     You have ${this.state.buysLeft} slots left.`: null}</div>
+                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!     You have ${this.state.buysLeft} slots left. You have ${this.state.money}`: null}</div>
                 <Tamagotchi
                     allSpecies={this.state.allSpecies}
                     currentPet={this.state.currentPet}

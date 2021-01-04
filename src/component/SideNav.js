@@ -1,7 +1,7 @@
 import React from 'react';
 import RenderPetBtn from './RenderPetBtn';
 import Button from 'react-bootstrap/Button'
-import './SideNav.css';
+import '../css/SideNav.css';
 
 const SideNav = ({purchasePets, userPets, handleIconClick, startMiniGame}) => {
     // appear after logged in

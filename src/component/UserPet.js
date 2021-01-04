@@ -2,7 +2,7 @@
 import React from 'react';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import './UserPet.css';
+import '../css/UserPet.css';
 import styled, {keyframes} from 'styled-components';
 import { bounce } from 'react-animations';
 
