@@ -7,9 +7,6 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Schoolbell', cursive; */
 
 
-.App-link {
-  color: #61dafb;
-}
 
 .App {
   width: 100%;
@@ -75,6 +72,11 @@ font-family: 'Schoolbell', cursive; */
   margin: auto;
   padding: 20px;
 } */
+
+#formRender_div{
+  width: 310px;
+  line-height: 1rem;
+}
 
 .login_screen_div{
   width: 80%;

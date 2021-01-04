@@ -75,8 +75,10 @@ class FormRender extends Component  {
 
     render() {
       return (
-          <div>
+          <div id="formRender_div">
+
               {this.props.name === "Update" ? <h4 type="submit" onClick={this.handleCancelUpdate}>x</h4> : null}
+
             <Form>
                 <h1>{this.props.name}</h1>
                 {this.props.name === "SignUp" ? 

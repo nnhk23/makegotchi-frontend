@@ -94,18 +94,18 @@ export default class Tamagotchi extends React.Component{
 
                         <Row className="btn-container" onClick={this.props.handleActionBtnClick}>
                           <button className="controls" value="feed" id="feed-btn">FEED</button>
-                          <button className="controls" value="clean" id="clean-btn">CLEAN</button>
                           <button className="controls" value="sleep" id="sleep-btn">SLEEP</button>
+                          <button className="controls" value="clean" id="clean-btn">CLEAN</button>
                         </Row>
 
-                        <Row>
+                        <Row id="pet_bio">
                             <UserPetBio currentPet={this.props.currentPet} />
                         </Row>
                     </div>
                 )
             default:
                 return (
-                    <div>
+                    <div id="tamagotchi_component">
                         <Row className="tamagotchi_container" id='screen_div'>
                             <div className="tamagotchi_background">
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />

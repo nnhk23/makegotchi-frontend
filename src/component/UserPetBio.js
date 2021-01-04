@@ -1,10 +1,11 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
+import './UserPetBio.css'
 
 const UserPetBio = ({ currentPet }) => {
     const { name, pet } = currentPet
     const { species, personality, hunger_rate, sleepy_rate, dirt_rate } = pet
-    
+
     let article = 'a'
     const vowels = ['a', 'e', 'i', 'o', 'u']
     if (vowels.includes(personality[0])) {
@@ -17,6 +18,6 @@ const UserPetBio = ({ currentPet }) => {
         </div>
     )
 
-    
+
 }
 export default UserPetBio
