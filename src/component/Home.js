@@ -24,7 +24,8 @@ export default class Home extends React.Component{
         sleepIn: -1,
         janKen: false,
         miniGames: false,
-        money: null
+        money: null,
+        gamble: false
     }
 
     // fetching list of all species.
@@ -37,7 +38,7 @@ export default class Home extends React.Component{
         }})
         .then(res => res.json())
         .then(data => {
-            debugger
+            // debugger
             this.setState({ buysLeft: data.user.buys_left, money: data.user.money})
             this.props.refresh(data)
         })
@@ -147,16 +148,10 @@ export default class Home extends React.Component{
         this.setState({ tamaStore: true })
     }
 
-    updateBuysLeft = () => {
+    updateMoneyLeft = (amount) => {
 
-        let buysLeft = this.state.buysLeft - 1
-        // let userPetsLength
-
-        // await this.sleep(1000)
-        // pets ? userPetsLength = pets.length : userPetsLength = this.state.userPets.length
-
-        // userPetsLength === 0 ? buysLeft = 3 : buysLeft = 3 - userPetsLength
-
+        let money = this.state.money + amount
+        
         fetch(`http://localhost:3000/users/${this.props.user.id}`,{
             method: 'PATCH',
             headers: {
@@ -164,11 +159,11 @@ export default class Home extends React.Component{
                 'Accept' : 'application/json'
             },
             body: JSON.stringify({
-                buys_left: buysLeft
+                money
             })
         })
         .then(resp => resp.json())
-        .then(data => this.setState({ buysLeft: data.buys_left }))
+        .then(data => this.setState({ money: data.money }))
     }
 
     handleIconClick = (currentPet) => {
@@ -299,17 +294,22 @@ export default class Home extends React.Component{
 
 
     startMiniGame = (e) => {
-        // debugger
-        // alert('Start minigame')
-        let name = e.target.id
-        if (name === "miniGames"){
-            this.setState({[name]: true, tamaStore: false, ticTacToe: false, janKen: false})}
-        else { 
-            this.setState({[name]: true, tamaStore: false, miniGames: false})}
-        // this.setState({ janKen: true, tamaStore: false })
-        // this.setState({ ticTacToe: true, tamaStore: false })
-        // empty tamagotchi's screen
-        // populate with minigames
+   
+ 
+        if (e.id) {
+            this.setState({[e.id]: true, gamble:e.gamble, tamaStore: false, miniGames: false})
+        } else {
+            this.setState({miniGames: true, tamaStore: false, ticTacToe: false, janKen: false})
+        }
+        
+        // let name = e.target.id
+        // if (name === "miniGames"){
+        //     this.setState({[name]: true, tamaStore: false, ticTacToe: false, janKen: false})}
+        // else { 
+        //     this.setState({[name]: true, tamaStore: false, miniGames: false})
+        // }
+          
+        
     }
 
     render(){
@@ -325,7 +325,7 @@ export default class Home extends React.Component{
                 />
 
 
-                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!     You have ${this.state.buysLeft} slots left. You have ${this.state.money}`: null}</div>
+                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!     You have ${this.state.buysLeft} slots left. You have ${this.state.money} coins left`: null}</div>
                 <Tamagotchi
                     allSpecies={this.state.allSpecies}
                     currentPet={this.state.currentPet}
@@ -343,6 +343,8 @@ export default class Home extends React.Component{
                     startMiniGame={this.startMiniGame}
                     janKen={this.state.janKen}
                     miniGames={this.state.miniGames}
+                    updateMoneyLeft={this.updateMoneyLeft}
+                    gamble={this.state.gamble}
                 />
 
                 { this.state.modalForm ?
