@@ -38,9 +38,9 @@ export default class Home extends React.Component{
             this.props.refresh(data)
         })
         .then(() => {
-        this.getAllPets()
-        this.getUserPets()
-        this.setState({ interval: setInterval(this.checkPetStatus, 1000)})
+            this.getAllPets()
+            this.getUserPets()
+            this.setState({ interval: setInterval(this.checkPetStatus, 1000)})
         })
 
     }
@@ -84,57 +84,92 @@ export default class Home extends React.Component{
         })
     }
 
-    checkPetStatus = () => {
-        const currentPet = this.state.currentPet
-        if (currentPet) {
-            const currentTime = new Date()
+    checkPetStatus = async () => {
+        console.log(this.state)
+        const currentTime = new Date()
+        let deletePets = new Array(this.state.userPets.length).fill(false)
+        let decreaseHappinessArr = new Array(this.state.userPets.length).fill(0)
 
-            const timeSinceLastFed = (currentTime - Date.parse(currentPet.last_fed))/1000
-            if (timeSinceLastFed < currentPet.pet.hunger_rate) {
-                this.setState({
-                    feedIn: Math.floor(currentPet.pet.hunger_rate - (currentTime - Date.parse(currentPet.last_fed))/1000)
-                })
-            } else {
-                this.setState({ feedIn: -1 })
-                this.decreaseHappiness()
+        for (let i = 0; i < this.state.userPets.length; i++) {
+            const userPet = this.state.userPets[i]
+            
+            if (userPet.happiness_score <= 0) {
+                deletePets[i] = true
             }
 
+            else {
+                const timeSinceLastFed = userPet.last_fed ? (currentTime - Date.parse(userPet.last_fed))/1000 : userPet.pet.hunger_rate
+                const timeSinceLastSlept = userPet.last_slept ? (currentTime - Date.parse(userPet.last_slept))/1000 : userPet.pet.sleepy_rate
+                const timeSinceLastCleaned = userPet.last_cleaned? (currentTime - Date.parse(userPet.last_cleaned))/1000 : userPet.pet.dirt_rate
+                let decreaseHappinessBy = 0
 
-            const timeSinceLastSlept = (currentTime - Date.parse(currentPet.last_slept))/1000
-            if (timeSinceLastSlept < currentPet.pet.sleepy_rate) {
-                this.setState({
-                    sleepIn: Math.floor(currentPet.pet.sleepy_rate - (currentTime - Date.parse(currentPet.last_slept))/1000)
-                })
-            } else {
-                this.setState({ sleepIn: -1 })
-                this.decreaseHappiness()
-            }
+                decreaseHappinessBy = timeSinceLastFed >= userPet.pet.hunger_rate ? decreaseHappinessBy+1 : decreaseHappinessBy
+                decreaseHappinessBy = timeSinceLastSlept >= userPet.pet.sleepy_rate ? decreaseHappinessBy+1 : decreaseHappinessBy
+                decreaseHappinessBy = timeSinceLastCleaned >= userPet.pet.dirt_rate ? decreaseHappinessBy+1 : decreaseHappinessBy
 
-            const timeSinceLastCleaned = (currentTime - Date.parse(currentPet.last_cleaned))/1000
-            if (timeSinceLastCleaned < currentPet.pet.dirt_rate) {
-                this.setState({
-                    cleanIn: Math.floor(currentPet.pet.dirt_rate - (currentTime - Date.parse(currentPet.last_cleaned))/1000)
-                })
-            } else {
-                this.setState({ cleanIn: -1 })
-                this.decreaseHappiness()
+                if (this.state.currentPet && this.state.currentPet.id === userPet.id) {
+                    timeSinceLastFed < userPet.pet.hunger_rate ? 
+                        this.setState({ feedIn: Math.floor(userPet.pet.hunger_rate - (currentTime - Date.parse(userPet.last_fed))/1000) }) :
+                        this.setState({ feedIn: -1 })
+
+                    timeSinceLastSlept < userPet.pet.sleepy_rate ?
+                        this.setState({ sleepIn: Math.floor(userPet.pet.sleepy_rate - (currentTime - Date.parse(userPet.last_slept))/1000) }) :
+                        this.setState({ sleepIn: -1 })
+
+                    timeSinceLastCleaned < userPet.pet.dirt_rate ?
+                        this.setState({ cleanIn: Math.floor(userPet.pet.dirt_rate - (currentTime - Date.parse(userPet.last_cleaned))/1000) }) :
+                        this.setState({ cleanIn: -1 })
+                }
+                // this.decreaseHappiness(i, decreaseHappinessBy)
+                decreaseHappinessArr[i] = decreaseHappinessBy
             }
         }
-        return null
+
+        await this.decreaseHappiness(decreaseHappinessArr)
+        this.deletePets(deletePets)
     }
 
-    decreaseHappiness = () => {
-        const body = { happiness_score: this.state.currentPet.happiness_score - 1 }
-        fetch(`http://localhost:3000/user_pets/${this.state.currentPet.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-        .then(res => res.json())
-        .then(currentPet => this.setState({ currentPet }))
+    decreaseHappiness = async (decreaseHappinessArr) => {
+        for(let i = 0; i < decreaseHappinessArr.length; i++) {
+            const userPet = this.state.userPets[i]
+            const body = { happiness_score: userPet.happiness_score - decreaseHappinessArr[i] }
+            await fetch(`http://localhost:3000/user_pets/${userPet.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+            .then(res => res.json())
+            .then(updatedUserPet => this.setState(prevState => {
+                let updatedUserPets = [...prevState.userPets]
+                updatedUserPets[i] = updatedUserPet
+                console.log("decHappiness", updatedUserPets)
+                return userPet.id === prevState.currentPet.id ? 
+                { currentPet: updatedUserPet, userPets: updatedUserPets} : 
+                { userPets: updatedUserPets}
+            }))
+        }
+    }
+
+    deletePets = async (deletePetsArr) => {
+        for (let i = 0; i < deletePetsArr.length; i++) {
+            if (deletePetsArr[i]) {
+                const userPet = this.state.userPets[i]
+                await fetch(`http://localhost:3000/user_pets/${userPet.id}`, { method: 'DELETE'})
+                .then(() => {
+                    this.setState(prevState => {
+                        let updatedUserPets = prevState.userPets
+                        updatedUserPets.splice(i, 1)
+                        console.log("delete", updatedUserPets)
+                        return userPet.id === prevState.currentPet.id ? 
+                        { currentPet: updatedUserPets.length > 0 ? updatedUserPets[0] : null, userPets: updatedUserPets } :
+                        { userPets: updatedUserPets }
+                    })
+                })
+            }
+        }
     }
 
     purchasePets = () => {
@@ -187,6 +222,7 @@ export default class Home extends React.Component{
     }
 
     handleActionBtnClick = (e) => {
+        console.log(e.target.id)
         let dateTime = new Date();
         let body = {}
         if (e.target.id === 'feed-btn') {
@@ -221,27 +257,35 @@ export default class Home extends React.Component{
         })
         .then(res => res.json())
         .then(updatedPet => {
+            let feedIn = this.state.feedIn
+            let sleepIn = this.state.sleepIn
+            let cleanIn = this.state.cleanIn
             switch (e.target.id) {
                 case 'feed-btn':
-                    return this.setState({
-                        currentPet: updatedPet,
-                        feedIn: updatedPet.pet.hunger_rate
-                    })
+                    feedIn = updatedPet.pet.hunger_rate
+                    break
                 case 'sleep-btn':
-                    return this.setState({
-                        currentPet: updatedPet,
-                        sleepIn: updatedPet.pet.sleepy_rate
-                    })
+                    sleepIn = updatedPet.pet.sleepy_rate2
+                    break
                 case 'clean-btn':
-                    return this.setState({
-                        currentPet: updatedPet,
-                        cleanIn: updatedPet.pet.dirt_rate
-                    })
+                    cleanIn = updatedPet.pet.dirt_rate
+                    break
                 default:
-                    return this.setState({
-                        currentPet: updatedPet
-                    })
+                    break
             }
+
+            this.setState(prevState => {
+                let updatedUserPets = prevState.userPets
+                let petIdx = prevState.userPets.findIndex(userPet => userPet.id === prevState.currentPet.id)
+                updatedUserPets[petIdx] = updatedPet
+                return {
+                    userPets: updatedUserPets,
+                    currentPet: updatedPet,
+                    feedIn,
+                    sleepIn,
+                    cleanIn
+                }
+            })
         })
     }
 
@@ -305,7 +349,6 @@ export default class Home extends React.Component{
     }
 
     render(){
-        // console.log(this.state.buysLeft)
         return(
             <div className="home">
                 <SideNav
