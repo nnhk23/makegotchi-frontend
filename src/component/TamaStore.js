@@ -29,6 +29,17 @@ class TamaStore extends React.Component{
 
     }
 
+    purchaseTamagotchi = (idx) => {
+        // debugger
+        let money = this.props.money
+        let tama = this.props.allSpecies[idx+this.state.tamaNumber]
+        if(money > tama.price){
+            this.props.purchaseTama(tama)
+        } else { 
+            alert('Too broke to purchase Tamagotchi!') 
+        }
+    }
+
 
     render(){
         return(
@@ -46,20 +57,13 @@ class TamaStore extends React.Component{
                                         <img src={pet.img_url} alt='tamagotchiiii'className="tama_pic"/>
                                         
                                         {/* should link to user's pet list */}
-                                        {this.props.buysLeft > 0 ? 
-                                            <Button 
-                                            className="purchase_btn"
-                                            id={idx+this.state.tamaNumber} 
-                                            variant="outline-info" 
-                                            onClick={() =>{ 
-                                                // this.props.openModal()
-                                                this.props.purchaseTama(this.props.allSpecies[idx+this.state.tamaNumber])}
-                                            }>
-                                                Purchase
-                                            </Button>
-                                            :
-                                            null
-                                        }
+                                        <Button 
+                                        className="purchase_btn"
+                                        id={idx+this.state.tamaNumber} 
+                                        variant="outline-info" 
+                                        onClick={ () => this.purchaseTamagotchi(idx) }>
+                                            Purchase
+                                        </Button>
                                     </Col>
 
                                     <Col className="tama_info">Specie: {pet.species}</Col>
@@ -67,6 +71,7 @@ class TamaStore extends React.Component{
                                     <Col className="tama_info">Hangry Rate: {pet.hunger_rate}</Col>
                                     <Col className="tama_info">Shleepy Rate: {pet.sleepy_rate}</Col>
                                     <Col className="tama_info">Smelly Rate: {pet.dirt_rate}</Col>
+                                    <Col className="tama_info">Price: {pet.price}</Col>
                                 </Row>
                             </Container>
                         </ListGroup.Item>
