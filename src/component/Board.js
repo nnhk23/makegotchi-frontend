@@ -1,5 +1,6 @@
 import React from 'react'
 import Square from './Square'
+import Button from 'react-bootstrap/Button'
 
 class Board extends React.Component {
 
@@ -99,7 +100,10 @@ class Board extends React.Component {
 
         return(
         <div>
-            { this.state.isWinner || draw ? <button className="restart_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</button> : null}
+            { this.state.isWinner || draw ?  <Button className="minigames_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</Button> : null}
+            <Button className="minigames_btn" variant="outline-warning" 
+            // onClick={this.props.startMiniGame}
+             id="miniGames">Minigames</Button>
             <div className="status">{status}</div>
     
             <div className="board-row">
