@@ -3,7 +3,7 @@ import RenderPetBtn from './RenderPetBtn';
 import Button from 'react-bootstrap/Button'
 import '../css/SideNav.css';
 
-const SideNav = ({purchasePets, userPets, handleUserPetIconClick, startMiniGame}) => {
+const SideNav = ({goToTamaStore, userPets, handleUserPetIconClick, startMiniGame}) => {
     // appear after logged in
     // render Alex's pets from Home
     // buy pet buttons would trigger a callback function onClick.
@@ -20,7 +20,7 @@ const SideNav = ({purchasePets, userPets, handleUserPetIconClick, startMiniGame}
 
     return(
         <div className="sideNav">
-            <Button className="buyPet_btn" variant="outline-warning" onClick={purchasePets}>Buy a Pet</Button>
+            <Button className="buyPet_btn" variant="outline-warning" onClick={goToTamaStore}>Buy a Pet</Button>
             <Button className="minigames_btn" id="miniGames" variant="outline-warning" onClick={startMiniGame}>Mini Games</Button>
             <h2 id="sideNav_header">Your Tamagotchis</h2>
             

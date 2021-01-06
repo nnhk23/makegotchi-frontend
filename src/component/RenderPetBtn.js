@@ -5,8 +5,8 @@ import '../css/RenderPetBtn.css'
 
 const RenderPetBtn = ({ userPet, handleUserPetIconClick }) => {
     const { name, pet } = userPet
-    // console.log(pet)
     const { species, img_icon } = pet
+    
     return (
         <Row className="icon-row" onClick={() => handleUserPetIconClick(userPet)}>
             <Col sm={6}>

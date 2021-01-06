@@ -10,15 +10,19 @@ import "../css/Home.css"
 export default class Home extends React.Component{
 
     state={
-        happinessInterval: null,
         money: null,
 
+        // Intervals
+        happinessInterval: null,
+
+        // TamaStore
         allSpecies: [],
         tamaStore: false,
         isOpen: false,
         modalForm: false,
         newTama: null,
 
+        // UserPets
         userPets: [],
         currentPet: null,
         feedIn: -1,
@@ -26,10 +30,8 @@ export default class Home extends React.Component{
         sleepIn: -1,
         deletedPets: [],
 
-        miniGames: false,
-        ticTacToe: false,
-        janKen: false,
-        gamble: false
+        // MiniGames
+        miniGames: false
     }
 
     // get user from database and get all pet species
@@ -64,12 +66,9 @@ export default class Home extends React.Component{
         clearInterval(this.state.happinessInterval)
     }
 
-    // get all pet species for the tamastore
-    getAllPets = () => {
-        return fetch('http://localhost:3000/pets')
-        .then(resp => resp.json())
-        .then(data => this.setState({allSpecies: data}))
-    }
+
+
+    /* GET AND UPDATE ALL USERPETS UPON LOGIN */
 
     // get all of current user's userPets (in componentDidMount)
     getUserPets = () => {
@@ -116,7 +115,7 @@ export default class Home extends React.Component{
         return body
     }
 
-    // callback for interval (every 1s): updates happiness_score, last_fed, last_slept, and last_cleaned for all pets
+    // callback for happinessInterval (every 1s): updates happiness_score, last_fed, last_slept, and last_cleaned for all pets
     checkPetStatus = async () => {
         const currentTime = new Date()
         let deletePetsArr = new Array(this.state.userPets.length).fill(false)
@@ -156,7 +155,10 @@ export default class Home extends React.Component{
             }
         }
 
+        // decrease userpets' happiness_scores if applicable
         await this.decreaseHappiness(decreaseHappinessArr)
+
+        // delete any userpet whose happiness_score < 0
         const deletedPets = await this.deletePets(deletePetsArr)
         this.setState(prevState => {
             return { deletedPets: [...prevState.deletedPets].concat(deletedPets) }
@@ -176,13 +178,15 @@ export default class Home extends React.Component{
                 body: JSON.stringify(body)
             })
             .then(res => res.json())
-            .then(updatedUserPet => this.setState(prevState => {
+            .then(updatedUserPet => {
+
+                this.setState(prevState => {
                 let updatedUserPets = [...prevState.userPets]
                 updatedUserPets[i] = updatedUserPet
                 return userPet.id === prevState.currentPet.id ? 
                 { currentPet: updatedUserPet, userPets: updatedUserPets} : 
                 { userPets: updatedUserPets}
-            }))
+            })})
         }
     }
 
@@ -191,10 +195,12 @@ export default class Home extends React.Component{
         for (let i = deletePetsArr.length; i > -1; i--) {
             if (deletePetsArr[i]) {
                 const userPet = this.state.userPets[i]
-                deletedPets.push(userPet)
 
                 await fetch(`http://localhost:3000/user_pets/${userPet.id}`, { method: 'DELETE'})
-                .then(() => {
+                .then(res => {
+                    if (res.status === 404) { return }
+
+                    deletedPets.push(userPet)
                     this.setState(prevState => {
                         let updatedUserPets = [...prevState.userPets]
                         updatedUserPets.splice(i, 1)
@@ -213,17 +219,17 @@ export default class Home extends React.Component{
     }
 
     alertDeletedPets = () => {
-        return this.state.deletedPets.map(pet => {
+        return this.state.deletedPets.map(userPet => {
             return (
-                <Alert key={pet.id} variant="danger" onClose={() => this.closeDeletedPetAlert(pet.id)} dismissible>
-                    <p>{pet.name} the {pet.pet.species} ran away due to neglection. Shame on you!</p>
+                <Alert key={userPet.id} variant="danger" onClose={() => this.closeDeletedPetAlert(userPet.id)} dismissible>
+                    <p>{userPet.name} the {userPet.pet.species} ran away due to neglection. Shame on you!</p>
                 </Alert>
             )
         })
     }
 
     closeDeletedPetAlert = (id) => {
-        const deletedPetIdx = this.state.deletedPets.findIndex(pet => pet.id === id)
+        const deletedPetIdx = this.state.deletedPets.findIndex(userPet => userPet.id === id)
         this.setState(prevState => {
             const newDeletedPetsArr = [...prevState.deletedPets]
             newDeletedPetsArr.splice(deletedPetIdx, 1)
@@ -232,7 +238,7 @@ export default class Home extends React.Component{
         })
     }
 
-    // show a userPet on the screen when it's icon is clicked from the SideNav
+    // show a userPet on the screen when its icon is clicked from the SideNav
     handleUserPetIconClick = (currentPet) => {
         this.setState({
             tamaStore: false,
@@ -309,7 +315,15 @@ export default class Home extends React.Component{
 
     
     /* PURCHASING NEW USERPET */
-    purchasePets = () => {
+
+    // get all pet species for the tamastore
+    getAllPets = () => {
+        return fetch('http://localhost:3000/pets')
+        .then(resp => resp.json())
+        .then(data => this.setState({allSpecies: data}))
+    }
+
+    goToTamaStore = () => {
         this.setState({ tamaStore: true, miniGames: false })
     }
 
@@ -353,8 +367,6 @@ export default class Home extends React.Component{
     createUserPetData =  () => {
         const currentTime = new Date()
         const petSpecies = this.state.newTama
-        // update database with new user pet
-        // reach out to Lantz or Hal JWT
         fetch('http://localhost:3000/user_pets',{
             method: 'POST',
             headers: {
@@ -396,6 +408,8 @@ export default class Home extends React.Component{
         this.closeModal()
     }
 
+
+    /* START MINIGAME */
     startMiniGame = (e) => {
         if (e.id) {
             this.setState({[e.id]: true, gamble:e.gamble, tamaStore: false, miniGames: false})
@@ -410,12 +424,12 @@ export default class Home extends React.Component{
                 <SideNav
                     userPets={this.state.userPets}
                     tamaStore={this.state.tamaStore}
-                    purchasePets={this.purchasePets}
+                    goToTamaStore={this.goToTamaStore}
                     handleUserPetIconClick={this.handleUserPetIconClick}
                     startMiniGame={this.startMiniGame}
                 />
 
-                <div>{this.state.deletedPets.length > 0 ? this.alertDeletedPets() : null}</div>
+                <div>{this.alertDeletedPets()}</div>
                 <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!     You have ${this.state.money} coins.`: null}</div>
 
                 <Tamagotchi
