@@ -10,23 +10,25 @@ import "../css/Home.css"
 export default class Home extends React.Component{
 
     state={
+        interval: null,
+        money: null,
+
         allSpecies: [],
-        userPets: [],
         tamaStore: false,
-        currentPet: null,
-        buysLeft: null,
-        ticTacToe: false,
         isOpen: false,
         modalForm: false,
         newTama: null,
-        interval: null,
+
+        userPets: [],
+        currentPet: null,
         feedIn: -1,
         cleanIn: -1,
         sleepIn: -1,
         deletedPets: [],
-        janKen: false,
+
         miniGames: false,
-        money: null,
+        ticTacToe: false,
+        janKen: false,
         gamble: false
     }
 
@@ -44,14 +46,13 @@ export default class Home extends React.Component{
             this.props.refresh(data)
         })
         .then(() => {
-            console.log("login", new Date().getTime())
             this.getAllPets()
             this.getUserPets()
             .then(userPets => this.updatePetStatuses(userPets))
             .then(userPets => this.setState({ 
                 userPets: userPets, 
                 currentPet: userPets.length > 0? userPets[0]: null,
-                interval: setInterval(this.checkPetStatus, 1000)
+                interval: setInterval(this.checkPetStatus, 300)
             }))
         })
 
@@ -59,8 +60,6 @@ export default class Home extends React.Component{
 
     // clear intervals
     componentWillUnmount() {
-        const logoutTime = new Date().getTime()
-        console.log("logout", logoutTime, "happiness:", this.state.currentPet ? this.state.currentPet.happiness_score : null)
         clearInterval(this.state.interval)
     }
 
@@ -75,30 +74,6 @@ export default class Home extends React.Component{
     getUserPets = () => {
         return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
         .then(res => res.json())
-        // .then(userPets => {
-        //     const currentPet = userPets[0]
-        //     const currentTime = new Date()
-        //     if (currentPet) {
-        //         this.setState({
-        //         userPets: userPets,
-        //         currentPet: currentPet,
-        //         feedIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.hunger_rate ?
-        //             currentPet.pet.hunger_rate - (currentTime - currentPet.last_fed)/1000 :
-        //             -1,
-        //         sleepIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.sleepy_rate ?
-        //             currentPet.pet.sleepy_rate - (currentTime - currentPet.last_slept)/1000 :
-        //             -1,
-        //         cleanIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.dirt_rate ?
-        //             currentPet.pet.dirt_rate - (currentTime - currentPet.last_cleaned)/1000 :
-        //             -1
-        //         })
-        //     }
-        //     else {
-        //         this.setState({
-        //             userPets: userPets
-        //         })
-        //     }
-        // })
     }
 
     // after getting all of the current user's userPets, update all userPets' happiness scores
@@ -117,21 +92,6 @@ export default class Home extends React.Component{
                 userPets[i] = userPet
                 return
             })
-            // .then(userPet => {
-            //     this.setState(prevState => {
-            //         let updatedUserPets = [...prevState.userPets]
-            //         updatedUserPets[i] = userPet
-                    
-            //         return i === 0 ?
-            //         {
-            //             userPets: updatedUserPets,
-            //             currentPet: userPet
-            //         } :
-            //         {
-            //             userPets: updatedUserPets
-            //         }
-            //     })
-            // })
         }
         return userPets
     }
@@ -151,8 +111,6 @@ export default class Home extends React.Component{
         const happinesLostFromSleepiness = sleepIn < 0 ? -sleepIn : 0
         const happinessLostFromCleanliness = cleanIn < 0? -cleanIn : 0
         const happiness = userPet.happiness_score - (happinessLostFromHunger + happinesLostFromSleepiness + happinessLostFromCleanliness)
-        console.log(userPet.last_fed, feedIn)
-        console.log(userPet.happiness_score, happinessLostFromHunger, happinesLostFromSleepiness, happinessLostFromCleanliness)
         const body = { 'happiness_score': happiness > 0 ? happiness : 0 }
         return body
     }
@@ -199,7 +157,9 @@ export default class Home extends React.Component{
 
         await this.decreaseHappiness(decreaseHappinessArr)
         const deletedPets = await this.deletePets(deletePetsArr)
-        this.setState({ deletedPets })
+        this.setState(prevState => {
+            return { deletedPets: [...prevState.deletedPets].concat(deletedPets) }
+        })
     }
 
     decreaseHappiness = async (decreaseHappinessArr) => {
@@ -252,12 +212,22 @@ export default class Home extends React.Component{
     }
 
     alertDeletedPets = () => {
-        return this.state.deletedPets.map((idx, pet) => {
+        return this.state.deletedPets.map(pet => {
             return (
-                <Alert key={idx} variant="danger" onClose={() => this.setState({ deletedPets: [] })} dismissible>
+                <Alert key={pet.id} variant="danger" onClose={() => this.closeDeletedPetAlert(pet.id)} dismissible>
                     <p>{pet.name} the {pet.pet.species} ran away due to neglection. Shame on you!</p>
                 </Alert>
             )
+        })
+    }
+
+    closeDeletedPetAlert = (id) => {
+        const deletedPetIdx = this.state.deletedPets.findIndex(pet => pet.id === id)
+        this.setState(prevState => {
+            const newDeletedPetsArr = [...prevState.deletedPets]
+            newDeletedPetsArr.splice(deletedPetIdx, 1)
+
+            return { deletedPets: newDeletedPetsArr }
         })
     }
 
@@ -358,7 +328,6 @@ export default class Home extends React.Component{
 
 
     purchaseTama = (newTama) => {
-        console.log(newTama)
         this.openModal()
         this.renderModalForm()
         this.setState({ newTama })
@@ -431,6 +400,7 @@ export default class Home extends React.Component{
     }
 
     render(){
+        {console.log(this.state)}
         return(
             <div className="home">
                 <SideNav
