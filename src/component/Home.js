@@ -5,7 +5,7 @@ import ModalForm from './ModalForm'
 import Alert from 'react-bootstrap/Alert'
 
 
-import "./Home.css"
+import "../css/Home.css"
 
 export default class Home extends React.Component{
 
@@ -23,7 +23,11 @@ export default class Home extends React.Component{
         feedIn: -1,
         cleanIn: -1,
         sleepIn: -1,
-        deletedPets: []
+        deletedPets: [],
+        janKen: false,
+        miniGames: false,
+        money: null,
+        gamble: false
     }
 
     // fetching list of all species.
@@ -36,7 +40,7 @@ export default class Home extends React.Component{
         }})
         .then(res => res.json())
         .then(data => {
-            this.setState({ buysLeft: data.user.buys_left})
+            this.setState({ money: data.user.money })
             this.props.refresh(data)
         })
         .then(() => {
@@ -246,21 +250,12 @@ export default class Home extends React.Component{
     }
 
     purchasePets = () => {
-        alert('tama store is activated')
-        // render tamaStore in tamagotchi
-        this.setState({ tamaStore: true, ticTacToe: false })
+        this.setState({ tamaStore: true, miniGames: false })
     }
 
-    updateBuysLeft = () => {
+    updateMoneyLeft = (amount) => {
+        let money = this.state.money + amount
         
-        let buysLeft = this.state.buysLeft - 1
-        // let userPetsLength
-
-        // await this.sleep(1000)
-        // pets ? userPetsLength = pets.length : userPetsLength = this.state.userPets.length
-
-        // userPetsLength === 0 ? buysLeft = 3 : buysLeft = 3 - userPetsLength
-
         fetch(`http://localhost:3000/users/${this.props.user.id}`,{
             method: 'PATCH',
             headers: {
@@ -268,15 +263,16 @@ export default class Home extends React.Component{
                 'Accept' : 'application/json'
             },
             body: JSON.stringify({
-                buys_left: buysLeft
+                money
             })
         })
         .then(resp => resp.json())
-        .then(data => this.setState({ buysLeft: data.buys_left }))
+        .then(data => this.setState({
+            money: data.money 
+        }))
     }
 
     handleIconClick = (currentPet) => {
-
         this.setState({
             tamaStore: false,
             ticTacToe: false,
@@ -396,12 +392,10 @@ export default class Home extends React.Component{
           }
         }, () => {
             this.createUserPetData()
-            this.updateBuysLeft()
+            this.updateMoneyLeft(-this.state.newTama.price)
         })
 
         this.closeModal()
-
-        alert('generating Tamagotchi. Pls wait!')
     }
 
     purchaseTama = (newTama) => {
@@ -412,10 +406,11 @@ export default class Home extends React.Component{
 
 
     startMiniGame = (e) => {
-        alert('Start minigame')
-        this.setState({ ticTacToe: true, tamaStore: false })
-        // empty tamagotchi's screen
-        // populate with minigames
+        if (e.id) {
+            this.setState({[e.id]: true, gamble:e.gamble, tamaStore: false, miniGames: false})
+        } else {
+            this.setState({miniGames: true, tamaStore: false, ticTacToe: false, janKen: false})
+        }
     }
 
     render(){
@@ -428,8 +423,10 @@ export default class Home extends React.Component{
                     handleIconClick={this.handleIconClick}
                     startMiniGame={this.startMiniGame}
                 />
+
                 <div>{this.state.deletedPets.length > 0 ? this.alertDeletedPets() : null}</div>
-                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}! You have ${this.state.buysLeft} slots left.` : null}</div>
+                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!     You have ${this.state.money} coins.`: null}</div>
+
                 <Tamagotchi
                     allSpecies={this.state.allSpecies}
                     currentPet={this.state.currentPet}
@@ -437,12 +434,17 @@ export default class Home extends React.Component{
                     user={this.props.user}
                     token={this.props.token}
                     purchaseTama={this.purchaseTama}
-                    buysLeft={this.state.buysLeft}
                     ticTacToe={this.state.ticTacToe}
                     handleActionBtnClick={this.handleActionBtnClick}
                     feedIn ={this.state.feedIn}
                     sleepIn = {this.state.sleepIn}
                     cleanIn = {this.state.cleanIn}
+                    startMiniGame={this.startMiniGame}
+                    janKen={this.state.janKen}
+                    miniGames={this.state.miniGames}
+                    money={this.state.money}
+                    updateMoneyLeft={this.updateMoneyLeft}
+                    gamble={this.state.gamble}
                 />
 
                 { this.state.modalForm ?

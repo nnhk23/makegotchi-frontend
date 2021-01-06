@@ -1,0 +1,20 @@
+.userPet_bio{
+    height: 60px;
+    width: 60%;
+    position: relative;
+    text-align: center;
+    background: #efd8ef;
+    border: solid 1px rgba(255, 252, 252, 0.5);
+    border-radius: 20px;
+    margin-right: 10px;
+    padding-top: 11px;
+    padding-left: 15px;
+    padding-right: 15px;
+    /* margin-bottom: 10px; */
+    /* padding: 9px 5px; */
+    color: rgb(53, 3, 73);
+    font-family: 'Schoolbell', cursive;
+    font-size: 17px;
+    line-height: 1.2rem;
+    box-shadow: 2px 7px 0px 2px #bba1d2;
+}

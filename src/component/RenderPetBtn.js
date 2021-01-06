@@ -1,7 +1,7 @@
 import React from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import './RenderPetBtn.css'
+import '../css/RenderPetBtn.css'
 
 const RenderPetBtn = ({ userPet, handleIconClick }) => {
     const { name, pet } = userPet
