@@ -11,7 +11,9 @@ font-family: 'Schoolbell', cursive; */
     padding-bottom: 10px;
     line-height: 15px;
     width: 270px;
-  }
+    cursor: pointer;
+    
+}
 
 .icon-info {
     margin-top: auto;

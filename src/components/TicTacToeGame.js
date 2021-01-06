@@ -2,16 +2,16 @@ import React from 'react'
 import TicTacToeBoard from './TicTacToeBoard'
 import '../css/Game.css'
 
-class Game extends React.Component {
+class TicTacToeGame extends React.Component {
     render() {
       return (
         <div className="game">
           <div className="game-board">
-            <TicTacToeBoard updateMoneyLeft={this.props.updateMoneyLeft}/>
+            <TicTacToeBoard updateMoneyLeft={this.props.updateMoneyLeft} gamble={this.props.gamble} handleClick={this.props.handleClick}/>
           </div>
         </div>
       );
     }
   }
 
-export default Game
+export default TicTacToeGame

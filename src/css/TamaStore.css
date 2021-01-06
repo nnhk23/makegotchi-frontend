@@ -15,6 +15,7 @@ position:absolute;
 }
 
 .list-group-item {
+    margin-bottom: 5px;
     padding-right: 8px;
     padding-left: 0px;
     position: relative;
@@ -33,10 +34,11 @@ position:absolute;
 }
 
 .tama_pic{
+    margin-bottom: 5px;
     padding-bottom: 5px;
     margin-left: 18px;
     min-width: 100px;
-    height: 130px;;
+    height: 120px;;
 }
 
 .tama_info{
@@ -44,19 +46,23 @@ position:absolute;
     height: 50%;
     padding-top: 38px;
     padding-right: 5px;
+    padding-left: 6px;
     font-size: 14px;
 }
 
 .purchase_btn{
     width: 90px;
     border-radius: 15px;
+    margin-bottom: 5px;
 }
 
 .more_tama_btn{
     border-radius: 15px;
-    margin-bottom: 5px;
-    height: 35px;
+    position: absolute;
+    bottom: 7px;
+    right: 6px;
 }
+
 
 .container{
     padding-right:0px;

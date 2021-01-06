@@ -40,7 +40,6 @@ font-family: 'Schoolbell', cursive; */
 }
 
 
-
 #pet-img {
   height: 200px;
   margin-left: auto;
@@ -48,7 +47,7 @@ font-family: 'Schoolbell', cursive; */
 }
 
 .makegotchi_background {
-  width: 80%;
+  width: 100%;
   height: 90%;
   display: flex;
   justify-content: center;
@@ -59,23 +58,24 @@ font-family: 'Schoolbell', cursive; */
 
 #tamagotchi_login{
   height: 100%;
-  width: 75%;
+  width: 850px;
   padding-top: 15px;
 }
 
-/* Now called .login_screen_div */
-/* .tempDiv {
-  text-align:center;
-  background-color: #4ccca1;
-  padding: 10em;
-  width: 400px;
-  margin: auto;
-  padding: 20px;
-} */
-
 #formRender_div{
   width: 310px;
-  line-height: 1rem;
+  line-height: .9rem;
+}
+
+#exit_btn{
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+#update_btn{
+  
+  color:rgb(224, 186, 16);
 }
 
 .login_screen_div{
@@ -89,8 +89,8 @@ font-family: 'Schoolbell', cursive; */
 }
 
 .login_screen {
-  min-width: 50%;
-  min-height: 65%;
+  min-width: 566px;
+  min-height: 471px;
   display: flex;
   justify-content: center;
   align-items: center;

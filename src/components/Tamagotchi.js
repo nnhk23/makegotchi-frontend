@@ -1,12 +1,10 @@
-import React from 'react';
+import React from 'react'
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
 import egg from '../images/makegotchi_wide3.png'
 import "../css/Tamagotchi.css"
-import Game from './Game'
-import UserPetBio from './UserPetBio';
-import Row from 'react-bootstrap/Row';
-import JankenGame from './JankenGame'
+import UserPetBio from './UserPetBio'
+import Row from 'react-bootstrap/Row'
 import Minigames from './Minigames'
 
 
@@ -16,9 +14,7 @@ export default class Tamagotchi extends React.Component{
     render(){
         switch (true) {
             case this.props.tamaStore:
-
                 return (
-                    // eslint-disable-next-line react/style-prop-object
                     <div>
                         <Row className="tamagotchi_container" id='screen_div'>
                             <div className="tamagotchi_background">
@@ -34,32 +30,6 @@ export default class Tamagotchi extends React.Component{
                         </Row>
                     </div>
                 )
-            case this.props.ticTacToe:
-                return (
-                   <div>
-                        <Row className="tamagotchi_container" id='screen_div'>
-                            <div className="tamagotchi_background">
-                                <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
-                                <div id='screen'>
-                                    <Game updateMoneyLeft={this.props.updateMoneyLeft}/>
-                                </div>
-                            </div>
-                        </Row>
-                    </div>
-                    )
-            case this.props.janKen:
-                return (
-                    <div>
-                        <Row className="tamagotchi_container" id='screen_div'>
-                            <div className="tamagotchi_background">
-                                <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
-                                <div id='screen'>
-                                    <JankenGame user={this.props.user} startMiniGame={this.props.startMiniGame} updateMoneyLeft={this.props.updateMoneyLeft} gamble={this.props.gamble}/>
-                                </div>
-                            </div>
-                        </Row>
-                    </div>
-                    )
             case this.props.miniGames:
                 return (
                     <div>
@@ -67,12 +37,16 @@ export default class Tamagotchi extends React.Component{
                             <div className="tamagotchi_background">
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
-                                <Minigames startMiniGame={this.props.startMiniGame}/>
+                                <Minigames 
+                                        user={this.props.user}
+                                        money={this.props.money} 
+                                        updateMoneyLeft={this.props.updateMoneyLeft}
+                                        />
                                 </div>
                             </div>
                         </Row>
                     </div>
-                    )
+                )
 
             case !!this.props.currentPet:
                 return (

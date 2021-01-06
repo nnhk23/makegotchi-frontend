@@ -1,10 +1,9 @@
-import React from 'react';
+import React from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-
 import "../css/TamaStore.css"
 
 class TamaStore extends React.Component{

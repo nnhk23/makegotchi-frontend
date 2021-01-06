@@ -1,14 +1,9 @@
-import React from 'react';
-import RenderPetBtn from './RenderPetBtn';
+import React from 'react'
+import RenderPetBtn from './RenderPetBtn'
 import Button from 'react-bootstrap/Button'
-import '../css/SideNav.css';
+import '../css/SideNav.css'
 
 const SideNav = ({goToTamaStore, userPets, handleUserPetIconClick, startMiniGame}) => {
-    // appear after logged in
-    // render Alex's pets from Home
-    // buy pet buttons would trigger a callback function onClick.
-    // click on specific pet would trigger a callback function onClick.
-    // => re-render tamagotchi's screen
 
     const renderBtns = () => {
         return userPets.map(userPet => {
@@ -23,9 +18,7 @@ const SideNav = ({goToTamaStore, userPets, handleUserPetIconClick, startMiniGame
             <Button className="buyPet_btn" variant="outline-warning" onClick={goToTamaStore}>Buy a Pet</Button>
             <Button className="minigames_btn" id="miniGames" variant="outline-warning" onClick={startMiniGame}>Mini Games</Button>
             <h2 id="sideNav_header">Your Tamagotchis</h2>
-            
-            <br /><br />
-
+ 
             {renderBtns()}
         </div>
     )

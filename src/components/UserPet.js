@@ -1,12 +1,11 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-import React from 'react';
+import React from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import '../css/UserPet.css';
-import styled, {keyframes} from 'styled-components';
-import { bounce } from 'react-animations';
+import '../css/UserPet.css'
+import styled, {keyframes} from 'styled-components'
+import { bounce } from 'react-animations'
 
-const Bounce = styled.div`animation: 2s ${keyframes`${bounce}`} infinite`;
+const Bounce = styled.div`animation: 2s ${keyframes`${bounce}`} infinite`
 
 const UserPet = ({ currentPet, feedIn, sleepIn, cleanIn }) => {
     const { name, happiness_score, pet } = currentPet
