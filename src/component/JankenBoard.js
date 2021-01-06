@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Scissors from '../images/scissors.png'
 import Paper from '../images/paper.png'
 import Rock from '../images/rock.png'
+import ScissorsCpu from '../images/scissors_left.png'
+import PaperCpu from '../images/paper_left.png'
+import RockCpu from '../images/rock_left.png'
 import Button from 'react-bootstrap/Button'
 
 // import Row from 'react-bootstrap/Row';
@@ -37,15 +40,15 @@ class JankenBoard extends Component {
         switch (rand){
             case 0: 
                 cpu = "Rock" 
-                cpuShow = Rock
+                cpuShow = RockCpu
                 break
             case 1:
                 cpu = "Paper"
-                cpuShow = Paper
+                cpuShow = PaperCpu
                 break
             case 2:
                 cpu = "Scissors"
-                cpuShow = Scissors
+                cpuShow = ScissorsCpu
                 break
             default:
                 break
@@ -76,12 +79,12 @@ class JankenBoard extends Component {
             } else if (userChoice === "Scissors"){
                 this.setState(prevState => {
                     return {cpuScore: prevState.cpuScore + 1, message: "You lost"}
-                })
+                }, ()=>{this.gameover()})
 
             } else if (userChoice === "Paper"){
                 this.setState(prevState => {
                     return {userScore: prevState.userScore + 1, message: "You won!", winsNeeded: prevState.winsNeeded - 1}
-                })
+                }, ()=>{this.gameover()})
             }
         }
         else if (cpu === "Paper" ){
@@ -119,8 +122,11 @@ class JankenBoard extends Component {
     gameover = () => {
         if (this.state.userScore === 3){
             setTimeout(this.handleGameover, 1000)
+            this.props.gamble ? this.props.updateMoneyLeft(200) : this.props.updateMoneyLeft(100)
         } else if (this.state.cpuScore === 3){
             setTimeout(this.handleGameover, 1000)
+            if (this.props.gamble === "true") {
+                this.props.updateMoneyLeft(-100)}
         }
     }
 
@@ -135,7 +141,8 @@ class JankenBoard extends Component {
             
             <div>
                 <h1>JanKen</h1>
-                <h3>{this.state.winner ? `You ${this.state.userScore === 3 ? "Won!" : "Lost!" }`: this.state.message}</h3>
+                <h3>{this.state.winner ? 
+                `You ${this.state.userScore === 3 ? `Won ${this.props.gamble ? "200" : "100"} coins!` : `${this.props.gamble ? "Lost!" : "Lost 100 coins!"}` }`: this.state.message}</h3>
                 
                 <div className="game">
                     <div className ="janken-square">

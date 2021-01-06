@@ -24,7 +24,8 @@ export default class Home extends React.Component{
         sleepIn: -1,
         janKen: false,
         miniGames: false,
-        money: null
+        money: null,
+        gamble: false
     }
 
     // fetching list of all species.
@@ -146,7 +147,7 @@ export default class Home extends React.Component{
 
     updateMoneyLeft = (amount) => {
         let money = this.state.money + amount
-
+        
         fetch(`http://localhost:3000/users/${this.props.user.id}`,{
             method: 'PATCH',
             headers: {
@@ -291,13 +292,10 @@ export default class Home extends React.Component{
 
 
     startMiniGame = (e) => {
-        // debugger
-        // alert('Start minigame')
-        let name = e.target.id
-        if (name === "miniGames"){
-            this.setState({[name]: true, tamaStore: false, ticTacToe: false, janKen: false})}
-        else { 
-            this.setState({[name]: true, tamaStore: false, miniGames: false})
+        if (e.id) {
+            this.setState({[e.id]: true, gamble:e.gamble, tamaStore: false, miniGames: false})
+        } else {
+            this.setState({miniGames: true, tamaStore: false, ticTacToe: false, janKen: false})
         }
     }
 
@@ -332,6 +330,7 @@ export default class Home extends React.Component{
                     miniGames={this.state.miniGames}
                     money={this.state.money}
                     updateMoneyLeft={this.updateMoneyLeft}
+                    gamble={this.state.gamble}
                 />
 
                 { this.state.modalForm ?

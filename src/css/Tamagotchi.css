@@ -124,8 +124,12 @@
 
 .janken-pics{
   width: 100%; 
-  max-width: 250px; 
+  max-width: 200px; 
   height: auto; 
 }
 
+input[type='radio'] {
+  transform: scale(1.5);
+  margin-left: 20px;
+}
 
