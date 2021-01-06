@@ -6,7 +6,8 @@ class Board extends React.Component {
     state={
         squares: Array(9).fill(null),
         userTurn: true,
-        isWinner: false
+        isWinner: false,
+        winner: null
     }
     
     // handle click on each square to decide if it's X/O
@@ -37,18 +38,17 @@ class Board extends React.Component {
     }
 
     computerClick = (squares) => {
-        const winner = this.calculateWinner(squares)
         let emptySquares = squares.map((s, idx) => s === null ? idx : null).filter(x => x)
         let indx = emptySquares[[Math.floor(Math.random() * emptySquares.length)]]
 
-        squares[indx] = !winner ?  'O' : null
+        squares[indx] = !this.calculateWinner(squares) ?  'O' : null
 
         this.setState(prevState => {
             return{
                 squares: squares,
                 userTurn: !prevState.userTurn
             }
-        });
+        }, () => this.calculateWinner(squares));
     }
 
     calculateWinner = (squares) => {
@@ -65,8 +65,13 @@ class Board extends React.Component {
         for (let i = 0; i < lines.length; i++) {
           const [a, b, c] = lines[i];
           if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            this.setState({ isWinner: true })
-            return squares[a];
+              if(squares[a] === 'X'){ 
+                this.changeMoney(100, 'X') 
+              } else if (squares[a] === 'O'){
+                this.changeMoney(0, 'O')
+              }
+              return squares[a];
+            // this.setState({ isWinner: true })
           }
         }
         return null;
@@ -77,25 +82,24 @@ class Board extends React.Component {
 
     resetSquares = () => this.setState({ squares: Array(9).fill(null) , isWinner: false})
 
-    changeMoney = () => {
-        // this.props.updateMoneyLeft(100)
-        console.log('hello?')
-        // this.setState({  })
+    changeMoney = (amount, winner) => {
+        this.setState({ isWinner: true , winner })
+        if(amount > 0 ){
+            this.props.updateMoneyLeft(amount)
+        }
     }
 
     render(){       
-        const winner = this.state.isWinner ? null : this.calculateWinner(this.state.squares)
+        const winner = this.state.isWinner ? null : () => this.calculateWinner(this.state.squares)
+        console.log(winner)
         const draw = this.state.squares.filter(s => !s).length !== 0 ? false : true
 
         let player = this.state.userTurn ? 'X' : 'O'
-        let status = winner ? `Winner is: ${winner}` : draw ? `It's a draw` : `Next Player: ${player}`
+        let status = this.state.isWinner ? `Winner is: ${this.state.winner}` : draw ? `It's a draw` : `Next Player: ${player}`
 
         return(
         <div>
-            { this.state.isWinner ? this.changeMoney() : null }
-            {winner || draw ? <button className="restart_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</button> : null}
-            {console.log(this.state.squares)}
-            {/* {winner === 'X' ? alert('You won 100 coins!') && this.props.updateMoneyLeft(100) : winner === 'O' ? alert('You lost 100 coins!') : null } */}
+            { this.state.isWinner || draw ? <button className="restart_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</button> : null}
             <div className="status">{status}</div>
     
             <div className="board-row">
