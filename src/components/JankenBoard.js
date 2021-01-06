@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Scissors from '../images/scissors.png'
 import Paper from '../images/paper.png'
 import Rock from '../images/rock.png'
@@ -7,8 +7,6 @@ import PaperCpu from '../images/paper_left.png'
 import RockCpu from '../images/rock_left.png'
 import Button from 'react-bootstrap/Button'
 import '../css/Game.css'
-
-// import Row from 'react-bootstrap/Row';
 
 class JankenBoard extends Component {
 

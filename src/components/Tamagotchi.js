@@ -1,12 +1,10 @@
-import React from 'react';
+import React from 'react'
 import UserPet from './UserPet'
 import TamaStore from './TamaStore'
 import egg from '../images/makegotchi_wide3.png'
 import "../css/Tamagotchi.css"
-import Game from './Game'
-import UserPetBio from './UserPetBio';
-import Row from 'react-bootstrap/Row';
-import JankenGame from './JankenGame'
+import UserPetBio from './UserPetBio'
+import Row from 'react-bootstrap/Row'
 import Minigames from './Minigames'
 
 
@@ -17,7 +15,6 @@ export default class Tamagotchi extends React.Component{
         switch (true) {
             case this.props.tamaStore:
                 return (
-                    // eslint-disable-next-line react/style-prop-object
                     <div>
                         <Row className="tamagotchi_container" id='screen_div'>
                             <div className="tamagotchi_background">
@@ -43,10 +40,7 @@ export default class Tamagotchi extends React.Component{
                                 <Minigames 
                                         user={this.props.user}
                                         money={this.props.money} 
-                                        updateMoneyLeft={this.props.updateMoneyLeft} 
-                                        closeMiniGame={this.props.closeMiniGame}
-                                        // gamble={this.props.gamble}
-                                        // startMiniGame={this.props.startMiniGame} 
+                                        updateMoneyLeft={this.props.updateMoneyLeft}
                                         />
                                 </div>
                             </div>

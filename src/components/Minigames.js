@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import Game from './Game'
+import TicTacToeGame from './TicTacToeGame'
 import JankenGame from './JankenGame'
 
 class Minigames extends Component {
@@ -29,7 +29,7 @@ class Minigames extends Component {
                 )
             case 'ticTacToe' :
                 return (
-                    <Game updateMoneyLeft={this.props.updateMoneyLeft} gamble={this.state.gamble}/>
+                    <TicTacToeGame updateMoneyLeft={this.props.updateMoneyLeft} gamble={this.state.gamble} handleClick={this.handleClick}/>
                 )
             default :
                 return (

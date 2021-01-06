@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './component/Home'
-import TopNav from './component/TopNav'
-import FormRender from './component/FormRender'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Home from './components/Home'
+import TopNav from './components/TopNav'
+import FormRender from './components/FormRender'
 import './App.css';
 import egg_login from './images/makegotchi_login.png'
-import ModalDelete from './component/ModalDelete'
+import ModalDelete from './components/ModalDelete'
 
 
 class App extends React.Component {

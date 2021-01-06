@@ -2,7 +2,7 @@ import React from 'react'
 import Square from './Square'
 import Button from 'react-bootstrap/Button'
 
-class Board extends React.Component {
+class TicTacToeBoard extends React.Component {
 
     state={
         squares: Array(9).fill(null),
@@ -92,7 +92,13 @@ class Board extends React.Component {
         }
     }
 
-        
+    afterGameButtons = () => {
+        return (<div>
+            <Button className="restart_btn minigames_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</Button>
+            <Button className="minigames_btn" variant="outline-warning" id="miniGames" onClick={(e) => this.props.handleClick(e)}>Minigames</Button>
+        </div>)
+    }
+
         render(){       
             const winner = this.state.isWinner ? this.state.winner : () => this.calculateWinner(this.state.squares)
             const draw = this.state.squares.filter(s => !s).length !== 0 ? false : true
@@ -102,7 +108,7 @@ class Board extends React.Component {
             return(
             <div>
                 
-            {this.state.isWinner || draw  ? <button className="restart_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</button> : null}
+            {this.state.isWinner || draw ? this.afterGameButtons() : null}
 
             <div className="status">{status}</div>
 
@@ -126,4 +132,4 @@ class Board extends React.Component {
     }
 }
 
-export default Board
+export default TicTacToeBoard
