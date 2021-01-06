@@ -26,8 +26,8 @@ export default class Tamagotchi extends React.Component{
                                 <div id='screen'>
                                     <TamaStore
                                         allSpecies={this.props.allSpecies}
-                                        buysLeft={this.props.buysLeft}
                                         purchaseTama={this.props.purchaseTama}
+                                        money={this.props.money}
                                     />
                                 </div>
                             </div>
@@ -41,7 +41,7 @@ export default class Tamagotchi extends React.Component{
                             <div className="tamagotchi_background">
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
-                                    <Game />
+                                    <Game updateMoneyLeft={this.props.updateMoneyLeft}/>
                                 </div>
                             </div>
                         </Row>
