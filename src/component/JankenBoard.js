@@ -142,14 +142,15 @@ class JankenBoard extends Component {
 
             <div>
                 <h1>JanKen</h1>
-                <h3>{this.state.winner ?
-                `You ${this.state.userScore === 3 ? `Won ${this.props.gamble ? "200" : "100"} coins!` : `${this.props.gamble ? "Lost!" : "Lost 100 coins!"}` }`: this.state.message}</h3>
-
+                <h3>{this.state.winner ? 
+                `You ${this.state.userScore === 3 ? `Won ${this.props.gamble ? "200" : "100"} coins!` : `${this.props.gamble ? "Lost 100 coins!" : "Lost!"}` }`: this.state.message}</h3>
+                
                 <div className="game">
                     <div className ="janken-square">
                         <h4>Computer - {this.state.cpuScore}</h4>
                         {this.state.winner ?
-                        <Button className="minigames_btn" variant="outline-warning" onClick={this.props.startMiniGame} id="miniGames">Back to Minigames</Button> :
+
+                        <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.props.handleClick(e)} id="miniGames">Minigames</Button> :
                         <img className="janken-pics" src={this.state.cpuScreen} alt=""/> }
                     </div>
                     <div className ="janken-square">
