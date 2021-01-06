@@ -43,7 +43,7 @@ export default class Home extends React.Component{
         .then(() => {
         this.getAllPets()
         this.getUserPets()
-        this.setState({ interval: setInterval(this.checkPetStatus, 1000)})
+        // this.setState({ interval: setInterval(this.checkPetStatus, 1000)})
         })
 
     }
