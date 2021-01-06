@@ -429,7 +429,11 @@ export default class Home extends React.Component{
                 />
 
                 <div>{this.state.deletedPets.length > 0 ? this.alertDeletedPets() : null}</div>
-                <div id="greeting">{!!this.props.user ? `Hi ${this.props.user.name}!     You have ${this.state.money} coins.`: null}</div>
+
+               
+                    <div id="greeting1">{!!this.props.user ? `Hi ${this.props.user.name}!`: null}</div>
+                    <div id="greeting2">{!!this.props.user ? `You have ${this.state.money} coins.`: null}</div>
+                
 
                 <Tamagotchi
                     allSpecies={this.state.allSpecies}

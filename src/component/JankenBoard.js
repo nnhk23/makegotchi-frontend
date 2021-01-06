@@ -6,6 +6,7 @@ import ScissorsCpu from '../images/scissors_left.png'
 import PaperCpu from '../images/paper_left.png'
 import RockCpu from '../images/rock_left.png'
 import Button from 'react-bootstrap/Button'
+import '../css/Game.css'
 
 // import Row from 'react-bootstrap/Row';
 
@@ -32,14 +33,14 @@ class JankenBoard extends Component {
 
 
     handleClick = (e) => {
-    
+
         setTimeout(this.clearScreens, 2000)
         let rand = Math.round(Math.random() * 2)
-        let cpu 
+        let cpu
         let cpuShow
         switch (rand){
-            case 0: 
-                cpu = "Rock" 
+            case 0:
+                cpu = "Rock"
                 cpuShow = RockCpu
                 break
             case 1:
@@ -57,13 +58,13 @@ class JankenBoard extends Component {
         let userChoice = e.target.value
         let userShow
         switch (userChoice){
-            case 'Rock': 
+            case 'Rock':
                 userShow = Rock
                 break
-            case 'Paper': 
+            case 'Paper':
                 userShow = Paper
                 break
-            case 'Scissors': 
+            case 'Scissors':
                 userShow = Scissors
                 break
             default:
@@ -133,22 +134,22 @@ class JankenBoard extends Component {
     handleGameover = () => {
         this.setState({winner:true})
     }
-    
+
 
     render() {
-        
+
         return (
-            
+
             <div>
                 <h1>JanKen</h1>
-                <h3>{this.state.winner ? 
+                <h3>{this.state.winner ?
                 `You ${this.state.userScore === 3 ? `Won ${this.props.gamble ? "200" : "100"} coins!` : `${this.props.gamble ? "Lost!" : "Lost 100 coins!"}` }`: this.state.message}</h3>
-                
+
                 <div className="game">
                     <div className ="janken-square">
                         <h4>Computer - {this.state.cpuScore}</h4>
                         {this.state.winner ?
-                        <Button className="minigames_btn" variant="outline-warning" onClick={this.props.startMiniGame} id="miniGames">Minigames</Button> :
+                        <Button className="minigames_btn" variant="outline-warning" onClick={this.props.startMiniGame} id="miniGames">Back to Minigames</Button> :
                         <img className="janken-pics" src={this.state.cpuScreen} alt=""/> }
                     </div>
                     <div className ="janken-square">
@@ -159,26 +160,26 @@ class JankenBoard extends Component {
                     </div>
                 </div>
                 <div onClick={this.props.handleActionBtnClick}>
-                    <button 
-                        className="controls" 
-                        value="Rock" 
+                    <button
+                        className="controls_janken"
+                        value="Rock"
                         disabled={this.state.winner ? true : false}
                         onClick={(e) => this.handleClick(e)}>Rock
                     </button>
-                    <button 
-                        className="controls" 
-                        value="Paper" 
+                    <button
+                        className="controls_janken"
+                        value="Paper"
                         disabled={this.state.winner ? true : false}
                         onClick={(e) => this.handleClick(e)}>Paper
                     </button>
-                    <button 
-                        className="controls" 
-                        value="Scissors" 
+                    <button
+                        className="controls_janken"
+                        value="Scissors"
                         disabled={this.state.winner ? true : false}
                         onClick={(e) => this.handleClick(e)}>Scissors
                     </button>
                 </div>
-            </div> 
+            </div>
             )
         }
     }
