@@ -33,7 +33,7 @@ class TamaStore extends React.Component{
         // debugger
         let money = this.props.money
         let tama = this.props.allSpecies[idx+this.state.tamaNumber]
-        if(money > tama.price){
+        if(money >= tama.price){
             this.props.purchaseTama(tama)
         } else { 
             alert('Too broke to purchase Tamagotchi!') 

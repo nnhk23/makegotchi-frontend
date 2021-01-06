@@ -23,11 +23,10 @@ export default class Home extends React.Component{
         cleanIn: -1,
         sleepIn: -1,
         deletedPets: [],
-        janKen: false,
-        ticTacToe: false,
         miniGames: false,
-        money: null,
-        gamble: false
+        money: null
+        // gamble: false,
+        
     }
 
     // fetching list of all species.
@@ -46,7 +45,7 @@ export default class Home extends React.Component{
         .then(() => {
             this.getAllPets()
             this.getUserPets().then(this.updatePetStatuses)
-            this.setState({ interval: setInterval(this.checkPetStatus, 1000)})
+            // this.setState({ interval: setInterval(this.checkPetStatus, 1000)})
         })
 
     }
@@ -275,8 +274,6 @@ export default class Home extends React.Component{
     handleIconClick = (currentPet) => {
         this.setState({
             tamaStore: false,
-            ticTacToe: false,
-            janKen: false,
             miniGames: false,
             currentPet
         })
@@ -288,8 +285,6 @@ export default class Home extends React.Component{
                 userPets: [...prevState.userPets, newUserPet],
                 currentPet: newUserPet,
                 tamaStore: false,
-                ticTacToe: false,
-                janKen: false,
                 miniGames: false
             }
         })
@@ -409,12 +404,12 @@ export default class Home extends React.Component{
     }
 
 
-    startMiniGame = (e) => {
-        if (e.id) {
-            this.setState({[e.id]: true, gamble: e.gamble, tamaStore: false, miniGames: false})
-        } else {
-            this.setState({miniGames: true, tamaStore: false, ticTacToe: false, janKen: false})
-        }
+    startMiniGame = () => {
+        this.setState({miniGames: true, tamaStore: false})  
+    }
+
+    closeMiniGame = () => {
+        this.setState({miniGames : false})
     }
 
     render(){
@@ -438,17 +433,18 @@ export default class Home extends React.Component{
                     user={this.props.user}
                     token={this.props.token}
                     purchaseTama={this.purchaseTama}
-                    ticTacToe={this.state.ticTacToe}
                     handleActionBtnClick={this.handleActionBtnClick}
                     feedIn ={this.state.feedIn}
                     sleepIn = {this.state.sleepIn}
                     cleanIn = {this.state.cleanIn}
-                    startMiniGame={this.startMiniGame}
-                    janKen={this.state.janKen}
                     miniGames={this.state.miniGames}
                     money={this.state.money}
                     updateMoneyLeft={this.updateMoneyLeft}
-                    gamble={this.state.gamble}
+                    // startMiniGame={this.startMiniGame}
+                    // gamble={this.state.gamble}
+                    // ticTacToe={this.state.ticTacToe}
+                    // janKen={this.state.janKen}
+                    closeMiniGame={this.closeMiniGame}
                 />
 
                 { this.state.modalForm ?

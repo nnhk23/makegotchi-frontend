@@ -7,7 +7,7 @@ class Game extends React.Component {
       return (
         <div className="game">
           <div className="game-board">
-            <Board updateMoneyLeft={this.props.updateMoneyLeft}/>
+            <Board updateMoneyLeft={this.props.updateMoneyLeft} gamble={this.props.gamble}/>
           </div>
         </div>
       );
