@@ -44,21 +44,29 @@ export default class Home extends React.Component{
             this.props.refresh(data)
         })
         .then(() => {
+            console.log("login", new Date().getTime())
             this.getAllPets()
-            this.getUserPets().then(this.updatePetStatuses)
-            this.setState({ interval: setInterval(this.checkPetStatus, 1000)})
+            this.getUserPets()
+            .then(userPets => this.updatePetStatuses(userPets))
+            .then(userPets => this.setState({ 
+                userPets: userPets, 
+                currentPet: userPets.length > 0? userPets[0]: null,
+                interval: setInterval(this.checkPetStatus, 1000)
+            }))
         })
 
     }
 
     // clear intervals
     componentWillUnmount() {
+        const logoutTime = new Date().getTime()
+        console.log("logout", logoutTime, "happiness:", this.state.currentPet ? this.state.currentPet.happiness_score : null)
         clearInterval(this.state.interval)
     }
 
     // get all pet species for the tamastore
     getAllPets = () => {
-        fetch('http://localhost:3000/pets')
+        return fetch('http://localhost:3000/pets')
         .then(resp => resp.json())
         .then(data => this.setState({allSpecies: data}))
     }
@@ -67,35 +75,34 @@ export default class Home extends React.Component{
     getUserPets = () => {
         return fetch(`http://localhost:3000/users/${this.props.user.id}/user_pets`)
         .then(res => res.json())
-        .then(userPets => {
-            const currentPet = userPets[0]
-            const currentTime = new Date()
-            if (currentPet) {
-                this.setState({
-                userPets: userPets,
-                currentPet: currentPet,
-                feedIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.hunger_rate ?
-                    currentPet.pet.hunger_rate - (currentTime - currentPet.last_fed)/1000 :
-                    -1,
-                sleepIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.sleepy_rate ?
-                    currentPet.pet.sleepy_rate - (currentTime - currentPet.last_slept)/1000 :
-                    -1,
-                cleanIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.dirt_rate ?
-                    currentPet.pet.dirt_rate - (currentTime - currentPet.last_cleaned)/1000 :
-                    -1
-                })
-            }
-            else {
-                this.setState({
-                    userPets: userPets
-                })
-            }
-        })
+        // .then(userPets => {
+        //     const currentPet = userPets[0]
+        //     const currentTime = new Date()
+        //     if (currentPet) {
+        //         this.setState({
+        //         userPets: userPets,
+        //         currentPet: currentPet,
+        //         feedIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.hunger_rate ?
+        //             currentPet.pet.hunger_rate - (currentTime - currentPet.last_fed)/1000 :
+        //             -1,
+        //         sleepIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.sleepy_rate ?
+        //             currentPet.pet.sleepy_rate - (currentTime - currentPet.last_slept)/1000 :
+        //             -1,
+        //         cleanIn: (currentTime - currentPet.last_fed)/1000 < currentPet.pet.dirt_rate ?
+        //             currentPet.pet.dirt_rate - (currentTime - currentPet.last_cleaned)/1000 :
+        //             -1
+        //         })
+        //     }
+        //     else {
+        //         this.setState({
+        //             userPets: userPets
+        //         })
+        //     }
+        // })
     }
 
     // after getting all of the current user's userPets, update all userPets' happiness scores
-    updatePetStatuses = async () => {
-        const userPets = this.state.userPets
+    updatePetStatuses = async (userPets) => {
         for (let i = 0; i < userPets.length; i++) {
             await fetch(`http://localhost:3000/user_pets/${userPets[i].id}`, {
                 method: 'PATCH',
@@ -107,29 +114,34 @@ export default class Home extends React.Component{
             })
             .then(res => res.json())
             .then(userPet => {
-                this.setState(prevState => {
-                    let updatedUserPets = [...prevState.userPets]
-                    updatedUserPets[i] = userPet
-                    
-                    return i === 0 ?
-                    {
-                        userPets: updatedUserPets,
-                        currentPet: userPet
-                    } :
-                    {
-                        userPets: updatedUserPets
-                    }
-                })
+                userPets[i] = userPet
+                return
             })
+            // .then(userPet => {
+            //     this.setState(prevState => {
+            //         let updatedUserPets = [...prevState.userPets]
+            //         updatedUserPets[i] = userPet
+                    
+            //         return i === 0 ?
+            //         {
+            //             userPets: updatedUserPets,
+            //             currentPet: userPet
+            //         } :
+            //         {
+            //             userPets: updatedUserPets
+            //         }
+            //     })
+            // })
         }
+        return userPets
     }
 
     // calculate a given userPet's happiness on login
     calculatePetHappiness = (userPet) => {
         const currentTime = new Date()
-        const timeSinceLastFed = userPet.last_fed ? (currentTime - Date.parse(userPet.last_fed))/1000 : userPet.pet.hunger_rate
-        const timeSinceLastSlept = userPet.last_slept ? (currentTime - Date.parse(userPet.last_slept))/1000 : userPet.pet.sleepy_rate
-        const timeSinceLastCleaned = userPet.last_cleaned? (currentTime - Date.parse(userPet.last_cleaned))/1000 : userPet.pet.dirt_rate
+        const timeSinceLastFed = (currentTime - Date.parse(userPet.last_fed))/1000
+        const timeSinceLastSlept = (currentTime - Date.parse(userPet.last_slept))/1000
+        const timeSinceLastCleaned = (currentTime - Date.parse(userPet.last_cleaned))/1000
 
         const feedIn = Math.floor(userPet.pet.hunger_rate - timeSinceLastFed)
         const sleepIn = Math.floor(userPet.pet.sleepy_rate - timeSinceLastSlept)
@@ -139,8 +151,8 @@ export default class Home extends React.Component{
         const happinesLostFromSleepiness = sleepIn < 0 ? -sleepIn : 0
         const happinessLostFromCleanliness = cleanIn < 0? -cleanIn : 0
         const happiness = userPet.happiness_score - (happinessLostFromHunger + happinesLostFromSleepiness + happinessLostFromCleanliness)
-        
-        console.log(userPet.name, happiness)
+        console.log(userPet.last_fed, feedIn)
+        console.log(userPet.happiness_score, happinessLostFromHunger, happinesLostFromSleepiness, happinessLostFromCleanliness)
         const body = { 'happiness_score': happiness > 0 ? happiness : 0 }
         return body
     }
@@ -240,13 +252,13 @@ export default class Home extends React.Component{
     }
 
     alertDeletedPets = () => {
-        return (
-            <Alert variant="danger" onClose={() => this.setState({ deletedPets: [] })} dismissible>
-                {this.state.deletedPets.map(pet =>
+        return this.state.deletedPets.map((idx, pet) => {
+            return (
+                <Alert key={idx} variant="danger" onClose={() => this.setState({ deletedPets: [] })} dismissible>
                     <p>{pet.name} the {pet.pet.species} ran away due to neglection. Shame on you!</p>
-                )}
-            </Alert>
-        )
+                </Alert>
+            )
+        })
     }
 
     purchasePets = () => {
@@ -277,17 +289,6 @@ export default class Home extends React.Component{
             tamaStore: false,
             ticTacToe: false,
             currentPet
-        })
-    }
-
-    updatePetList = (newUserPet) =>{
-        this.setState(prevState => {
-            return{
-                userPets: [...prevState.userPets, newUserPet],
-                currentPet: newUserPet,
-                tamaStore: false,
-                ticTacToe: false
-            }
         })
     }
 
@@ -355,8 +356,29 @@ export default class Home extends React.Component{
         })
     }
 
+
+    purchaseTama = (newTama) => {
+        console.log(newTama)
+        this.openModal()
+        this.renderModalForm()
+        this.setState({ newTama })
+    }
+
+    updatePetList = (newUserPet) =>{
+        this.setState(prevState => {
+            return{
+                userPets: [...prevState.userPets, newUserPet],
+                currentPet: newUserPet,
+                tamaStore: false,
+                ticTacToe: false
+            }
+        })
+    }
+
     // create new userpets
     createUserPetData =  () => {
+        const currentTime = new Date()
+        const petSpecies = this.state.newTama
         // update database with new user pet
         // reach out to Lantz or Hal JWT
         fetch('http://localhost:3000/user_pets',{
@@ -366,14 +388,16 @@ export default class Home extends React.Component{
                 'Accept' : 'application/json'
             },
             body: JSON.stringify({
-                name: this.state.newTama.name,
+                name: petSpecies.name,
                 user_id: this.props.user.id,
-                pet_id: this.state.newTama.id
+                pet_id: petSpecies.id,
+                last_fed: new Date(currentTime.getTime() - (petSpecies.hunger_rate*1000)),
+                last_slept: new Date(currentTime.getTime() - (petSpecies.sleepy_rate*1000)),
+                last_cleaned: new Date(currentTime.getTime() - (petSpecies.dirt_rate*1000))
             })
         })
         .then(resp => resp.json())
         .then(data => {
-            // debugger
             this.updatePetList(data)
         })
     }
@@ -397,13 +421,6 @@ export default class Home extends React.Component{
 
         this.closeModal()
     }
-
-    purchaseTama = (newTama) => {
-        this.openModal()
-        this.renderModalForm()
-        this.setState({ newTama })
-    }
-
 
     startMiniGame = (e) => {
         if (e.id) {
