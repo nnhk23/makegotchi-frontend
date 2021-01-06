@@ -94,8 +94,8 @@ class TicTacToeBoard extends React.Component {
 
     afterGameButtons = () => {
         return (<div>
-            <Button className="restart_btn minigames_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</Button>
-            <Button className="minigames_btn" variant="outline-warning" id="miniGames" onClick={(e) => this.props.handleClick(e)}>Minigames</Button>
+            <Button className="tictactoe restart_btn minigames_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</Button>
+            <Button className="tictactoe minigames_btn" variant="outline-warning" id="miniGames" onClick={(e) => this.props.handleClick(e)}>Minigames</Button>
         </div>)
     }
 

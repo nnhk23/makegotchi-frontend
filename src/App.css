@@ -57,7 +57,7 @@ font-family: 'Schoolbell', cursive; */
 }
 
 #tamagotchi_login{
-  height: 100%;
+  height: 98%;
   width: 850px;
   padding-top: 15px;
 }
@@ -70,11 +70,10 @@ font-family: 'Schoolbell', cursive; */
 #exit_btn{
   display: flex;
   justify-content: flex-end;
-  
+
 }
 
 #update_btn{
-  
   color:rgb(224, 186, 16);
 }
 
@@ -90,7 +89,7 @@ font-family: 'Schoolbell', cursive; */
 
 .login_screen {
   min-width: 566px;
-  min-height: 471px;
+  min-height: 495px;
   display: flex;
   justify-content: center;
   align-items: center;

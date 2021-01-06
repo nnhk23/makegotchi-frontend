@@ -10,7 +10,7 @@ position:absolute;
 }
 
 .list_item{
-    width: 626px;
+    width: auto;
     height: 185px;
 }
 
@@ -25,29 +25,31 @@ position:absolute;
     border: 1px solid rgba(0,0,0,.125);
 }
 
+.list-group{
+    border-radius: 20px;
+}
+
 .tama_store_row{
     display: flex;
     flex-wrap: wrap;
-    width:620px;
-    margin-right: -30px;
-    /* margin-left: -30px; */
+    width: auto;
+    padding-right: 16px;
 }
 
 .tama_pic{
     margin-bottom: 5px;
     padding-bottom: 5px;
-    margin-left: 18px;
-    min-width: 100px;
-    height: 120px;;
+    margin-left: 15px;
+    min-width: 98px;
+    height: 121px;
 }
 
 .tama_info{
-    width: 50px;
     height: 50%;
     padding-top: 38px;
-    padding-right: 5px;
-    padding-left: 6px;
-    font-size: 14px;
+    padding-right: 0px;
+    padding-left: 17px;
+    font-size: 13px;
 }
 
 .purchase_btn{
