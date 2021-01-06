@@ -10,7 +10,7 @@ import "../css/Home.css"
 export default class Home extends React.Component{
 
     state={
-        interval: null,
+        happinessInterval: null,
         money: null,
 
         allSpecies: [],
@@ -32,7 +32,8 @@ export default class Home extends React.Component{
         gamble: false
     }
 
-    // fetching list of all species.
+    // get user from database and get all pet species
+    // then get all of the user's userpets, update their happiness_scores, and set intervals
     componentDidMount() {
         fetch('http://localhost:3000/getuser',{
           method: 'GET',
@@ -52,7 +53,7 @@ export default class Home extends React.Component{
             .then(userPets => this.setState({ 
                 userPets: userPets, 
                 currentPet: userPets.length > 0? userPets[0]: null,
-                interval: setInterval(this.checkPetStatus, 300)
+                happinessInterval: setInterval(this.checkPetStatus, 1000)
             }))
         })
 
@@ -60,7 +61,7 @@ export default class Home extends React.Component{
 
     // clear intervals
     componentWillUnmount() {
-        clearInterval(this.state.interval)
+        clearInterval(this.state.happinessInterval)
     }
 
     // get all pet species for the tamastore
@@ -231,30 +232,8 @@ export default class Home extends React.Component{
         })
     }
 
-    purchasePets = () => {
-        this.setState({ tamaStore: true, miniGames: false })
-    }
-
-    updateMoneyLeft = (amount) => {
-        let money = this.state.money + amount
-        
-        fetch(`http://localhost:3000/users/${this.props.user.id}`,{
-            method: 'PATCH',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Accept' : 'application/json'
-            },
-            body: JSON.stringify({
-                money
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => this.setState({
-            money: data.money 
-        }))
-    }
-
-    handleIconClick = (currentPet) => {
+    // show a userPet on the screen when it's icon is clicked from the SideNav
+    handleUserPetIconClick = (currentPet) => {
         this.setState({
             tamaStore: false,
             ticTacToe: false,
@@ -262,6 +241,7 @@ export default class Home extends React.Component{
         })
     }
 
+    // handle FEED, SLEEP, and CLEAN button clicks
     handleActionBtnClick = (e) => {
         let dateTime = new Date();
         let body = {
@@ -326,6 +306,31 @@ export default class Home extends React.Component{
         })
     }
 
+
+    
+    /* PURCHASING NEW USERPET */
+    purchasePets = () => {
+        this.setState({ tamaStore: true, miniGames: false })
+    }
+
+    updateMoneyLeft = (amount) => {
+        let money = this.state.money + amount
+        
+        fetch(`http://localhost:3000/users/${this.props.user.id}`,{
+            method: 'PATCH',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
+            },
+            body: JSON.stringify({
+                money
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => this.setState({
+            money: data.money 
+        }))
+    }
 
     purchaseTama = (newTama) => {
         this.openModal()
@@ -400,14 +405,13 @@ export default class Home extends React.Component{
     }
 
     render(){
-        {console.log(this.state)}
         return(
             <div className="home">
                 <SideNav
                     userPets={this.state.userPets}
                     tamaStore={this.state.tamaStore}
                     purchasePets={this.purchasePets}
-                    handleIconClick={this.handleIconClick}
+                    handleUserPetIconClick={this.handleUserPetIconClick}
                     startMiniGame={this.startMiniGame}
                 />
 
