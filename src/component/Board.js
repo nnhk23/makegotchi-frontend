@@ -1,5 +1,6 @@
 import React from 'react'
 import Square from './Square'
+import Button from 'react-bootstrap/Button'
 
 class Board extends React.Component {
 
@@ -41,6 +42,7 @@ class Board extends React.Component {
         let emptySquares = squares.map((s, idx) => s === null ? idx : null).filter(x => x)
         let indx = emptySquares[[Math.floor(Math.random() * emptySquares.length)]]
         squares[indx] = !this.calculateWinner(squares) ?  'O' : null
+
         this.setState(prevState => {
             return{
                 squares: squares,
@@ -69,8 +71,7 @@ class Board extends React.Component {
               this.changeMoney(-100, 'O')
             }
             return squares[a];
-          // this.setState({ isWinner: true })
-        }
+          }
         }
         return null;
     }
@@ -102,10 +103,6 @@ class Board extends React.Component {
             <div>
                 
             {this.state.isWinner || draw  ? <button className="restart_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</button> : null}
-            {/* {console.log(this.state.squares)} */}
-            {/* {winner === 'X' ? alert(`You won ${this.props.gamble ? '200' : '100'} coins!`) : winner === 'O' ? alert(`You ${this.props.gamble ? 'lost 100 coins!' : 'lost!'}`) : null } */}
-
-
 
             <div className="status">{status}</div>
     
