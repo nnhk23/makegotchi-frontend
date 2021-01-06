@@ -15,7 +15,6 @@ export default class Home extends React.Component{
         tamaStore: false,
         currentPet: null,
         buysLeft: null,
-        ticTacToe: false,
         isOpen: false,
         modalForm: false,
         newTama: null,
@@ -25,6 +24,7 @@ export default class Home extends React.Component{
         sleepIn: -1,
         deletedPets: [],
         janKen: false,
+        ticTacToe: false,
         miniGames: false,
         money: null,
         gamble: false
@@ -276,6 +276,8 @@ export default class Home extends React.Component{
         this.setState({
             tamaStore: false,
             ticTacToe: false,
+            janKen: false,
+            miniGames: false,
             currentPet
         })
     }
@@ -286,7 +288,9 @@ export default class Home extends React.Component{
                 userPets: [...prevState.userPets, newUserPet],
                 currentPet: newUserPet,
                 tamaStore: false,
-                ticTacToe: false
+                ticTacToe: false,
+                janKen: false,
+                miniGames: false
             }
         })
     }
@@ -407,7 +411,7 @@ export default class Home extends React.Component{
 
     startMiniGame = (e) => {
         if (e.id) {
-            this.setState({[e.id]: true, gamble:e.gamble, tamaStore: false, miniGames: false})
+            this.setState({[e.id]: true, gamble: e.gamble, tamaStore: false, miniGames: false})
         } else {
             this.setState({miniGames: true, tamaStore: false, ticTacToe: false, janKen: false})
         }
