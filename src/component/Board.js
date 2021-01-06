@@ -100,10 +100,10 @@ class Board extends React.Component {
 
         return(
         <div>
-            { this.state.isWinner || draw ?  <Button className="minigames_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</Button> : null}
-            <Button className="minigames_btn" variant="outline-warning" 
+            { this.state.isWinner || draw ?  <Button className="minigames_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</Button> && <Button className="minigames_btn" variant="outline-warning" 
             // onClick={this.props.startMiniGame}
-             id="miniGames">Minigames</Button>
+             id="miniGames">Minigames</Button> : null}
+            
             <div className="status">{status}</div>
     
             <div className="board-row">
