@@ -3,26 +3,6 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-// const Minigames = ({startMiniGame}) => {
-//     return (
-//         <div>
-//             <h1>Choose a minigame to play</h1>
-//              <Button className="minigames_btn" variant="outline-warning" onClick={startMiniGame} id="ticTacToe">Tic Tac Toe</Button>
-//              <Button className="minigames_btn" variant="outline-warning" onClick={startMiniGame} id="janKen">Janken</Button>
-//              <br/><br/><br/>
-//              <h4>Gamble 100 coins for a chance to win twice as much?</h4>
-//              <div>
-//                 <Form>
-//                     <div key={`inline-checkbox`} className="mb-3">
-//                         <Form.Check inline label="Take my money!" type="checkbox" id={`inline-checkbox-1`} />
-//                         <Form.Check inline label="I'm broke" type="checkbox" id={`inline-checkbox-2`} />
-//                     </div>
-//                 </Form>
-//             </div>
-//         </div>
-//     );
-// }
-
 class Minigames extends Component {
     
     state = {
@@ -39,36 +19,32 @@ class Minigames extends Component {
         this.props.startMiniGame(info)
     }
 
-
     render(){
-        
+        return (
+            <div>
+                <h1>Choose a minigame to play</h1>
+                <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.handleClick(e)} id="ticTacToe">Tic Tac Toe</Button>
+                <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.handleClick(e)} id="janKen">Janken</Button>
+                <br/><br/><br/>
+                <h4>Gamble 100 coins for a chance to win twice as much?</h4>
+                <div>
+                
+                
+                
+                <Form onChange={(e) => this.handleGamble(e)}>
+                    <div key={`inline-radio`} className="mb-3">
+                        <h4>
+                            <Form.Check value={true} inline label="Take my money!" type="radio"  name="gamble"/>
+                            <Form.Check value={false} inline label="Nah, I'm broke" type="radio"  name="gamble"/>
+                        </h4>
+                    </div>
+                </Form>
 
-    return (
-        <div>
-            <h1>Choose a minigame to play</h1>
-             <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.handleClick(e)} id="ticTacToe">Tic Tac Toe</Button>
-             <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.handleClick(e)} id="janKen">Janken</Button>
-             <br/><br/><br/>
-             <h4>Gamble 100 coins for a chance to win twice as much?</h4>
-             <div>
-            
-              
-             
-            <Form onChange={(e) => this.handleGamble(e)}>
-                <div key={`inline-radio`} className="mb-3">
-                    <h4>
-                        <Form.Check value={true} inline label="Take my money!" type="radio"  name="gamble"/>
-                        <Form.Check value={false} inline label="Nah, I'm broke" type="radio"  name="gamble"/>
-                    </h4>
+
+
                 </div>
-            </Form>
-
-
-
             </div>
-        </div>
-    );
-
+        );
     }
 }
 

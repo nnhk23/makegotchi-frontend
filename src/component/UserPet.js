@@ -9,7 +9,7 @@ import { bounce } from 'react-animations';
 const Bounce = styled.div`animation: 2s ${keyframes`${bounce}`} infinite`;
 
 const UserPet = ({ currentPet, feedIn, sleepIn, cleanIn }) => {
-    const { name, happiness_score, last_fed, last_slept, last_cleaned, pet } = currentPet
+    const { name, happiness_score, pet } = currentPet
     return (
         <div className="userPet_obj">
             <Row>

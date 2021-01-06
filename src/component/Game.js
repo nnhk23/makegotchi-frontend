@@ -1,5 +1,5 @@
 import React from 'react'
-import Board from './Board'
+import TicTacToeBoard from './TicTacToeBoard'
 import '../css/Game.css'
 
 class Game extends React.Component {
@@ -7,7 +7,7 @@ class Game extends React.Component {
       return (
         <div className="game">
           <div className="game-board">
-            <Board updateMoneyLeft={this.props.updateMoneyLeft}/>
+            <TicTacToeBoard updateMoneyLeft={this.props.updateMoneyLeft}/>
           </div>
         </div>
       );

@@ -1,7 +1,7 @@
 import React from 'react'
 import Square from './Square'
 
-class Board extends React.Component {
+class TicTacToeBoard extends React.Component {
 
     state={
         squares: Array(9).fill(null),
@@ -118,4 +118,4 @@ class Board extends React.Component {
     }
 }
 
-export default Board
+export default TicTacToeBoard

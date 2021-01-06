@@ -3,12 +3,12 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import '../css/RenderPetBtn.css'
 
-const RenderPetBtn = ({ userPet, handleIconClick }) => {
+const RenderPetBtn = ({ userPet, handleUserPetIconClick }) => {
     const { name, pet } = userPet
-    // console.log(pet)
     const { species, img_icon } = pet
+    
     return (
-        <Row className="icon-row" onClick={() => handleIconClick(userPet)}>
+        <Row className="icon-row" onClick={() => handleUserPetIconClick(userPet)}>
             <Col sm={6}>
                 <img className="icon-img" src={img_icon} alt="pet img"></img>
             </Col>
