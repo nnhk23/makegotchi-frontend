@@ -4,9 +4,8 @@ import Form from 'react-bootstrap/Form'
 import Game from './Game'
 import JankenGame from './JankenGame'
 
-
 class Minigames extends Component {
-    
+
     state = {
         gamble : false,
         screen: "" 
@@ -19,7 +18,6 @@ class Minigames extends Component {
     handleClick = (e) => {
         let name = e.target.id
         this.setState({screen: name})
-        // this.props.closeMiniGame()
     }
 
     render(){
@@ -35,16 +33,16 @@ class Minigames extends Component {
                 )
             default :
                 return (
-                    <div>
-                        <h1>Choose a minigame to play</h1>
-                            <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.handleClick(e)} id="ticTacToe">Tic Tac Toe</Button>
-                            <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.handleClick(e)} id="janKen">Janken</Button>
+                     <div className="choose_game">
+                        <h1 className='header_txt'>Choose a minigame to play</h1>
+                        <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.handleClick(e)} id="ticTacToe">Tic Tac Toe</Button>
+                        <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.handleClick(e)} id="janKen">Janken</Button>
                         <br/><br/><br/>
                         
                         
                         { this.props.money === 0 ? null : 
                         <div>
-                            <h4>Gamble 100 coins for a chance to win twice as much?</h4>
+                             <h4 className='gamble_txt'>Gamble 100 coins for a chance to win twice as much?</h4>
                             <Form onChange={(e) => this.handleGamble(e)}>
                             <div key={`inline-radio`} className="mb-3">
                             <h4>

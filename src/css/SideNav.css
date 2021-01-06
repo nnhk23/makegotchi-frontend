@@ -6,14 +6,13 @@ font-family: 'Schoolbell', cursive; */
 
 
 .sideNav{
-    padding:0px;
     display:flex;
     flex-direction: column;
     align-items: center;
     /* overflow-y: scroll; */
     min-height: 100%;
     background-color: #bce7ff;
-    width: 300px;
+    min-width: 270px;
     font-family: 'Fredoka One', cursive;
 }
 
@@ -42,9 +41,11 @@ font-family: 'Schoolbell', cursive; */
     border: none;
     border-radius: 35px;
     box-shadow: 0px 9px 0px 0px #d1b200;
+    
 }
 
 .buyPet_btn:hover {
+    cursor:pointer;
     background-color: #f5d56e;
 }
 
@@ -71,6 +72,7 @@ font-family: 'Schoolbell', cursive; */
  }
 
  .minigames_btn:hover {
+    cursor:pointer;
     background-color: #f5d56e;
 }
 

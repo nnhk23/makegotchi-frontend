@@ -10,7 +10,7 @@ class Board extends React.Component {
         isWinner: false,
         winner : null
     }
-    
+
     // handle click on each square to decide if it's X/O
     handleClick = (i) => {
         const squares = this.state.squares.slice();
@@ -18,11 +18,11 @@ class Board extends React.Component {
         if (this.calculateWinner(squares) || squares[i]){
             return;
         }
-        
+
         if (this.state.userTurn){
             this.userClick(squares, i)
         }
-        
+
         // comp move after 1 sec delay
         setTimeout(() => this.computerClick(squares), 1000)
     }
@@ -75,7 +75,7 @@ class Board extends React.Component {
         }
         return null;
     }
-    
+
     // render 9 empty squares
     renderSquare = (i) => <Square value={this.state.squares[i]} handleClick={() => this.handleClick(i) } />
 
@@ -105,7 +105,7 @@ class Board extends React.Component {
             {this.state.isWinner || draw  ? <button className="restart_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</button> : null}
 
             <div className="status">{status}</div>
-    
+
             <div className="board-row">
             {this.renderSquare(0)}
             {this.renderSquare(1)}
