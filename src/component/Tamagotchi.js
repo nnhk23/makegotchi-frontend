@@ -91,11 +91,10 @@ export default class Tamagotchi extends React.Component{
                             </div>
                         </Row>
 
-
                         <Row className="btn-container" onClick={this.props.handleActionBtnClick}>
-                          <button className="controls" value="feed" id="feed-btn">FEED</button>
-                          <button className="controls" value="sleep" id="sleep-btn">SLEEP</button>
-                          <button className="controls" value="clean" id="clean-btn">CLEAN</button>
+                          <button className="controls" value="feed" id="feed-btn" disabled={this.props.feedIn > -1}>FEED</button>
+                          <button className="controls" value="sleep" id="sleep-btn" disabled={this.props.sleepIn > -1}>SLEEP</button>
+                          <button className="controls" value="clean" id="clean-btn" disabled={this.props.cleanIn > -1}>CLEAN</button>
                         </Row>
 
                         <Row id="pet_bio">
