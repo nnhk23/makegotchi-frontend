@@ -9,9 +9,11 @@ export default class Home extends React.Component{
 
     state={
         money: null,
+        playsLeft: null,
 
         // Intervals
         happinessInterval: null,
+        playsLeftInterval: null,
 
         // TamaStore
         allSpecies: [],
@@ -43,7 +45,7 @@ export default class Home extends React.Component{
         }})
         .then(res => res.json())
         .then(data => {
-            this.setState({ money: data.user.money })
+            this.setState({ money: data.user.money, playsLeft: data.user.plays_left })
             this.props.refresh(data)
         })
         .then(() => {
@@ -53,7 +55,8 @@ export default class Home extends React.Component{
             .then(userPets => this.setState({ 
                 userPets: userPets, 
                 currentPet: userPets.length > 0? userPets[0]: null,
-                happinessInterval: setInterval(this.checkPetStatus, 1000)
+                happinessInterval: setInterval(this.checkPetStatus, 1000),
+                playsLeftInterval: setInterval(this.resetPlaysLeft, 600000)
             }))
         })
 
@@ -62,6 +65,7 @@ export default class Home extends React.Component{
     // clear intervals
     componentWillUnmount() {
         clearInterval(this.state.happinessInterval)
+        clearInterval(this.state.playsLeftInterval)
     }
 
 
@@ -236,6 +240,8 @@ export default class Home extends React.Component{
         })
     }
 
+
+    /* MANAGING USERPETS */
     // show a userPet on the screen when its icon is clicked from the SideNav
     handleUserPetIconClick = (currentPet) => {
         this.setState({
@@ -407,7 +413,51 @@ export default class Home extends React.Component{
     }
 
 
-    /* GO TO MINIGAME MENU */
+
+    /* MINIGAMES */
+    // reset plays left to 5 every 10 minutes
+    resetPlaysLeft = () => {
+        
+        fetch(`http://localhost:3000/users/${this.props.user.id}`,{
+            method: 'PATCH',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
+            },
+            body: JSON.stringify({
+                plays_left: 5
+            })
+        })
+        .then(resp => resp.json())
+        .then(user => this.setState({
+            playsLeft: user.plays_left
+        }))
+
+    }
+
+    // decrease plays left by 1 every time a game is played
+    decrementPlaysLeft = () => {
+        if (this.state.playsLeft > 0) {
+            fetch(`http://localhost:3000/users/${this.props.user.id}`,{
+                method: 'PATCH',
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Accept' : 'application/json'
+                },
+                body: JSON.stringify({
+                    plays_left: this.state.playsLeft - 1
+                })
+            })
+            .then(resp => resp.json())
+            .then(user => {
+                this.setState({ playsLeft: user.plays_left })
+            })
+        }
+        else {
+            alert("You don't have any plays left! Plays update to 5 every 10 minutes.")
+        }
+    }
+
     startMiniGame = () => {
         this.setState({miniGames: true, tamaStore: false})  
     }
@@ -426,10 +476,7 @@ export default class Home extends React.Component{
                 />
 
                 <div>{this.alertDeletedPets()}</div>
-               
-                <div id="greeting1">{!!this.props.user ? `Hi ${this.props.user.name}!`: null}</div>
-                <div id="greeting2">{!!this.props.user ? `You have ${this.state.money} coins.`: null}</div>
-                
+
 
                 <Tamagotchi
                     user={this.props.user}
@@ -448,7 +495,14 @@ export default class Home extends React.Component{
                     cleanIn = {this.state.cleanIn}
 
                     miniGames={this.state.miniGames}
+                    playsLeft={this.state.playsLeft}
+                    decrementPlaysLeft={this.decrementPlaysLeft}
                 />
+
+                <div id="greeting-div">
+                    <div className="greeting" id="greeting1">{!!this.props.user ? `Hi ${this.props.user.name}!`: null}</div>
+                    <div className="greeting" id="greeting2">{!!this.props.user ? `You have ${this.state.money} coins.`: null}</div>
+                </div>
 
                 { this.state.modalForm ?
                     <ModalForm

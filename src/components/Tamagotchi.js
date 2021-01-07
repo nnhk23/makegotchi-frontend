@@ -37,11 +37,13 @@ export default class Tamagotchi extends React.Component{
                             <div className="tamagotchi_background">
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
-                                <Minigames 
+                                    <Minigames 
                                         user={this.props.user}
                                         money={this.props.money} 
                                         updateMoneyLeft={this.props.updateMoneyLeft}
-                                        />
+                                        playsLeft={this.props.playsLeft}
+                                        decrementPlaysLeft={this.props.decrementPlaysLeft}
+                                    />
                                 </div>
                             </div>
                         </Row>

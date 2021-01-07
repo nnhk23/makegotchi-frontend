@@ -22,6 +22,7 @@ class JankenBoard extends Component {
 
     playAgain = () => {
         this.setState({userScore:0, cpuScore:0, winsNeeded:3, message: "Good Luck!", winner:false})
+        this.props.decrementPlaysLeft()
     }
 
     clearScreens = () => {
@@ -140,22 +141,35 @@ class JankenBoard extends Component {
 
             <div>
                 <h1>JanKen</h1>
-                <h3>{this.state.winner ? 
-                `You ${this.state.userScore === 3 ? `Won ${this.props.gamble ? "200" : "100"} coins!` : `${this.props.gamble ? "Lost 100 coins!" : "Lost!"}` }`: this.state.message}</h3>
+                <h3>
+                    {this.state.winner ? 
+                        `You ${this.state.userScore === 3 ? 
+                            `Won ${this.props.gamble ? "200" : "100"} coins!` : 
+                            `${this.props.gamble ? "Lost 100 coins!" : "Lost!"}` }`
+                        : 
+                        this.state.message}
+                </h3>
                 
                 <div className="game">
                     <div className ="janken-square">
-                        <h4>Computer - {this.state.cpuScore}</h4>
+                        {this.state.winner ? null : <h4>Computer - {this.state.cpuScore}</h4>}
+                        
                         {this.state.winner ?
-
-                        <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.props.handleClick(e)} id="miniGames">Minigames</Button> :
-                        <img className="janken-pics" src={this.state.cpuScreen} alt=""/> }
+                            this.props.playsLeft > 0 ?
+                                <Button className="minigames_btn" variant="outline-warning" onClick={(e) => this.props.handleClick(e)} id="miniGames">Minigames</Button> :
+                                <h4 class="mb-3">You don't have any plays left!</h4> 
+                            :
+                            <img className="janken-pics" src={this.state.cpuScreen} alt=""/> }
                     </div>
                     <div className ="janken-square">
-                        <h4>{this.props.user.name} - {this.state.userScore}</h4>
+                        {this.state.winner ? null : <h4>{this.props.user.name} - {this.state.userScore}</h4>}
+                        
                         {this.state.winner ?
-                        <Button className="minigames_btn" variant="outline-warning" onClick={this.playAgain} id="janKen">Play Again</Button>:
-                        <img className="janken-pics" src={this.state.userScreen} alt=""/> }
+                            this.props.playsLeft > 0 ?
+                                <Button className="minigames_btn" variant="outline-warning" onClick={this.playAgain} id="janKen">Play Again</Button>:
+                                <Button href="/home" className="minigames_btn" variant="outline-warning">Back to Home</Button>
+                            :
+                            <img className="janken-pics" src={this.state.userScreen} alt=""/> }
                     </div>
                 </div>
                 <div onClick={this.props.handleActionBtnClick}>
