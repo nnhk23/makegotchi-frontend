@@ -86,9 +86,13 @@ class TicTacToeBoard extends React.Component {
 
     changeMoney = (amount, winner) => {
         this.setState({ isWinner: true , winner })
+        this.props.disable("off") 
+        
         if (winner === 'X'){
+            // this.props.disable()
             this.props.gamble === "true" ? this.props.updateMoneyLeft(amount * 2) : this.props.updateMoneyLeft(amount)
         } else {
+            // this.props.disable()
             if (this.props.gamble === "true"){
                 this.props.updateMoneyLeft(amount)
             }
@@ -96,6 +100,7 @@ class TicTacToeBoard extends React.Component {
     }
 
     afterGameButtons = () => {
+
         return this.props.playsLeft > 0 ?
         <div>
             <Button className="tictactoe restart_btn minigames_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</Button>
@@ -111,8 +116,8 @@ class TicTacToeBoard extends React.Component {
             const winner = this.state.isWinner ? this.state.winner : () => this.calculateWinner(this.state.squares)
             const draw = this.state.squares.filter(s => !s).length !== 0 ? false : true
             let player = this.state.userTurn ? 'X' : 'O'
-            let status = this.state.isWinner ? `Winner is: ${winner}. You ${winner === 'X' ? "won" : "lost"} ${this.props.gamble ? "200" : "100"} coins!` : draw ? `It's a draw` : `Next Player: ${player}`
-
+            let status = this.state.isWinner ? `Winner is: ${winner}. You ${winner === 'X' ? "won" : "lost"} ${this.props.gamble === "true" ? "200" : "100"} coins!` : draw ? `It's a draw` : `Next Player: ${player}`
+            
             return(
             <div>
 

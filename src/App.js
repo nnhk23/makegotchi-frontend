@@ -16,11 +16,26 @@ class App extends React.Component {
     id: "",
     user: "",
     modalDelete: false,
-    openDeleteModal: false
+    openDeleteModal: false,
+
+    disabled :false
+  }
+
+  disable = (toggle="" ) => {
+   if (toggle === ""){
+    this.setState({disabled: true})
+    } else {
+      this.setState({disabled: false})
+    }
   }
 
   // rendering components  --- > 
-  renderHome = () => <Home user={this.state.user} token={localStorage.getItem('jwt')} refresh={this.handleRefresh} />
+  renderHome = () => <Home 
+    disable={this.disable} 
+    isDisabled={this.state.disabled} 
+    user={this.state.user} 
+    token={localStorage.getItem('jwt')} 
+    refresh={this.handleRefresh} />
 
   renderForm = (routerProps) => {
   
@@ -128,7 +143,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-        <TopNav loggedIn={!!this.state.user} handleLogout={this.handleLogout} />
+        <TopNav loggedIn={!!this.state.user} handleLogout={this.handleLogout} isDisabled={this.state.disabled} />
 
 
         <div className="makegotchi_background">
