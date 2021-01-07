@@ -6,8 +6,8 @@
   }
 
 .square {
-  height: 120px;
-  width: 120px;
+  height: 110px;
+  width: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +46,11 @@
   color: #8d4ac4;
 }
 
-
+#game_title{
+  font-family: 'Schoolbell', cursive;
+  color: rgb(96, 5, 172);
+  font-weight: 800;
+}
 .janken-game {
   padding: 10px;
   text-align: center;
@@ -75,11 +79,21 @@ input[type='radio'] {
   margin-left: 20px;
 }
 
+.janken-square h4{
+  font-family: 'Fredoka One', cursive;
+  color: #4b2727;
+}
+
+.janken-square h1{
+  font-family: 'Fredoka One', cursive;
+  
+}
+
 .controls_janken{
-  height: 43px;
+  height: 41px;
   width: 18%;
   border: none;
-  margin: 8px;
+  margin: 7px;
   position: relative;
   border-radius: 18px;
   padding-top: 5px;
@@ -89,10 +103,10 @@ input[type='radio'] {
   color: #fff;
   background-color: #1dbebe;
   text-transform: uppercase;
-  box-shadow: 0px 12px 0px 0px #179c9c;
+  box-shadow: 0px 10px 0px 0px #179c9c;
   font-family: 'Fredoka One', cursive;
-  font-size: 18px;
-  cursor:pointer;
+  font-size: 17px;
+  cursor: pointer;
 }
 
 
@@ -107,6 +121,13 @@ input[type='radio'] {
 }
 .controls_janken:focus { 
   outline:0 !important; 
+}
+
+.controls_janken:disabled{
+    background-color: #9bbed6;
+    box-shadow: 0px 10px 0px 0px #5a7e99;
+    outline:0 !important; 
+    color: rgb(219, 222, 230);
 }
 
 .janken-square .minigames_btn{
@@ -145,4 +166,21 @@ input[type='radio'] {
   font-family: 'Schoolbell', cursive;
   color: rgb(96, 5, 172);
   font-weight: 800;
+}
+
+.tictactoe {
+    width: 40%;
+    /* margin-top: 13px; */
+    margin: 10px;
+    padding: 5px;
+    border: none;
+    border-radius: 35px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    color: rgb(30, 3, 73);
+    background-color: #f8c621;
+    /* margin: 10px; */
+    text-transform: uppercase;
+    box-shadow: 0px 9px 0px 0px #d1b200;
 }
