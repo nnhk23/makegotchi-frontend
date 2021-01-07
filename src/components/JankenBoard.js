@@ -22,6 +22,7 @@ class JankenBoard extends Component {
 
     playAgain = () => {
         this.setState({userScore:0, cpuScore:0, winsNeeded:3, message: "Good Luck!", winner:false})
+        this.props.disable()
         this.props.decrementPlaysLeft()
     }
 
@@ -147,7 +148,7 @@ class JankenBoard extends Component {
                     {this.state.winner ? 
                         `You ${this.state.userScore === 3 ? 
                             `Won ${this.props.gamble === "true" ? "200" : "100"} coins!` : 
-                            `${this.props.gamble ? "Lost 100 coins!" : "Lost!"}` }`
+                            `${this.props.gamble === "true" ? "Lost 100 coins!" : "Lost!"}` }`
                         :
                         this.state.message}
                 </h3>
@@ -165,7 +166,7 @@ class JankenBoard extends Component {
                     </div>
                     <div className ="janken-square">
 
-                        {this.state.winner ? null : <h4>{this.props.user.name} - {this.state.userScore}</h4>}
+                        {this.state.winner ? null : <h4>{this.props.name} - {this.state.userScore}</h4>}
 
                         {this.state.winner ?
                             this.props.playsLeft > 0 ?

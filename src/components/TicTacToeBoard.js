@@ -81,6 +81,7 @@ class TicTacToeBoard extends React.Component {
 
     resetSquares = () => {
         this.setState({ squares: Array(9).fill(null) , isWinner: false, winner: null})
+        this.props.disable()
         this.props.decrementPlaysLeft()
     }
 
@@ -108,7 +109,7 @@ class TicTacToeBoard extends React.Component {
         </div> :
         <div>
             <h4 className="mb-3">You don't have any plays left!</h4>
-            <Button href="/home" className="minigames_btn" variant="outline-warning">Back to Home</Button>
+            <Button href="/home" className="tictactoe minigames_btn" variant="outline-warning">Back to Home</Button>
         </div>
     }
 
