@@ -79,7 +79,10 @@ class TicTacToeBoard extends React.Component {
     // render 9 empty squares
     renderSquare = (i) => <Square value={this.state.squares[i]} handleClick={() => this.handleClick(i) } />
 
-    resetSquares = () => this.setState({ squares: Array(9).fill(null) , isWinner: false, winner: null})
+    resetSquares = () => {
+        this.setState({ squares: Array(9).fill(null) , isWinner: false, winner: null})
+        this.props.decrementPlaysLeft()
+    }
 
     changeMoney = (amount, winner) => {
         this.setState({ isWinner: true , winner })
@@ -97,11 +100,16 @@ class TicTacToeBoard extends React.Component {
     }
 
     afterGameButtons = () => {
-       
-        return (<div>
+
+        return this.props.playsLeft > 0 ?
+        <div>
             <Button className="restart_btn minigames_btn" variant="outline-warning" onClick={this.resetSquares}> Restart Game</Button>
             <Button className="minigames_btn" variant="outline-warning" id="miniGames" onClick={(e) => this.props.handleClick(e)}>Minigames</Button>
-        </div>)
+        </div> :
+        <div>
+            <h4 className="mb-3">You don't have any plays left!</h4>
+            <Button href="/home" className="minigames_btn" variant="outline-warning">Back to Home</Button>
+        </div>
     }
 
         render(){       

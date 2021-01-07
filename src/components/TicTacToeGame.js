@@ -11,7 +11,9 @@ class TicTacToeGame extends React.Component {
               disable={this.props.disable}
               gamble={this.props.gamble} 
               handleClick={this.props.handleClick}
-              updateMoneyLeft={this.props.updateMoneyLeft} />
+              updateMoneyLeft={this.props.updateMoneyLeft} 
+              decrementPlaysLeft={this.props.decrementPlaysLeft}
+              playsLeft={this.props.playsLeft}/>
           </div>
         </div>
       );

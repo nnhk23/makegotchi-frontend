@@ -1,8 +1,9 @@
 .userPet_bio{
     height: 60px;
     width: 60%;
-    bottom: -88px;
-    left: 25px;
+    bottom: -37px;
+    left: 222px;
+    justify-content: center;
     position: relative;
     text-align: center;
     background: #efd8ef;

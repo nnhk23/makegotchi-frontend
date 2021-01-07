@@ -1,45 +1,57 @@
 .home {
-    width: -webkit-fill-available;
-    height: -webkit-fill-available;
-    position: fixed;
-    left:0;
-    top: 48px;
-    display: flex;
-    flex-direction: row;
-    background-image: url("https://thumbs.gfycat.com/TenseExcitableGilamonster-small.gif");
-    background-repeat: no-repeat;
-    background-size: 100% 108%;
-  }
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  position: fixed;
+  left:0;
+  top: 48px;
+  display: flex;
+  flex-direction: row;
+  background-image: url("https://thumbs.gfycat.com/TenseExcitableGilamonster-small.gif");
+  background-repeat: no-repeat;
+  background-size: 100% 108%;
+}
 
- 
-  #greeting1{
-    background-color: #e5d8f3;
-    border: solid 1px rgba(255, 252, 252, 0.5);
-    border-radius: 20px;
-    width: 250px;
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-    /* align-items: center; */
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    font-family: 'Press Start 2P';
-    color: #480085;
-  }
+#greeting1{
+  background-color: #e5d8f3;
+  border: solid 1px rgba(255, 252, 252, 0.5);
+  border-radius: 20px;
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  /* align-items: center; */
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-family: 'Press Start 2P';
+  color: #480085;
+}
 
-  #greeting2{
-    background-color: #e5d8f3;
-    border: solid 1px rgba(255, 252, 252, 0.5);
-    border-radius: 20px;
-    width: 320px;
-    display: flex; 
-    justify-content: center;
-    padding: 5px;
-    /* align-items: center; */
-    position: absolute;
-    right: 18px;
-    top: 55px;
-    font-family: 'Press Start 2P';
-    color: #480085;
-  }
+#greeting2{
+  background-color: #e5d8f3;
+  border: solid 1px rgba(255, 252, 252, 0.5);
+  border-radius: 20px;
+  width: max-content;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  /* align-items: center; */
+  position: absolute;
+  right: 18px;
+  top: 60px;
+  font-family: 'Press Start 2P';
+  color: #480085;
+}
+
+#alert_bubble{
+  display: flex;
+  position: absolute;
+  left: 485px;
+  border-radius: 12px;
+  font-size: larger;
+  padding-left: 16px;
+  padding-right: 41px;
+  padding-top: 6px;
+  padding-bottom:0px;
+}
