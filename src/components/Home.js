@@ -475,29 +475,30 @@ export default class Home extends React.Component{
                     startMiniGame={this.startMiniGame}
                 />
 
-                <div>{this.alertDeletedPets()}</div>
 
+                <div id="main-div">
+                    <div id="alert-div">{this.alertDeletedPets()}</div>
+                    <Tamagotchi
+                        user={this.props.user}
+                        token={this.props.token}
+                        money={this.state.money}
+                        updateMoneyLeft={this.updateMoneyLeft}
 
-                <Tamagotchi
-                    user={this.props.user}
-                    token={this.props.token}
-                    money={this.state.money}
-                    updateMoneyLeft={this.updateMoneyLeft}
+                        allSpecies={this.state.allSpecies}
+                        tamaStore={this.state.tamaStore}
+                        purchaseTama={this.purchaseTama}
 
-                    allSpecies={this.state.allSpecies}
-                    tamaStore={this.state.tamaStore}
-                    purchaseTama={this.purchaseTama}
+                        handleActionBtnClick={this.handleActionBtnClick}
+                        currentPet={this.state.currentPet}
+                        feedIn ={this.state.feedIn}
+                        sleepIn = {this.state.sleepIn}
+                        cleanIn = {this.state.cleanIn}
 
-                    handleActionBtnClick={this.handleActionBtnClick}
-                    currentPet={this.state.currentPet}
-                    feedIn ={this.state.feedIn}
-                    sleepIn = {this.state.sleepIn}
-                    cleanIn = {this.state.cleanIn}
-
-                    miniGames={this.state.miniGames}
-                    playsLeft={this.state.playsLeft}
-                    decrementPlaysLeft={this.decrementPlaysLeft}
-                />
+                        miniGames={this.state.miniGames}
+                        playsLeft={this.state.playsLeft}
+                        decrementPlaysLeft={this.decrementPlaysLeft}
+                    />
+                </div>
 
                 <div id="greeting-div">
                     <div className="greeting" id="greeting1">{!!this.props.user ? `Hi ${this.props.user.name}!`: null}</div>
