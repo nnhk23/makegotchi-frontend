@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import Scissors from '../images/scissors.png'
-import Paper from '../images/paper.png'
 import Rock from '../images/rock.png'
-import ScissorsCpu from '../images/scissors_left.png'
-import PaperCpu from '../images/paper_left.png'
 import RockCpu from '../images/rock_left.png'
+import Paper from '../images/paper.png'
+import PaperCpu from '../images/paper_left.png'
+import Scissors from '../images/scissors.png'
+import ScissorsCpu from '../images/scissors_left.png'
 import Button from 'react-bootstrap/Button'
 import '../css/Game.css'
 
@@ -131,20 +131,22 @@ class JankenBoard extends Component {
     }
 
     handleGameover = () => {
-        this.setState({winner:true})
+        this.setState({winner:true},
+            () => this.props.disable("off"))
     }
 
 
     render() {
-
+        
         return (
 
             <div>
                 <h1>JanKen</h1>
+
                 <h3>
                     {this.state.winner ? 
                         `You ${this.state.userScore === 3 ? 
-                            `Won ${this.props.gamble ? "200" : "100"} coins!` : 
+                            `Won ${this.props.gamble === "true" ? "200" : "100"} coins!` : 
                             `${this.props.gamble ? "Lost 100 coins!" : "Lost!"}` }`
                         : 
                         this.state.message}
@@ -162,8 +164,9 @@ class JankenBoard extends Component {
                             <img className="janken-pics" src={this.state.cpuScreen} alt=""/> }
                     </div>
                     <div className ="janken-square">
+
                         {this.state.winner ? null : <h4>{this.props.user.name} - {this.state.userScore}</h4>}
-                        
+
                         {this.state.winner ?
                             this.props.playsLeft > 0 ?
                                 <Button className="minigames_btn" variant="outline-warning" onClick={this.playAgain} id="janKen">Play Again</Button>:

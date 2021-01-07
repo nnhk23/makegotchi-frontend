@@ -3,7 +3,7 @@ import RenderPetBtn from './RenderPetBtn'
 import Button from 'react-bootstrap/Button'
 import '../css/SideNav.css'
 
-const SideNav = ({goToTamaStore, userPets, handleUserPetIconClick, startMiniGame}) => {
+const SideNav = ({goToTamaStore, userPets, handleUserPetIconClick, startMiniGame, isDisabled}) => {
 
     const renderBtns = () => {
         return userPets.map(userPet => {
@@ -15,8 +15,8 @@ const SideNav = ({goToTamaStore, userPets, handleUserPetIconClick, startMiniGame
 
     return(
         <div className="sideNav">
-            <Button className="buyPet_btn" variant="outline-warning" onClick={goToTamaStore}>Buy a Pet</Button>
-            <Button className="minigames_btn" id="miniGames" variant="outline-warning" onClick={startMiniGame}>Mini Games</Button>
+            <Button className="buyPet_btn" variant="outline-warning" onClick={isDisabled ? null : goToTamaStore}>Buy a Pet</Button>
+            <Button className="minigames_btn" id="miniGames" variant="outline-warning" onClick={isDisabled ? null : startMiniGame}>Mini Games</Button>
             <h2 id="sideNav_header">Your Tamagotchis</h2>
  
             {renderBtns()}

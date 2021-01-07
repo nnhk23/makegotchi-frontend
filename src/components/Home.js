@@ -316,7 +316,6 @@ export default class Home extends React.Component{
         })
     }
 
-
     
     /* PURCHASING NEW USERPET */
 
@@ -473,8 +472,8 @@ export default class Home extends React.Component{
                     goToTamaStore={this.goToTamaStore}
                     handleUserPetIconClick={this.handleUserPetIconClick}
                     startMiniGame={this.startMiniGame}
+                    isDisabled={this.props.isDisabled} 
                 />
-
 
                 <div id="main-div">
                     <div id="alert-div">{this.alertDeletedPets()}</div>
@@ -495,6 +494,7 @@ export default class Home extends React.Component{
                         cleanIn = {this.state.cleanIn}
 
                         miniGames={this.state.miniGames}
+                        disable={this.props.disable}
                         playsLeft={this.state.playsLeft}
                         decrementPlaysLeft={this.decrementPlaysLeft}
                     />

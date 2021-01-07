@@ -7,7 +7,7 @@ import JankenGame from './JankenGame'
 class Minigames extends Component {
 
     state = {
-        gamble : false,
+        gamble : null,
         screen: "" 
     }
 
@@ -17,10 +17,18 @@ class Minigames extends Component {
 
     handleClick = (e) => {
         let name = e.target.id
-        this.setState({screen: name})
-
-        if (name === 'janKen' || name === 'ticTacToe') {
-            this.props.decrementPlaysLeft()
+        if (name === "miniGames"){
+            this.setState({screen: name, gamble: null})
+        } else {
+            if (this.state.gamble !== null){
+                this.setState({screen: name},
+                ()=> {
+                  this.props.disable()
+                  this.props.decrementPlaysLeft()
+                })
+            } else {
+                alert("You gambling or nah?")
+            }
         }
     }
 
@@ -30,24 +38,24 @@ class Minigames extends Component {
             case 'janKen' :
                 return (
                     <JankenGame 
-                        user={this.props.user} 
-                        updateMoneyLeft={this.props.updateMoneyLeft} 
+                        name={this.props.name} 
                         gamble={this.state.gamble} 
                         handleClick={this.handleClick}
+                        disable={this.props.disable} 
+                        updateMoneyLeft={this.props.updateMoneyLeft} 
                         decrementPlaysLeft={this.props.decrementPlaysLeft}
-                        playsLeft={this.props.playsLeft}
-                    />
-                )
+                        playsLeft={this.props.playsLeft}/>
+                      )
             case 'ticTacToe' :
                 return (
                     <TicTacToeGame 
-                        updateMoneyLeft={this.props.updateMoneyLeft} 
+                        disable={this.props.disable} 
                         gamble={this.state.gamble} 
                         handleClick={this.handleClick}
+                        updateMoneyLeft={this.props.updateMoneyLeft} 
                         decrementPlaysLeft={this.props.decrementPlaysLeft}
-                        playsLeft={this.props.playsLeft}
-                    />
-                )
+                        playsLeft={this.props.playsLeft}/>
+                      )
             default :
                 return (
                      <div className="choose_game">
