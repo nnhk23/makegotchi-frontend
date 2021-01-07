@@ -139,7 +139,7 @@ class JankenBoard extends Component {
         return (
 
             <div>
-                <h1>JanKen</h1>
+                <h1 id="game_title">JanKen</h1>
                 <h3>{this.state.winner ? 
                 `You ${this.state.userScore === 3 ? `Won ${this.props.gamble ? "200" : "100"} coins!` : `${this.props.gamble ? "Lost 100 coins!" : "Lost!"}` }`: this.state.message}</h3>
                 

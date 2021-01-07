@@ -219,7 +219,7 @@ export default class Home extends React.Component{
     alertDeletedPets = () => {
         return this.state.deletedPets.map(userPet => {
             return (
-                <Alert key={userPet.id} variant="danger" onClose={() => this.closeDeletedPetAlert(userPet.id)} dismissible>
+                <Alert id="alert_bubble" key={userPet.id} variant="danger" onClose={() => this.closeDeletedPetAlert(userPet.id)} dismissible>
                     <p>{userPet.name} the {userPet.pet.species} ran away due to neglection. Shame on you!</p>
                 </Alert>
             )
