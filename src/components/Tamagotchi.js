@@ -5,6 +5,7 @@ import egg from '../images/makegotchi_wide3.png'
 import "../css/Tamagotchi.css"
 import UserPetBio from './UserPetBio'
 import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
 import Minigames from './Minigames'
 
 
@@ -87,6 +88,9 @@ export default class Tamagotchi extends React.Component{
                             <div className="tamagotchi_background">
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
+                                    <h5 id="no-pets-text">You don't have any pets!</h5>
+                                    <Button className="buyPet_btn" id="no-pets-btn" variant="outline-warning" onClick={this.props.goToTamaStore}>Buy a Pet</Button>
+                                    <img id="unicorn" src="https://i.pinimg.com/originals/54/12/b7/5412b7018f96fffeb53fea4438f0b986.gif"></img>
                                 </div>
                             </div>
                         </Row>

@@ -466,7 +466,10 @@ export default class Home extends React.Component{
     render(){
         return(
             <div className="home">
+
                 <SideNav
+                    user={this.props.user}
+                    money={this.state.money}
                     userPets={this.state.userPets}
                     tamaStore={this.state.tamaStore}
                     goToTamaStore={this.goToTamaStore}
@@ -497,13 +500,10 @@ export default class Home extends React.Component{
                         disable={this.props.disable}
                         playsLeft={this.state.playsLeft}
                         decrementPlaysLeft={this.decrementPlaysLeft}
-                    />
-                </div>
 
-                <div id="greeting-div">
-                    <div className="greeting" id="greeting1">{!!this.props.user ? `Hi ${this.props.user.name}!`: null}</div>
-                    <div className="greeting" id="greeting2">{!!this.props.user ? `You have ${this.state.money} coins.`: null}</div>
-                </div>
+                        goToTamaStore={this.goToTamaStore}
+                    />
+                </div>                
 
                 { this.state.modalForm ?
                     <ModalForm
