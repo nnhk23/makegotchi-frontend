@@ -38,9 +38,10 @@ export default class Tamagotchi extends React.Component{
                                 <img src={egg} alt='tamagotchi' id='tamagotchi_pic' />
                                 <div id='screen'>
                                 <Minigames 
-                                        user={this.props.user}
+                                        name={this.props.user.name}
                                         money={this.props.money} 
                                         updateMoneyLeft={this.props.updateMoneyLeft}
+                                        disable={this.props.disable} 
                                         />
                                 </div>
                             </div>

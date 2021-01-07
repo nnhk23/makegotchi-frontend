@@ -7,7 +7,7 @@ import JankenGame from './JankenGame'
 class Minigames extends Component {
 
     state = {
-        gamble : false,
+        gamble : null,
         screen: "" 
     }
 
@@ -17,7 +17,16 @@ class Minigames extends Component {
 
     handleClick = (e) => {
         let name = e.target.id
-        this.setState({screen: name})
+        if (name === "miniGames"){
+            this.setState({screen: name, gamble: null})
+        } else {
+            if (this.state.gamble !== null){
+                this.setState({screen: name},
+                    ()=> this.props.disable())
+            } else {
+                alert("You gambling or nah?")
+            }
+        }
     }
 
     render(){
@@ -25,11 +34,20 @@ class Minigames extends Component {
         switch (this.state.screen) {
             case 'janKen' :
                 return (
-                    <JankenGame user={this.props.user} updateMoneyLeft={this.props.updateMoneyLeft} gamble={this.state.gamble} handleClick={this.handleClick}/>
+                    <JankenGame 
+                        name={this.props.name} 
+                        gamble={this.state.gamble} 
+                        handleClick={this.handleClick}
+                        disable={this.props.disable} 
+                        updateMoneyLeft={this.props.updateMoneyLeft} />
                 )
             case 'ticTacToe' :
                 return (
-                    <TicTacToeGame updateMoneyLeft={this.props.updateMoneyLeft} gamble={this.state.gamble} handleClick={this.handleClick}/>
+                    <TicTacToeGame 
+                        disable={this.props.disable} 
+                        gamble={this.state.gamble} 
+                        handleClick={this.handleClick}
+                        updateMoneyLeft={this.props.updateMoneyLeft} />
                 )
             default :
                 return (

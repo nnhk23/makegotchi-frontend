@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-const TopNav = ({ loggedIn, handleLogout}) => {
+const TopNav = ({ loggedIn, handleLogout, isDisabled}) => {
 
     return(
         <Navbar
@@ -14,11 +14,11 @@ const TopNav = ({ loggedIn, handleLogout}) => {
         { loggedIn ?
             <Navbar.Collapse className='justify-content-end'>
                 <Nav.Item >
-                    <Nav.Link href="/editprofile">Profile</Nav.Link>
+                    <Nav.Link href={isDisabled ? "" : "/editprofile"}>Profile</Nav.Link>
                 </Nav.Item>
                 
                 <Nav.Item>
-                    <Nav.Link eventKey="link-1" onClick={() => handleLogout()}>Logout</Nav.Link>
+                    <Nav.Link eventKey="link-1" onClick={isDisabled ? null : () => handleLogout()}>Logout</Nav.Link>
                 </Nav.Item>
             </Navbar.Collapse>
             :

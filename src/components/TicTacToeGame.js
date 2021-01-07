@@ -7,7 +7,11 @@ class TicTacToeGame extends React.Component {
       return (
         <div className="game">
           <div className="game-board">
-            <TicTacToeBoard updateMoneyLeft={this.props.updateMoneyLeft} gamble={this.props.gamble} handleClick={this.props.handleClick}/>
+            <TicTacToeBoard 
+              disable={this.props.disable}
+              gamble={this.props.gamble} 
+              handleClick={this.props.handleClick}
+              updateMoneyLeft={this.props.updateMoneyLeft} />
           </div>
         </div>
       );
