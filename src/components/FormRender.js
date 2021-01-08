@@ -27,6 +27,8 @@ class FormRender extends Component  {
         }
     }
 
+   
+
     handleSubmit = (e) => {
         e.preventDefault()
 
@@ -39,9 +41,21 @@ class FormRender extends Component  {
             case (this.props.name === "Login"):
                 return this.props.handleSubmit(this.state)
 
-            case (this.state.password === "" &&
+            case (this.state.password === "" ||
             this.state.password_confirmation === ""):
-                return alert("Passwords cannot be blank.")
+                return alert("Fields cannot be blank.")
+            
+            case (this.props.name === "Update" 
+            && this.state.username === "" ):
+                return alert("Fields cannot be blank.")
+
+            case (this.props.name === "Signup" && 
+            this.state.username === ""):
+                return alert("Fields cannot be blank.")
+
+            case (this.props.name === "Signup" && 
+            this.state.name === ""):
+                return alert("Fields cannot be blank.")
 
             case (this.props.name === "SignUp" &&
             this.state.password === this.state.password_confirmation):
