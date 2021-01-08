@@ -115,8 +115,12 @@ class App extends React.Component {
 
   handleError = (data) => {
     alert(`${data.error}`)
+    if (data.error === "Username has already been taken. Sorry can't update your profile."){
+      this.props.history.push("/editprofile")
+    } else {
     this.props.history.push(
       data.error === "Incorrect credentials, please try again." ? '/login' : '/signup')
+    }
   }
  
   handleLogout = () => {
