@@ -2,16 +2,30 @@
 
 ## Background
 
-This app was inspired by a favorite childhood game of ours, Tamagotchi. (overview of what tamagotchi is) 
+This app was inspired by a favorite childhood game of ours, Tamagotchi. Tamagotchi is a handheld digital pet that was first released in Japan in 1996. The name is a blend of two Japanese words, tamago which means “egg” and uotchi which means “watch.” 
+
+MAKEGOTCHI derived from the Tamagotchi’s name itself and the first four letters are the initials of the 4 contributors of this app, Marisa You, Alexa Gamil, Kim Nguyen, and Elaine Tolentino.  
 
 Our version of the Tamagotchi enables the user to adopt from a selection of Tamagotchis and interact with them by feeding, cleaning, tucking them into bed. Additionally the user can choose to play minigames and potentially earn or gamble coins. The coins can then be used to purchase additional pets.
 
 Beware, take good care of your pets! If you don't feed, clean, and tuck them into bed regularly, they will feel neglected and run away. 
 
 ## Screenshots
-(do me)
 
-#### Home Page (screenshots) do me
+#### Log In
+![Home Page](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/logIn.png)
+
+#### Tama Store
+![Tama Store](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/tamaStore.png)
+
+#### Pet Details
+![Pet Details](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/petDetails.png)
+
+#### Tic Tac Toe
+![Tic Tac Toe](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/ticTacToe.png)
+
+#### Janken (rock, paper, scissors)
+![Janken](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/janKen.png)
 
 
 ## Technology Used
@@ -61,6 +75,7 @@ Beware, take good care of your pets! If you don't feed, clean, and tuck them int
 - The number of plays resets to 5 every 10 mins. 
 - A user can choose to play Tictactoe or Janken(Rock, Paper, Scissors). 
 - Additionally, the user can choose to gamble their coins. 
+- If the user has 0 coins, the user does not get an option to gamble.
 - If the user chooses to gamble he/she/they will gain 200 coins upon winning or lose 100 coins upon losing.
 - If the user chooses to NOT gamble, he/she/they will gain 100 coins upon winning but not lose any coins upon losing.
 - A user cannot exit game once it has started, until the game is complete. (all buttons are disabled)
