@@ -142,7 +142,7 @@ class JankenBoard extends Component {
         return (
 
             <div>
-                <h1>JanKen</h1>
+                <h1 id="game_title">JanKen</h1>
 
                 <h3>
                     {this.state.winner ? 
