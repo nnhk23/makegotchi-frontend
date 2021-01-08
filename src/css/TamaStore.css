@@ -48,8 +48,8 @@ position:absolute;
     height: 50%;
     padding-top: 38px;
     padding-right: 0px;
-    padding-left: 17px;
-    font-size: 13px;
+    padding-left: 8px;
+    font-size: 14px;
 }
 
 .purchase_btn{
@@ -68,4 +68,8 @@ position:absolute;
 
 .container{
     padding-right:0px;
+}
+
+#store_col{
+    padding: 0px;
 }

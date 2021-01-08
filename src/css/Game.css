@@ -137,7 +137,7 @@ input[type='radio'] {
   font-family: 'Fredoka One', cursive;
   font-weight: 200;
   color: rgb(110, 62, 150);
-  
+  margin-top: 64px;
 }
 
 .choose_game .minigames_btn{
