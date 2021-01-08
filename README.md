@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# MAKEGOTCHI - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Background
 
-## Available Scripts
+This app was inspired by a favorite childhood game of ours, Tamagotchi. (overview of what tamagotchi is) 
 
-In the project directory, you can run:
+Our version of the Tamagotchi enables the user to adopt from a selection of Tamagotchis and interact with them by feeding, cleaning, tucking them into bed. Additionally the user can choose to play minigames and potentially earn or gamble coins. The coins can then be used to purchase additional pets.
 
-### `yarn start`
+Beware, take good care of your pets! If you don't feed, clean, and tuck them into bed regularly, they will feel neglected and run away. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Screenshots
+(do me)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Home Page (screenshots) do me
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technology Used
 
-### `yarn build`
+- Ruby on Rails
+- Javascript
+- React
+- React Bootstrap
+- JSX
+- CSS
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features & Highlights
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Create, Read, Update, and Delete a User
+- Create, Read, Update, and Delete a UserPet
+- Read data from the Pet table 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Log In/Sign Up/Update User Profile
 
-### `yarn eject`
+- A user signs up with a name, username, password, and a password confirmation.
+- A user has to have a unique username.
+- Log in validates username and password match an entry in the database.
+- Log in and Sign up provide user a token and store it in local storage. 
+- If logged in, token handles refresh to keep the user logged in.
+- User is able to update their username and password.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Adopting a pet
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- A user can visit the Tamastore and browse different species of tamagotchis. 
+- Each pet species has one of three different personalities : lazy, peppy, and cranky.
+- The price of each pet varies from 100 to 500 coins. (lazy pets are good starter pets because their prices are lower)
+- A user spends coins to adopt a pet. (a new user starts with 500 coins)
+- When a pet is adopted the user can name the pet.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Nurturing pets
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- All of the user's adopted pets are listed on the side nav. When one of the pets is clicked, its information will be rendered in the Tamagotchi screen.
+- Pets have to be fed, cleaned, and tucked into bed at regular intervals, determined by their personalities. (ie. cranky pets needs sleep more often)
+- When a pet is not fed, cleaned, or tucked into bed in time, its happiness level will decrease every second.
+- When a pet's happiness reaches 0, it will run away. (shame on you)
+- User will receive an alert when one of its pets runs away.
+- Each pet's happiness is calculated upon log-in, based on when it was last fed, cleaned, or tucked into bed. Therefore it is possible for a pet to run away while the user is logged out. 
 
-## Learn More
+#### Minigames
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- The number of times a user can play minigames is limited. A new user starts off with 5 plays. 
+- The number of plays resets to 5 every 10 mins. 
+- A user can choose to play Tictactoe or Janken(Rock, Paper, Scissors). 
+- Additionally, the user can choose to gamble their coins. 
+- If the user chooses to gamble he/she/they will gain 200 coins upon winning or lose 100 coins upon losing.
+- If the user chooses to NOT gamble, he/she/they will gain 100 coins upon winning but not lose any coins upon losing.
+- A user cannot exit game once it has started, until the game is complete. (all buttons are disabled)
+- When a user finishes a game, a user can choose to play again or go back to minigames menu.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Installation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Backend
+https://github.com/nnhk23/makegotchi-backend
 
-### Analyzing the Bundle Size
+- bundle install
+- rails db:migrate
+- rails db:seed
+- rails s
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Frontend
 
-### Making a Progressive Web App
+- npm install
+- npm i react-router-dom
+- npm i react-animations
+- npm i react-bootstrap bootstrap
+- npm i styled-components
+- npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
