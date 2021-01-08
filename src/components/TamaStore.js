@@ -34,8 +34,8 @@ class TamaStore extends React.Component{
         let tama = this.props.allSpecies[idx+this.state.tamaNumber]
         if(money >= tama.price){
             this.props.purchaseTama(tama)
-        } else { 
-            alert('Too broke to purchase Tamagotchi!') 
+        } else {
+            alert('Too broke to purchase Tamagotchi!')
         }
     }
 
@@ -51,21 +51,21 @@ class TamaStore extends React.Component{
                         <ListGroup.Item className="list_item">
                             <Container className="container">
                                 <Row className="tama_store_row">
-                                    <Col>
+                                    <Col id="store_col">
 
                                         <img src={pet.img_url} alt='tamagotchiiii'className="tama_pic"/>
-                                        
+
                                         {/* should link to user's pet list */}
-                                        <Button 
+                                        <Button
                                         className="purchase_btn"
-                                        id={idx+this.state.tamaNumber} 
-                                        variant="outline-info" 
+                                        id={idx+this.state.tamaNumber}
+                                        variant="outline-info"
                                         onClick={ () => this.purchaseTamagotchi(idx) }>
                                             Purchase
                                         </Button>
                                     </Col>
 
-                                    <Col className="tama_info">Specie: {pet.species}</Col>
+                                    <Col className="tama_info">Species: {pet.species}</Col>
                                     <Col className="tama_info">Personality: {pet.personality}</Col>
                                     <Col className="tama_info">Hangry Rate: {pet.hunger_rate}</Col>
                                     <Col className="tama_info">Shleepy Rate: {pet.sleepy_rate}</Col>

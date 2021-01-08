@@ -20,12 +20,18 @@ class Minigames extends Component {
         if (name === "miniGames"){
             this.setState({screen: name, gamble: null})
         } else {
-            if (this.state.gamble !== null){
+            if (this.state.gamble !== null){  
                 this.setState({screen: name},
                 ()=> {
                   this.props.disable()
                   this.props.decrementPlaysLeft()
                 })
+            } else if (this.state.gamble === null && this.props.money === 0){
+                this.setState({screen: name},
+                    ()=> {
+                      this.props.disable()
+                      this.props.decrementPlaysLeft()
+                    })
             } else {
                 alert("You gambling or nah?")
             }

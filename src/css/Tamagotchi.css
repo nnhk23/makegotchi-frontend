@@ -52,14 +52,13 @@
 
 
 .btn-container{
-  /* width: 536px; */
   height: 58px;
   display: flex;
   justify-content: center;
   position: relative;
   bottom: 145px;
-  /* left: 282px; */
-  width: 39%;
+  width: 40%;
+  left: 10px;
   margin-left: auto;
   margin-right: auto;
 }
