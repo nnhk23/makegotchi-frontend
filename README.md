@@ -13,19 +13,19 @@ Beware, take good care of your pets! If you don't feed, clean, and tuck them int
 ## Screenshots
 
 #### Log In
-![Home Page](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/logIn.png)
+![Home Page](https://github.com/nnhk23/makegotchi-frontend/blob/master/src/images/logIn.png)
 
 #### Tama Store
-![Tama Store](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/tamaStore.png)
+![Tama Store](https://github.com/nnhk23/makegotchi-frontend/blob/master/src/images/tamaStore.png)
 
 #### Pet Details
-![Pet Details](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/petDetails.png)
+![Pet Details](https://github.com/nnhk23/makegotchi-frontend/blob/master/src/images/petDetails.png)
 
 #### Tic Tac Toe
-![Tic Tac Toe](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/ticTacToe.png)
+![Tic Tac Toe](https://github.com/nnhk23/makegotchi-frontend/blob/master/src/images/ticTacToe.png)
 
 #### Janken (rock, paper, scissors)
-![Janken](https://github.com/nnhk23/makegotchi-frontend/blob/main/src/images/janKen.png)
+![Janken](https://github.com/nnhk23/makegotchi-frontend/blob/master/src/images/janKen.png)
 
 
 ## Technology Used
