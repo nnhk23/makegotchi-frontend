@@ -15,7 +15,7 @@ class FormRender extends Component  {
 
     componentDidMount() {
         if (localStorage.getItem('jwt')){
-            fetch('http://localhost:3000/getuser',{
+            fetch('http://makegotchi-backend.herokuapp.com/getuser',{
               method: 'GET',
               headers: {
                 "Content-Type": "application/json",
