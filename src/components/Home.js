@@ -37,7 +37,7 @@ export default class Home extends React.Component{
     // get user from database and get all pet species
     // then get all of the user's userpets, update their happiness_scores, and set intervals
     componentDidMount() {
-        fetch('http://makegotchi-backend.herokuapp.com/getuser',{
+        fetch('https://makegotchi-backend.herokuapp.com/getuser',{
           method: 'GET',
           headers: {
             "Content-Type": "application/json",
@@ -74,14 +74,14 @@ export default class Home extends React.Component{
 
     // get all of current user's userPets (in componentDidMount)
     getUserPets = () => {
-        return fetch(`http://makegotchi-backend.herokuapp.com/users/${this.props.user.id}/user_pets`)
+        return fetch(`https://makegotchi-backend.herokuapp.com/users/${this.props.user.id}/user_pets`)
         .then(res => res.json())
     }
 
     // after getting all of the current user's userPets, update all userPets' happiness scores
     updatePetStatuses = async (userPets) => {
         for (let i = 0; i < userPets.length; i++) {
-            await fetch(`http://makegotchi-backend.herokuapp.com/user_pets/${userPets[i].id}`, {
+            await fetch(`https://makegotchi-backend.herokuapp.com/user_pets/${userPets[i].id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ export default class Home extends React.Component{
         for(let i = 0; i < decreaseHappinessArr.length; i++) {
             const userPet = this.state.userPets[i]
             const body = { happiness_score: userPet.happiness_score - decreaseHappinessArr[i] > 0 ? userPet.happiness_score - decreaseHappinessArr[i] : 0 }
-            await fetch(`http://makegotchi-backend.herokuapp.com/user_pets/${userPet.id}`, {
+            await fetch(`https://makegotchi-backend.herokuapp.com/user_pets/${userPet.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type' : 'application/json',
@@ -198,7 +198,7 @@ export default class Home extends React.Component{
             if (deletePetsArr[i]) {
                 const userPet = this.state.userPets[i]
 
-                await fetch(`http://makegotchi-backend.herokuapp.com/user_pets/${userPet.id}`, { method: 'DELETE'})
+                await fetch(`https://makegotchi-backend.herokuapp.com/user_pets/${userPet.id}`, { method: 'DELETE'})
                 .then(res => {
                     if (res.status === 404) { return }
 
@@ -273,7 +273,7 @@ export default class Home extends React.Component{
                 return
         }
 
-        fetch(`http://makegotchi-backend.herokuapp.com/user_pets/${this.state.currentPet.id}`, {
+        fetch(`https://makegotchi-backend.herokuapp.com/user_pets/${this.state.currentPet.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type' : 'application/json',
@@ -321,7 +321,7 @@ export default class Home extends React.Component{
 
     // get all pet species for the tamastore
     getAllPets = () => {
-        return fetch('http://makegotchi-backend.herokuapp.com/pets')
+        return fetch('https://makegotchi-backend.herokuapp.com/pets')
         .then(resp => resp.json())
         .then(data => this.setState({allSpecies: data}))
     }
@@ -333,7 +333,7 @@ export default class Home extends React.Component{
     updateMoneyLeft = (amount) => {
         let money = this.state.money + amount
         
-        fetch(`http://makegotchi-backend.herokuapp.com/users/${this.props.user.id}`,{
+        fetch(`https://makegotchi-backend.herokuapp.com/users/${this.props.user.id}`,{
             method: 'PATCH',
             headers: {
                 'Content-Type' : 'application/json',
@@ -370,7 +370,7 @@ export default class Home extends React.Component{
     createUserPetData =  () => {
         const currentTime = new Date()
         const petSpecies = this.state.newTama
-        fetch('http://makegotchi-backend.herokuapp.com/user_pets',{
+        fetch('https://makegotchi-backend.herokuapp.com/user_pets',{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
@@ -417,7 +417,7 @@ export default class Home extends React.Component{
     // reset plays left to 5 every 10 minutes
     resetPlaysLeft = () => {
         
-        fetch(`http://makegotchi-backend.herokuapp.com/users/${this.props.user.id}`,{
+        fetch(`https://makegotchi-backend.herokuapp.com/users/${this.props.user.id}`,{
             method: 'PATCH',
             headers: {
                 'Content-Type' : 'application/json',
@@ -437,7 +437,7 @@ export default class Home extends React.Component{
     // decrease plays left by 1 every time a game is played
     decrementPlaysLeft = () => {
         if (this.state.playsLeft > 0) {
-            fetch(`http://makegotchi-backend.herokuapp.com/users/${this.props.user.id}`,{
+            fetch(`https://makegotchi-backend.herokuapp.com/users/${this.props.user.id}`,{
                 method: 'PATCH',
                 headers: {
                     'Content-Type' : 'application/json',

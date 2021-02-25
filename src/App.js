@@ -70,7 +70,7 @@ class App extends React.Component {
       username: info.username,
       password: info.password
     }
-    this.handleAuth(data, "http://makegotchi-backend.herokuapp.com/users", "POST")
+    this.handleAuth(data, "https://makegotchi-backend.herokuapp.com/users", "POST")
     
   }
 
@@ -79,7 +79,7 @@ class App extends React.Component {
       username: info.username,
       password: info.password
     }
-    this.handleAuth(data, "http://makegotchi-backend.herokuapp.com/login", "POST")
+    this.handleAuth(data, "https://makegotchi-backend.herokuapp.com/login", "POST")
   }
 
   handleUpdate = (info) => {
@@ -87,7 +87,7 @@ class App extends React.Component {
       username: info.username, 
       password: info.password
     }
-    this.handleAuth(data, `http://makegotchi-backend.herokuapp.com/users/${info.id}`, "PATCH")
+    this.handleAuth(data, `https://makegotchi-backend.herokuapp.com/users/${info.id}`, "PATCH")
   }
 
   handleAuth = (data, resource, method) => {
@@ -136,7 +136,7 @@ class App extends React.Component {
 
   handleDelete = () => {
     this.closeModal()
-    fetch(`http://makegotchi-backend.herokuapp.com/users/${this.state.id}`, {
+    fetch(`https://makegotchi-backend.herokuapp.com/users/${this.state.id}`, {
       method:  "DELETE",
       headers: {"Content-Type": "application/json"}
     })
