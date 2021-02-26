@@ -8,8 +8,8 @@ const SideNav = ({user, money, goToTamaStore, userPets, handleUserPetIconClick, 
     const renderBtns = () => {
         return userPets.map(userPet => {
             return (
-                <RenderPetBtn key={userPet.id} userPet={userPet} handleUserPetIconClick={handleUserPetIconClick} />
-            )
+                <RenderPetBtn key={userPet.id} userPet={userPet} handleUserPetIconClick={handleUserPetIconClick} isDisabled={isDisabled} />
+            )   
         })
     }
 
